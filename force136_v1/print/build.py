@@ -148,7 +148,7 @@ def build_reference():
 <p><span class='k'>Railway list:</span> Perak–Pahang–Selangor, N. Sembilan–Pahang, Perak–Kelantan, Thailand–Perak, Thailand–Kelantan★, N. Sembilan–Johore★, Pahang–Johore★, Thailand–Kedah★.</p>
 <table><tr><th>Level</th><th>Change</th></tr>
 <tr><td>Recruit</td><td>never Raids</td></tr><tr><td>Agent</td><td>standard</td></tr>
-<tr><td>Veteran</td><td>Resistance starts at 4</td></tr><tr><td>Legend</td><td>starts at 4; +1 Resistance after each nonfinal Propaganda's Resistance phase (does not move the Zipper)</td></tr></table>
+<tr><td>Veteran</td><td>Resistance starts at 4</td></tr><tr><td>Legend</td><td>starts at 4; +1 Resistance after each nonfinal Propaganda's Resistance phase (does not move the Zipper)</td></tr><tr><td>Mastermind</td><td>starts at 6; +2 after each nonfinal Propaganda</td></tr></table>
 </div>"""
     hdr=f"<div class='hdr'><h1>Force 136 · Reference</h1><span class='tag'>v{VERSION} · British bot for Japanese Occupation</span></div>"
     win="""<div class='box full'><h2>Winning and Propaganda</h2><div class='grid'><div>
@@ -204,12 +204,30 @@ def build_doc(md_name,title,small=False):
     css=DOC_CSS+("body{font-size:8.2pt;line-height:1.35} li{margin-bottom:3pt}" if small else '')
     return page(css,body,title)
 
+SHEET_CSS=BASE_CSS+"""
+@page{size:Letter landscape;margin:0.4in 0.45in}
+body{font-size:8.5pt}
+h1{font-size:15pt;border-bottom:3px solid #2f3a22;padding-bottom:3pt;margin-bottom:5pt}
+table{border-collapse:collapse;width:100%}
+th,td{border:1px solid #9a9478;padding:0 4pt;height:0.27in;text-align:left;font-size:8pt}
+th{background:#e9e5d3;height:auto;padding:3pt 4pt}
+.meta{display:flex;gap:18pt;margin-bottom:6pt;font-size:9pt}
+.meta span{border-bottom:1px solid #9a9478;min-width:1.4in;display:inline-block}
+"""
+def build_sheet():
+    cols=['Card #','Event','1st/2nd','Japan box','Directive','Goal','Box','Operation','Special Activity','Resistance','Notes (rule questions, odd moves)']
+    head=''.join(f'<th>{c}</th>' for c in cols)
+    rows=''.join('<tr>'+''.join('<td></td>' for _ in cols)+'</tr>' for _ in range(22))
+    meta="<div class='meta'><div>Date <span></span></div><div>Level <span></span></div><div>Japan player <span></span></div><div>Final: Resistance <span style='min-width:.5in'></span> Camps <span style='min-width:.5in'></span> F136 <span style='min-width:.5in'></span> Winner <span></span></div></div>"
+    return page(SHEET_CSS,f"<h1>Force 136 · playtest record</h1>{meta}<table><tr>{head}</tr>{rows}</table>",'Force 136 record sheet')
+
 def main():
     rules=chrome_pdf(build_rules(),OUT/'Force_136_v1_Rules.pdf')
     ref=chrome_pdf(build_reference(),OUT/'Force_136_v1_Reference.pdf')
     cards=chrome_pdf(build_cards(),OUT/'Force_136_v1_Cards.pdf')
+    sheet=chrome_pdf(build_sheet(),OUT/'Force_136_v1_Record_Sheet.pdf')
     w=PdfWriter()
-    for p in (rules,ref,cards):
+    for p in (rules,ref,cards,sheet):
         for pg in PdfReader(str(p)).pages:w.add_page(pg)
     with open(OUT/'Force_136_v1_Print_and_Play.pdf','wb') as f:w.write(f)
     chrome_pdf(build_doc('Force_136_v1_Sim_Report.md','Force 136 v1.0 simulation report'),OUT/'Force_136_v1_Sim_Report.pdf')

@@ -23,7 +23,7 @@ The simulations say the bot is competitive against computer Japan policies. Only
 ## Things the simulation expects
 
 - In a typical game Force 136 takes about 16 turns. About 30% are Limited Trains or Ambushes and about a quarter place a Force 136 marker. The most common full turns are Ambush + Raid, Ambush + Gather, Train + Supply and Contact + Gather.
-- The bot is weakest against a Japan player who Assaults Active guerrillas, uses Reprisal to strip guerrillas from Caches, and keeps Kempeitai on Force 136 spaces. If you play that way and still lose at Agent, try Veteran or Legend.
+- The bot is weakest against a Japan player who Assaults Active guerrillas, uses Reprisal to strip guerrillas from Caches, and keeps Kempeitai on Force 136 spaces. If you play that way and win easily at Agent, try Legend or Mastermind. Please report how you beat it: the simulation suggests a Japan player who predicts the bot exactly can win most games at Agent.
 - The MPAJA wins about 4–5% of games: Resistance 18–19 with too many Jungle Camps.
 
 ## Reporting

@@ -15,7 +15,7 @@ Force 136 runs on nine Directive cards and the procedures in this booklet. It ad
 ## 2. Setup
 
 1. Set up the standard standalone scenario exactly as printed (rulebook, Setup Instructions). Use no Personas, Pre-War Options or campaign links.
-2. Choose a level (section 9). At Veteran and Legend, Resistance starts at 4 instead of 2.
+2. Choose a level (section 9). At Veteran and Legend, Resistance starts at 4 instead of 2; at Mastermind it starts at 6.
 3. Shuffle the nine Directive cards face down. Leave room for a discard pile.
 
 ## 3. Terms
@@ -152,10 +152,11 @@ Victory follows the normal rules, checked only at the final Propaganda. Force 13
 | Agent | Standard rules | 61% |
 | Veteran | Resistance starts at 4 | 71% |
 | Legend | Resistance starts at 4, and +1 Resistance after each nonfinal Propaganda | 79% |
+| Mastermind | Resistance starts at 6, and +2 Resistance after each nonfinal Propaganda | 89% |
 
-\*Against six computer Japan policies in 2,304 simulated games per level that were not used for tuning. A strong human Japan player should do better than these policies. Start at Agent; move up after two wins in a row.
+\*Against six computer Japan policies in 2,304 simulated games per level that were not used for tuning. A strong human Japan player should do better than these policies. Start at Agent and move up after two wins in a row. Mastermind is for Japan players who have learned the bot: a computer Japan that simulates the bot's exact replies before every move beats Agent most of the time (section 11).
 
-At Recruit, skip Raid wherever it appears in a Special Activity list (section 5) and go on to the next choice. The Legend bonus comes after the Resistance phase and the Zipper placement; it does not move the Zipper and never applies at the final Propaganda.
+At Recruit, skip Raid wherever it appears in a Special Activity list (section 5) and go on to the next choice. The Legend and Mastermind bonus comes after the Resistance phase and the Zipper placement; it does not move the Zipper and never applies at the final Propaganda.
 
 ## 10. Worked example: the opening
 
@@ -189,6 +190,7 @@ Gather still could not reveal 2 chits, so the Special Activity is Raid. Perak's 
 
 - **Why PLACE first?** Getting the Available Force 136 marker onto the map is worth more than anything else the bot can do. In early tests, putting it first on Limited turns raised wins from 8% to 34%.
 - **Why AMBUSH and INTEL early?** A revealed chit scores at the next Propaganda. A successful Ambush roll sends a unit to Kuala Lumpur for +1 Resistance; rolling at a good shot before removing Police was worth about 5 points. Decks led by AMBUSH, or by INTEL then AMBUSH, won 54–56%. Decks led by INTEL without AMBUSH next won 30–39%, and decks led by SUPPLY or TRAIN won 8–28%.
+- **How exploitable is it?** Like any priority bot, Force 136 is predictable. The strongest computer Japan tested simulates the bot's exact reply to each of its 16 best candidate moves. It strips Cache guards with Reprisal and Assault right after the bot's Gathers and Ambushes have made them Active. Against it Agent wins about 13%, Legend 31% and Mastermind 48%. Rules meant to guard the Caches made the bot weaker against every opponent, so the levels carry the difference instead.
 - **Why does Raid matter?** Raid turns caches into attacks and majorities. Removing it (Recruit) drops the bot by about 25 points.
 - **What the cards change:**
     - The Limited first choice: AMBUSH on Directives 1–3, 6 and 7; TRAIN on 4, 5, 8 and 9.

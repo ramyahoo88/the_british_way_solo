@@ -11,7 +11,7 @@ def one(args):
                 ops={k[2:]:v for k,v in m.items() if k.startswith('o_')})
 if __name__=='__main__':
     start=int(sys.argv[1]);n=int(sys.argv[2]);name=sys.argv[3]
-    levels=sys.argv[4].split(',') if len(sys.argv)>4 else ['recruit','agent','veteran','legend']
+    levels=sys.argv[4].split(',') if len(sys.argv)>4 else ['recruit','agent','veteran','legend','mastermind']
     with Pool(2) as pool:
         rows=pool.map(one,[(s,p,l) for l in levels for s in range(start,start+n) for p in POLS],chunksize=8)
     json.dump(rows,open(f'results_{name}.json','w'))

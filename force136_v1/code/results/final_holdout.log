@@ -2,3 +2,4 @@ recruit 768 win 0.376 mpaja 0.049 R 14.8 {'extraction': 0.32, 'hunting': 0.586, 
 agent 768 win 0.599 mpaja 0.031 R 17.04 {'extraction': 0.633, 'hunting': 0.727, 'repair': 0.68, 'adaptive': 0.633, 'counter': 0.383, 'mixed': 0.539}
 veteran 768 win 0.677 mpaja 0.046 R 17.92 {'extraction': 0.719, 'hunting': 0.781, 'repair': 0.766, 'adaptive': 0.695, 'counter': 0.477, 'mixed': 0.625}
 legend 768 win 0.772 mpaja 0.03 R 18.58 {'extraction': 0.836, 'hunting': 0.82, 'repair': 0.844, 'adaptive': 0.797, 'counter': 0.594, 'mixed': 0.742}
+mastermind 768 win 0.876 mpaja 0.035 R 19.42 {'extraction': 0.953, 'hunting': 0.914, 'repair': 0.906, 'adaptive': 0.891, 'counter': 0.742, 'mixed': 0.852}

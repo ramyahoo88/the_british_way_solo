@@ -43,7 +43,8 @@ DECK=[
 LEVELS={'recruit':dict(raid=False,start_r=2,bonus=0),
         'agent':  dict(raid=True, start_r=2,bonus=0),
         'veteran':dict(raid=True, start_r=4,bonus=0),
-        'legend': dict(raid=True, start_r=4,bonus=1)}
+        'legend': dict(raid=True, start_r=4,bonus=1),
+        'mastermind':dict(raid=True,start_r=6,bonus=2)}
 
 class Force136(FastGame):
     deck_cards=DECK

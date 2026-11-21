@@ -36,6 +36,9 @@ Brief (user, 22:00 CST, 20 Nov 2026): do for The British Way solo what was done 
 - 01:35 Final results: 0 clean-room divergences in 768 games; lab = printed rules in 768 games. Holdout: Recruit 37.6%, Agent 59.9%, Veteran 67.7%, Legend 77.2%. Search player 56.9%; v0.2 0%.
 - 01:50 Event retest on the final bot, then 1,152-game follow-ups for the best candidates (J23, J10, J24): none worth a point of wins. "No Events" stays.
 - 02:00 Second holdout (1,536 games per level): 35.9 / 61.8 / 71.9 / 79.5%. The printed level table uses both holdouts pooled.
+- 02:10 Flowchart, record sheet. More rule tests against the strongest opponents (Supply away from Troops; Raid keeping 2 guards): no gain.
+- 02:15 A wider lookahead Japan (16 candidates × 4 sampled bot replies) beats Agent 87% of the time. It strips Cache guards right after the bot activates them. Defensive rules made the bot weaker everywhere. A fifth level, Mastermind (start 6, +2 per nonfinal Propaganda), was added for players who learn the bot: 89% against the regular policies, 48% against the wide search.
+- 02:40 Final rerun for five levels: equivalence and clean-room checks (960 games each, 0 differences), both holdouts, all lookahead opponents.
 
 ## Decisions worth remembering
 

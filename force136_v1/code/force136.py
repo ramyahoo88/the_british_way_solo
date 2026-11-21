@@ -40,6 +40,7 @@ LEVELS={
  'agent':dict(),
  'veteran':dict(start_r=4),
  'legend':dict(start_r=4,prop_bonus=1),
+ 'mastermind':dict(start_r=6,prop_bonus=2),
 }
 STANDARD=dict(simple_rail=True,place_pref='nocubes',strike_sa=('GATHER2','RAID','GATHER'),place_sa=('GATHER2','SUPPLY','RAID','GATHER'))
 

@@ -2,3 +2,4 @@ recruit 1536 win 0.359 mpaja 0.049 R 14.97 {'extraction': 0.305, 'hunting': 0.60
 agent 1536 win 0.618 mpaja 0.041 R 17.26 {'extraction': 0.68, 'hunting': 0.734, 'repair': 0.711, 'adaptive': 0.633, 'counter': 0.414, 'mixed': 0.535}
 veteran 1536 win 0.719 mpaja 0.042 R 18.19 {'extraction': 0.781, 'hunting': 0.828, 'repair': 0.801, 'adaptive': 0.758, 'counter': 0.52, 'mixed': 0.629}
 legend 1536 win 0.795 mpaja 0.029 R 18.8 {'extraction': 0.863, 'hunting': 0.902, 'repair': 0.855, 'adaptive': 0.828, 'counter': 0.617, 'mixed': 0.703}
+mastermind 1536 win 0.899 mpaja 0.033 R 19.5 {'extraction': 0.965, 'hunting': 0.961, 'repair': 0.91, 'adaptive': 0.914, 'counter': 0.785, 'mixed': 0.859}

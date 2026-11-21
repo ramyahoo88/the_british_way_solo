@@ -85,5 +85,74 @@ def GatherSafe(mode):
             if mode=='keepug':return [s for s in t if not(self.board[s]['troops'] and ug(self.board[s])==1)]
             return t
     return GS
-VARIANTS={'gather_notroops':GatherSafe('notroops'),'gather_keepug':GatherSafe('keepug'),'final_supply0':FinalSupply(0),'final_supply12':FinalSupply(12),'final_supply15':FinalSupply(15),'redeploy_idle':RedeployIdle,'redeploy_thin':RedeployUG,'shot_le2':Shot2(2),'shot_le4':Shot2(4),'kempjungle':KempJungle,'kemptroop':KempTroopFirst,'base':B,'gatherfirst':GatherFirst,'mobnoblue':MobNoBlue,'kempfirst':KempFirst,'shot2':Shot(2),'shot4':Shot(4),
+class LimShot(B):
+    # Limited: PLACE > AMBUSH only at a good shot > TRAIN > AMBUSH (Police) > CONTACT
+    def choose(self,free):
+        if 'Op & SA' not in free and 'Limited' in free:
+            for g in ['PLACE','SHOT','TRAIN','AMBUSH','CONTACT']:
+                if g=='SHOT':
+                    if any(self.ambush_target(s) in('Kempeitai','Troop') for s in self.f136_spaces()):return dict(op='AMBUSH',box='Limited',goal='AMBUSH')
+                    continue
+                p=self.goal(g,False)
+                if p:return dict(p,box='Limited',goal=g)
+        return B.choose(self,free)
+class BigGatherFirst(B):
+    def choose(self,free):
+        if 'Op & SA' in free and self.available('force136'):
+            p=self.goal('INTEL',True)
+            if p:
+                q=self.clone()
+                if p['op']=='AMBUSH':q.strike()
+                elif p['op']=='SABOTAGE':q.rail('C')
+                else:q.contact()
+                if len(q.clone().gather())>=3:return dict(p,box='Op & SA',goal='INTEL')
+        return B.choose(self,free)
+class SupplySafe2(B):
+    def supply(self):
+        # same as base but prefer Provinces with no Troops in or adjacent before 'most guerrillas'
+        limit=min(3 if self.zipper>=12 else 2,self.available('cache'))
+        selected=[];remote=False;b=self.board
+        def threat(s):return bool(b[s]['troops'] or any(b[x]['troops'] for x in ADJ[s]))
+        while len(selected)<limit:
+            sites=[s for s in PROV if b[s]['camp'] and not b[s]['cache'] and s not in selected and (b[s]['force136'] or self.cap.get(8)=='U' and not remote)]
+            if not sites:break
+            s=min(sites,key=lambda s:(not b[s]['force136'],bool(b[s]['kempeitai']),threat(s),-gs(b[s]),-POP[s],F.mo(s)))
+            selected.append(s)
+            if not b[s]['force136']:remote=True
+        n=0
+        for s in selected:
+            if self.cap.get(8)=='S' and self.die('Supply',s)<=2:continue
+            b[s]['camp']=False;b[s]['cache']=True;n+=1
+        if self.cap.get(27)=='S' and selected:
+            el=[s for s in selected if b[s]['opposition']]
+            if el:b[min(el,key=lambda s:(POP[s],F.mo(s)))]['opposition']=False
+        self.cleanup();return n
+class RaidKeep2(B):
+    def donor_ok(self,s,n=1):
+        v=self.board[s]
+        if v['cache'] and gs(v)-n<2:return False
+        return B.donor_ok(self,s,n)
+class GuardFirst(B):
+    def thin(self):
+        b=self.board
+        for s in self.f136_spaces():
+            v=b[s]
+            if v['cache'] and ug(v)<=1 and (v['troops'] or any(b[x]['troops'] for x in ADJ[s])):return True
+        return False
+    def choose(self,free):
+        if self.thin():
+            p=self.clone()
+            if p.train():
+                if 'Op & SA' in free:return dict(op='TRAIN',sa_list=('SUPPLY','RAID'),box='Op & SA',goal='TRAIN')
+        return B.choose(self,free)
+class KeepCacheUG(B):
+    def protected(self,s):
+        v=self.board[s];b=self.board
+        return v['cache'] and ug(v)<=1 and (v['troops'] or any(b[x]['troops'] for x in ADJ[s]))
+    def gather_targets(self,anchor,allow_adj=True):
+        return [s for s in B.gather_targets(self,anchor,allow_adj) if not self.protected(s)]
+    def ambush_target(self,s,color=None):
+        if self.protected(s):return None
+        return B.ambush_target(self,s,color)
+VARIANTS={'guardfirst':GuardFirst,'keepcacheug':KeepCacheUG,'supplysafe':SupplySafe2,'raidkeep2':RaidKeep2,'limshot':LimShot,'biggather':BigGatherFirst,'gather_notroops':GatherSafe('notroops'),'gather_keepug':GatherSafe('keepug'),'final_supply0':FinalSupply(0),'final_supply12':FinalSupply(12),'final_supply15':FinalSupply(15),'redeploy_idle':RedeployIdle,'redeploy_thin':RedeployUG,'shot_le2':Shot2(2),'shot_le4':Shot2(4),'kempjungle':KempJungle,'kemptroop':KempTroopFirst,'base':B,'gatherfirst':GatherFirst,'mobnoblue':MobNoBlue,'kempfirst':KempFirst,'shot2':Shot(2),'shot4':Shot(4),
           'place_mountain':PlaceTerrain('mountain'),'place_jungle':PlaceTerrain('jungle')}

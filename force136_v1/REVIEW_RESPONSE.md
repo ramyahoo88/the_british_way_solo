@@ -39,7 +39,7 @@ The first comparison (192 games) found 15 games that diverged. In every one, bot
 
 A larger comparison (768 games) then found 8 more games that diverged, all on the Special Activity after an Ambush. My code chose the Special Activity before rolling, assuming the roll succeeded. The clean-room version resolved the Ambush first and chose on the actual board, which is how the text reads at the table. The code now does the same, and section 5 says so explicitly.
 
-After these fixes the two implementations agree on every decision and every board in 768 games across all four levels (`results/final_cleancmp.log`).
+After these fixes the two implementations agree on every decision and every board in 960 games across all five levels (`results/final_cleancmp.log`).
 
 The agent's list of readings it had to choose led to these clarifications in the text:
 

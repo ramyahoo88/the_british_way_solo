@@ -10,7 +10,8 @@ import random,json
 from pathlib import Path
 CARDS=json.loads((Path(__file__).parent/'cards.json').read_text())
 LEVELS={'recruit':dict(raid=False,start_r=2,bonus=0),'agent':dict(raid=True,start_r=2,bonus=0),
-        'veteran':dict(raid=True,start_r=4,bonus=0),'legend':dict(raid=True,start_r=4,bonus=1)}
+        'veteran':dict(raid=True,start_r=4,bonus=0),'legend':dict(raid=True,start_r=4,bonus=1),
+        'mastermind':dict(raid=True,start_r=6,bonus=2)}
 class CleanBase(FastGame):
     def __init__(self,seed,corner=False,level='agent'):
         FastGame.__init__(self,seed,corner)

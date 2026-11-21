@@ -4,15 +4,15 @@ scored after simulating Force 136's reply with sampled Directive cards."""
 import random
 import force136_v1 as F
 from engine import Game,BOXES,stable
-class LookGame(F.Force136):
+class LookMixin:
     K=8;SAMPLES=3
     BASE={'look':'adaptive','lookc':'counter','lookm':'mixed'}
     def japan_turn(self,free):
         me=self.policy
-        if me not in self.BASE:return F.Force136.japan_turn(self,free)
+        if me not in self.BASE:return super().japan_turn(free)
         if 'B' in self.chosen:
             self.policy=self.BASE[me]
-            try:return F.Force136.japan_turn(self,free)
+            try:return super().japan_turn(free)
             finally:self.policy=me
         self.policy=self.BASE[me]
         try:
@@ -38,7 +38,7 @@ class LookGame(F.Force136):
                     p=self.clone();p.jp_apply(c);p.chosen=dict(self.chosen);p.chosen['J']=c['box']
                     bfree=[b for b in BOXES if b not in p.chosen.values() and not(self.event in [6,9] and b=='Event')]
                     p.dqueue=[rng.choice(F.DECK)]
-                    try:F.Force136.bot_turn(p,bfree)
+                    try:p.bot_turn(bfree)
                     except Exception:pass
                     tot+=p.jp_value()
                 v=tot/self.SAMPLES+(1.0 if c['box']=='Limited' else .3 if c['box']=='Event' else 0)
@@ -46,3 +46,5 @@ class LookGame(F.Force136):
             plan=best[1]
             self.chosen['J']=plan['box'];self.jp_apply(plan)
         finally:self.policy=me
+
+class LookGame(LookMixin,F.Force136):pass
