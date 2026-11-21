@@ -1,4 +1,4 @@
-"""Force 136 v1.0 — the printed bot, as code.
+"""Force 136 v1.0.3 — the printed bot, as code.
 
 A card-driven British opponent for The British Way: Japanese Occupation
 (standard standalone scenario; the human plays Japan). Each function names the
@@ -328,6 +328,17 @@ class Force136(FastGame):
             if sites:b[min(sites,key=lambda s:(b[s]['police']!=1,not b[s]['force136'],mo(s)))]['police']-=1
             self.cleanup();return
         return FastGame.icon(self,j)
+    def british_j12(self,r):
+        """§7, British side of J12: Opposition next to a railway that Construct repaired."""
+        b=self.board
+        sites=[s for s in self.rail_adj(r) if POP[s] and not b[s]['opposition']]
+        if sites:b[min(sites,key=lambda s:(-POP[s],bool(b[s]['terror']),mo(s)))]['opposition']=True
+    def british_j15(self):
+        """§7, British side of J15: when Japan Extracts, one guerrilla in each New Village Province."""
+        b=self.board
+        for s in [s for s in MAP_ORDER if b[s]['new_village']]:
+            c='blue' if blue(b[s])>red(b[s]) else 'red'
+            if self.available(c):b[s][c+'_u']+=1
     def score_only(self,final=False):
         r=FastGame.score_only(self,final)
         if self.L['bonus'] and not final:self.resistance=clamp(self.resistance+self.L['bonus'])
@@ -350,28 +361,12 @@ class Force136(FastGame):
                 dests=[s for s in PROV if b[s]['camp'] and not b[s]['force136'] and not b[s]['kempeitai']]
                 if not dests:break
                 d=min(dests,key=lambda s:(-gs(b[s]),mo(s)));b[src]['force136']-=1;b[d]['force136']+=1
-        sites=[s for s in ORDER if b[s]['troops']>gs(b[s])]       # Redeploy, Japanese (engine policy)
-        if sites:
-            movable=0
-            for s in ORDER:
-                keep=min(b[s]['police'],1) if s not in sites and b[s]['force136'] and b[s]['kempeitai'] else 0
-                movable+=b[s]['police']-keep;b[s]['police']=keep
-            ranked=sorted(sites,key=lambda s:(bool(b[s]['police']),not bool(b[s]['force136']),ix(s)))
-            for i in range(movable):b[ranked[i%len(ranked)]]['police']+=1
-            total=self.count('kempeitai')
-            for v in b.values():v['kempeitai']=0
-            ranked=sorted(sites,key=lambda s:(not bool(b[s]['force136']),gs(b[s])-b[s]['police'],ix(s)))
-            for i in range(total):b[ranked[i%len(ranked)]]['kempeitai']+=1
+        self.japan_redeploy()                                     # Redeploy, Japanese (engine policy)
         for v in b.values():                                      # Reset
             v['terror']=0
             for c in ['red','blue']:v[c+'_u']+=v[c+'_a'];v[c+'_a']=0
         self.reset_intel(self.campaign)
         b['Kuala Lumpur']['troops']+=self.away_troops;self.away_troops=0
-        if self.away_f:                                           # J25 marker returns (British choice)
-            camps=[s for s in PROV if b[s]['camp']]
-            if camps:
-                dst=min(camps,key=lambda s:(bool(b[s]['kempeitai']),bool(b[s]['force136']),-gs(b[s]),ix(s)))
-                b[dst]['force136']+=self.away_f
-            self.away_f=0
+        self.j25_return()                                         # J25 marker returns: Japan's choice (rule 5.1; engine policy)
         self.campaign+=1;self.first='B';self.regular_seen=0;self.chosen={};self.record('Reset complete',{})
         return result

@@ -1,8 +1,8 @@
-# Force 136 v1.0.2
+# Force 136 v1.0.3
 
 **A card-driven British opponent for *The British Way: Japanese Occupation 1942–1945***
 
-Unofficial fan variant · version 1.0.2 · 21 November 2026
+Unofficial fan variant · version 1.0.3 · 21 November 2026
 
 ## 1. Overview
 
@@ -42,7 +42,7 @@ When each Event card is revealed, its MPAJA icon and then any Mandatory Event ar
     **PLACE → the goals on the card, top to bottom → CONTACT.**
 
 4. **Otherwise choose Limited Operation.** Go down: **PLACE → the card's Limited choice (AMBUSH or TRAIN), then the other → CONTACT.** A Limited Operation never adds a Special Activity. (A British Limited Train or Ambush may still use every F136 space.)
-5. **If nothing qualifies,** Pass in the leftmost free box, even if that is the Event box (passing is not executing the Event; rule 2.4.3). Force 136 takes no Contact with the Pass: CONTACT has already failed.
+5. **If nothing qualifies,** Pass in the leftmost free box, even if that is the Event box (passing is not executing the Event; rule 2.4.3). On J6 and J9 the Event box is closed to both players (rule 5.4), so use the leftmost of the other free boxes. Force 136 takes no Contact with the Pass: CONTACT has already failed.
 
 Japan takes at most one box, so Force 136 always has the Op & SA box or the Limited box free. Eligibility then follows the normal cylinder rules.
 
@@ -134,13 +134,14 @@ A 2-guerrilla Majority comes from one source. The guerrilla sent is activated wh
 - *Resources:* for each sabotaged railway, in Railway-list order, set one adjacent Province or Kuala Lumpur without Terror or Opposition to Opposition: highest Population, then map order.
 - *Support:* Supply (6.6).
 - *Redeploy:* move each exposed Force 136 marker, in map order, to a Camp Province without Force 136 or Kempeitai: most guerrillas, then map order. In a stack, every exposed marker moves, one at a time, each choosing again. A marker moves at most once. Other markers stay.
-- *A Force 136 marker returning from J25:* goes to a Camp Province, preferring no Kempeitai; then no Force 136; then most guerrillas; then map order.
 
 **Zipper.** If the Zipper falls past a Cache box and no Cache is Available, remove the Cache with fewest guerrillas, then most Troops, then reverse map order.
 
-**Events Japan plays** follow the card text. Where a choice falls to Britain, use the matching procedure above. Japan normally plays its own side of the capability cards; if a British side is in play, Force 136 takes every optional benefit it offers, choosing by the matching procedure above, else in map order. In particular:
+**Events Japan plays** follow the card text. Japan executes the card, so Japan makes its choices (rule 5.1): which Force 136 marker J20, J25 or J28 removes, and the Camp Province a marker returns to after J25. Where the text gives a choice to Britain, use the matching procedure above. Japan normally plays its own side of the capability cards; if a British side is in play, Force 136 takes every optional benefit it offers, choosing by the matching procedure above, else in map order. In particular:
 
 - *J8, J19, J22:* see Supply (6.6) and Gather (6.5).
+- *J12:* when a Construct removes Sabotage from a railway, set one adjacent Province or Kuala Lumpur without Opposition to Opposition: highest Population; then no Terror; then map order.
+- *J15:* when Japan Extracts, place one guerrilla in each New Village Province, in map order: the colour the space has more of (red on a tie or if it is empty), if one is Available.
 - *J27:* when Force 136 carries out an Ambush or Sabotage Operation, it adds one space without Force 136: the first in map order where that Operation would do something. The extra space never makes a goal qualify: test goals on the F136 spaces only. Raid never adds it.
 
 ## 8. Winning
@@ -151,11 +152,11 @@ Victory follows the normal rules, checked only at the final Propaganda. Force 13
 
 | Level | Change | Force 136 win rate* |
 |---|---|---|
-| Recruit | Force 136 never Raids | 41% |
-| Agent | Standard rules | 64% |
-| Veteran | Resistance starts at 4 | 74% |
-| Legend | Resistance starts at 4, and +1 Resistance after each nonfinal Propaganda | 82% |
-| Mastermind | Resistance starts at 6, and +2 Resistance after each nonfinal Propaganda | 91% |
+| Recruit | Force 136 never Raids | 39% |
+| Agent | Standard rules | 61% |
+| Veteran | Resistance starts at 4 | 71% |
+| Legend | Resistance starts at 4, and +1 Resistance after each nonfinal Propaganda | 79% |
+| Mastermind | Resistance starts at 6, and +2 Resistance after each nonfinal Propaganda | 89% |
 
 \*Against six computer Japan policies in 6,000 simulated games per level on fresh seeds, never used for tuning. A strong human Japan player should do better than these policies. Start at Agent and move up after two wins in a row. Mastermind is for Japan players who have learned the bot: a computer Japan that previews the bot's reply before every move beats Agent most of the time (section 11).
 
@@ -193,9 +194,9 @@ Gather still could not reveal 2 chits, so the Special Activity is Raid. Perak's 
 
 - **Why PLACE first?** Getting the Available Force 136 marker onto the map is worth more than anything else the bot can do. In early tests, putting it first on Limited turns raised wins from 8% to 34%.
 - **Why AMBUSH and INTEL early?** A revealed chit scores at the next Propaganda. A successful Ambush roll sends a unit to Kuala Lumpur for +1 Resistance; rolling at a good shot before removing Police was worth about 5 points. Decks led by AMBUSH, or by INTEL then AMBUSH, won 54–56%. Decks led by INTEL without AMBUSH next won 30–39%, and decks led by SUPPLY or TRAIN won 8–28%.
-- **How exploitable is it?** Like any priority bot, Force 136 is predictable. The strongest computer Japan tested previews the bot's reply to each of its 16 best candidate moves, using the bot's real procedures with randomly drawn Directive cards. It strips Cache guards with Reprisal and Assault right after the bot's Gathers and Ambushes have made them Active. Against it Agent wins about 15%, Legend 26% and Mastermind 51% (128 games each). The same opponent also holds a one-step search player, which has no fixed priorities, to 21%, so most of its edge appears to be strong Japanese play rather than knowledge of the bot. Rules meant to guard the Caches made the bot weaker against every opponent, so the levels carry the difference instead.
+- **How exploitable is it?** Like any priority bot, Force 136 is predictable. The strongest computer Japan tested previews the bot's reply to each of its 16 best candidate moves, using the bot's real procedures with randomly drawn Directive cards. It strips Cache guards with Reprisal and Assault right after the bot's Gathers and Ambushes have made them Active. Against it Agent wins about 15%, Legend 30% and Mastermind 54% (128 games each). The same opponent also holds a one-step search player, which has no fixed priorities, to 23%, so most of its edge appears to be strong Japanese play rather than knowledge of the bot. Rules meant to guard the Caches made the bot weaker against every opponent, so the levels carry the difference instead.
 - **Why re-place Active guerrillas in Train?** Late in a game every guerrilla can be on the map, mostly Active. Taking one from another space comes first because it also builds up the F136 spaces. When no space can give one, re-placing an Active guerrilla in the Train space turns it Underground again for the next Ambush or Gather. Added in v1.0.1, it was worth about 5 points in 6,000 paired games, against every Japan policy.
-- **Why does Raid matter?** Raid turns caches into attacks and majorities. Removing it (Recruit) drops the bot by about 23 points.
+- **Why does Raid matter?** Raid turns caches into attacks and majorities. Removing it (Recruit) drops the bot by about 22 points.
 - **What the cards change:**
     - The Limited first choice: AMBUSH on Directives 1–3, 6 and 7; TRAIN on 4, 5, 8 and 9.
     - Whether INTEL is tried before AMBUSH (6–8). This matters when an Ambush is useful but leaves Gather short and a Sabotage or Contact would not.

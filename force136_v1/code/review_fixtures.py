@@ -161,4 +161,46 @@ rules=(PR/'Force_136_v1_Rules.md').read_text()
 assert 'never executes an Event' in rules and 'even if that is the Event box' in rules and 'never chooses the Event box' not in rules
 assert 'Never</span> execute an Event' in src and 'Never execute the Event.' in src
 passed('F5 Pass: Event-box Pass is legal and the rules, reference and cards no longer forbid it')
+
+# ---------------------------------------------------------------- full audit of v1.0.2 (commit 338cb0d)
+# A1: Japan removes an Underground guerrilla first (Food Shortage icon).
+for cls in (F.Force136,C.CleanForce136):
+    g=cls(3380001);g.board=new_board();b=g.board
+    b['Kuala Lumpur'].update(troops=15,police=3,kempeitai=3)
+    b['Pahang'].update(red_u=1,red_a=1)
+    g.invariants();g.icon(5)                                   # J5 carries Food Shortage
+    assert (b['Pahang']['red_u'],b['Pahang']['red_a'])==(0,1),cls
+passed('A1 Food Shortage: Japan removes the Underground guerrilla, not the Active one (both bots)')
+
+# A2: at Japanese Redeploy a Kempeitai already with a Force 136 marker stays; the others move.
+# A3: the J25 marker returns where Japan chooses: the Camp Province with Kempeitai.
+for cls in (F.Force136,C.CleanForce136):
+    g=cls(3380002);g.board=new_board();b=g.board
+    b['Kuala Lumpur'].update(troops=9,police=1)
+    b['Perak'].update(force136=1,camp=True,red_u=3,troops=1,kempeitai=1)      # Troops <= guerrillas: not a destination
+    b['Trengganu'].update(troops=5,kempeitai=1)                               # an ordinary Kempeitai
+    b['Johore'].update(camp=True,kempeitai=1)                                 # Camp Province with Kempeitai, no Troops
+    b['Kedah'].update(camp=True,blue_u=1)
+    g.away_f=1;g.lost_cache=3                                                 # no Cache Available: Supply leaves Perak's Camp
+    g.invariants();g.propaganda(False);g.invariants()
+    assert b['Perak']['kempeitai']==1,(cls,'the Kempeitai left the Force 136 marker')
+    assert b['Johore']['kempeitai']==0 and g.count('kempeitai')==3,cls
+    assert b['Perak']['force136']==2 and g.away_f==0,(cls,{s:v['force136'] for s,v in b.items() if v['force136']})
+passed('A2/A3 Reset: the Kempeitai stays with Force 136 in Perak; the J25 marker returns beside it (Japan\'s choice)')
+
+# A4: British J12 and J15 follow the printed lines in both bots.
+for cls in (F.Force136,C.CleanForce136):
+    g=cls(3380003);g.board=new_board();b=g.board
+    b['Kuala Lumpur'].update(troops=15,police=3,kempeitai=3)
+    b['Pahang'].update(new_village=True,blue_u=1,red_u=1,police=0);b['Kuala Lumpur']['troops']-=1;b['Pahang']['troops']=1
+    b['Selangor'].update(new_village=True);b['Kuala Lumpur']['troops']-=1;b['Selangor']['troops']=1
+    g.cap[15]='U';g.invariants();g.extract()
+    assert b['Pahang']['red_u']==2 and b['Selangor']['red_u']==1 and b['Selangor']['blue_u']==0,cls
+    g=cls(3380004);g.board=new_board();b=g.board
+    b['Kuala Lumpur'].update(troops=15,police=3,kempeitai=3);b['Perak']['terror']=1;b['Negri Sembilan']['terror']=1
+    g.sabotage['Perak-Kelantan']=1;g.sabotage['Negri Sembilan-Johore *']=1;g.cap[12]='U';g.invariants()
+    g.repair('Perak-Kelantan',True);g.repair('Negri Sembilan-Johore *',True)
+    assert b['Perak']['opposition'] and not b['Kelantan']['opposition'],cls            # highest Population first, even with Terror
+    assert b['Johore']['opposition'] and not b['Negri Sembilan']['opposition'],cls     # equal Population: the one without Terror
+passed('A4 British J15: red on a tie and in an empty New Village; British J12: highest Population, then no Terror')
 print(len(ok),'fixtures passed')

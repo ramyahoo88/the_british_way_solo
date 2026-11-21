@@ -14,9 +14,10 @@ The simulations say the bot is competitive against computer Japan policies. Only
 |---|---|
 | Each Force 136 turn: Directive card, goal used, box | Shows whether some cards or goals never matter |
 | Any turn where you had to read a rule twice, or two readings seemed possible | Wording problems; give the section number |
-| Time for five normal bot turns once you know the rules, and how many times you opened the full rules | The target is under a minute a turn; the 2.3 goal checks a turn is a simulation count, not a measured time |
+| Time for five normal bot turns once you know the rules, and how many times you opened the full rules | The target is under a minute a turn; the 2.2 goal checks a turn is a simulation count, not a measured time |
 | How long INTEL tests and Raid choices take | They are the longest lookups: INTEL previews up to three Operations, Raid compares destinations and sources |
 | Turns where the bot Passed | Should be very rare (about 1 turn in 1,000) |
+| After each Propaganda: where you left your Kempeitai, and what the bot did next | The simulation's Japan was corrected here in v1.0.3; real choices will show whether it is now realistic |
 | Moments the bot did something a good British player never would | Candidate rule improvements |
 | Anything you did specifically to exploit the bot, and whether it worked | Robustness |
 | Final Resistance, Jungle Camps, Force 136 markers, winner | Comparison with the simulation |

@@ -52,8 +52,18 @@ Brief (user, 22:00 CST, 20 Nov 2026): do for The British Way solo what was done 
 - 09:35 GPT's re-audit of v1.0.1: passed for tabletop testing. Fixed its two follow-ups: the report's per-policy table (still v1.0 numbers) and checker exit codes. Added its optional Zipper check to the oracle. New `report_check.py` ties every printed win rate to the stored results.
 - 10:40 GPT's audit of commit 33745a6: five findings, all reproduced. v1.0.2 fixes them. Redeploy now moves every marker in a stack of exposed markers. The rerun of all 30,000 fresh games is identical, row for row. Also fixed: J27 "with Opposition" on the reference; "never executes an Event" (a Pass may use the Event box); strict stress-policy filters, rerun at 256 games per policy. GPT's saved positions are now fixtures.
 
+### 21 November, midday: full audit of v1.0.2 and v1.0.3
+
+- 11:15 Full audit of commit 338cb0d by Claude (Fable 5.2). Read the rules against the code, the player aids, the map and all 32 Event faces again.
+- 11:30 New `fuzz_v1.py`: both bots on 12,000 random positions, 0 differences (it finds v1.0.1's Redeploy error in 57 of 1,500). New `legality_v1.py`: no illegal action.
+- 11:40 Two weak Japanese choices in the engine: Active guerrillas removed first, and every Kempeitai pulled off Force 136 markers at Redeploy. On 300 seeds: −1.6 and −3.1 points, −4.1 together. Corrected in the engine.
+- 11:45 J25's Japanese side: the return Province is Japan's choice (rule 5.1). Bot rule deleted. British J12 and J15 given printed procedures. Pass note for J6/J9.
+- 11:50 Redeploying every marker next to Kempeitai, tested on the corrected Japan: 60.5 vs 60.0%. Not adopted.
+- 12:20 v1.0.3 reruns: levels 38.8 / 61.3 / 70.9 / 78.8 / 89.2% (−2 to −3 points on the same seeds), lookahead, stress, references, checker, fuzz and legality.
+
 ## Decisions worth remembering
 
+- Japan's choices are Japan's: which guerrilla Food Shortage removes, where Kempeitai sit after Redeploy, and every choice in an Event Japan executes (J20, J25, J28). The simulation's Japan should make them the way a player would.
 - The bot never takes Events. 27 of 28 Events taken as first player lowered results; none taken as second player gained more than 0.12 Resistance. (Tested on v1.0, before the Train refresh.)
 - PLACE is not printed on the cards as a choice: it is always first.
 - Cards 1–8 carry the same three goals (AMBUSH, INTEL, TRAIN); card 9 adds SUPPLY. Only the order and the Limited preference differ.

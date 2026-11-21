@@ -210,3 +210,19 @@ def Refresh(order):
             return False
     return R
 VARIANTS.update(refresh_first=Refresh('first'),refresh_last=Refresh('last'))
+class RedeployAllK(B):
+    """v1.0.3 audit test: at Redeploy, move every marker that shares a space with Kempeitai, Camp or not."""
+    def exposed(self,s):
+        v=self.board[s]
+        if getattr(self,'_redeploying',False):return bool(v['force136'] and v['kempeitai'])
+        return B.exposed(self,s)
+    def propaganda(self,final=False):
+        self._redeploying=True
+        try:return B.propaganda(self,final)
+        finally:self._redeploying=False
+    def contact(self,task=None,hold=False):
+        r=self._redeploying if hasattr(self,'_redeploying') else False
+        self._redeploying=False
+        try:return B.contact(self,task,hold)
+        finally:self._redeploying=r
+VARIANTS.update(redeploy_allk=RedeployAllK)

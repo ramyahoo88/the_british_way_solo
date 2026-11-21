@@ -23,7 +23,7 @@ def phr(c):
     if 'intel' in items:
         a,b=items['intel'];o.append(f"Intel revealed ({b})" if a=='None' else 'Intel concealed' if b=='None' else f"Intel {a}→{b}")
     return f"{s}: "+'; '.join(o)
-L=["# Force 136 v1.0.2 — sample game","",
+L=["# Force 136 v1.0.3 — sample game","",
 f"Seed {seed}, Agent level, against the simulation's *{pol}* Japan policy. The game was generated with `python3 sample_game.py {seed} {pol}` and `python3 sample_md.py {seed} {pol} <file>`. The Japanese moves come from one computer policy and are not advice. For each turn the log lists the bot's Directive card, the goal that qualified and the board changes. MPAJA icons are applied before the first entry of each card and are not listed.","",
 "## Starting position","","Standard setup. Resistance 2, Zipper at Delay, Japanese Resources 0. Force 136 is first eligible.",""]
 L+=[f"- {x}" for x in d['start']]

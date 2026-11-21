@@ -99,3 +99,21 @@ GPT's comprehensive audit (`audits/v1.0.1/Force_136_v1.0.1_Comprehensive_Audit_3
 | F4 (medium, evidence) | The stress table claimed 256 games per policy; the files held 64. | Confirmed. The new table has 256 per policy (1,024 in all), and `report_check.py` checks its counts, percentages and seed range against the results file. |
 | F5 (low, text) | "Never choose the Event box" conflicted with Passing in the leftmost free box. | Confirmed. The rules, reference and cards now say Force 136 never *executes* an Event, and that a Pass may sit in the Event box (rule 2.4.3). The code was already legal. |
 | Optional | Restore "Underground first" in the reference's Majority Raid line; fix "13 planted errors" in the results index; publish exact intervals and their recipe; list J10, J13 and the railway corner as open readings. | All done. The intervals are now printed to one decimal: whole-seed bootstrap, 10,000 resamples, `random.Random(33745)`. Recomputing gives Recruit 39.4–43.1% (GPT got 39.42%). |
+
+## Full audit of v1.0.2 (commit 338cb0d) and v1.0.3
+
+A full audit by Claude (Fable 5.2), a different model from the one that wrote v1.0 to v1.0.2, in the same working session. The report is `audits/v1.0.2/Force_136_v1.0.2_Audit_338cb0d.md` with its evidence beside it. It reread the rules against the code, GMT's player aids, the map and all 32 Event faces, and added two test tools. It found no illegal bot action and no difference between the two bot implementations on 12,000 random positions.
+
+| # | Finding | Resolution in v1.0.3 |
+|---|---|---|
+| A1 (simulation) | When Japan chose which guerrilla to remove (Food Shortage icon, J11, J18), the engine took an Active one first. A Japan player removes an Underground one. On 300 seeds this was worth 1.6 points to Britain. | Japan removes Underground guerrillas first (`engine.lose_guerrilla`). |
+| A2 (simulation) | At Japanese Redeploy the engine moved every Kempeitai to a space with more Troops than guerrillas, pulling them away from Force 136 markers. The move is optional (rule 6.5.2). Worth 3.1 points to Britain on 300 seeds; 4.1 with A1. | One Kempeitai stays with each Force 136 marker it already shares a space with (`engine.japan_redeploy`, now one shared function). |
+| A3 (rules) | After J25's Japanese side the bot chose the Province its marker returned to. Rule 5.1 gives the choices in an Event to the Faction executing it, which is Japan. | The bot rule is deleted; section 7 says Japan makes the choices in the Events it executes. In simulations Japan returns the marker next to Kempeitai (`engine.j25_return`). |
+| A4 (rules) | The British sides of J12 and J15 had no printed procedure, and the code used rankings the rules did not state. | Two lines in section 7 and on the reference; both implementations follow them; the fuzzer compares them. |
+| A5 (text) | The Pass rule did not say the Event box is closed on J6 and J9. | One sentence in section 4 and on the reference. The code was already right. |
+| A6 (reference) | The Move line lacked "Add a Camp if none". | Added. |
+| A7 (verification) | The checker met only positions the computer Japan reaches, and nothing tested legality independently. | `fuzz_v1.py` (random positions; it finds v1.0.1's Redeploy error in 57 of 1,500) and `legality_v1.py` (rules written from the player aid; flags six planted illegal actions). |
+
+**Effect on the results.** With A1 to A3 fixed, the same 6,000 games per level give Recruit 38.8%, Agent 61.3%, Veteran 70.9%, Legend 78.8% and Mastermind 89.2%: 2 to 3 points below v1.0.2 (Agent −3.2, 95% interval −4.2 to −2.2). Every table in the simulation report was rerun, and the report was rewritten around the current version, with a short version history in place of the running corrections.
+
+**One design check.** Since Kempeitai now stay beside Force 136 markers, a Redeploy that moves every such marker (not only exposed ones) was tested on the corrected Japan: 60.5% against 60.0% on 768 development games. No gain, so the rule is unchanged.

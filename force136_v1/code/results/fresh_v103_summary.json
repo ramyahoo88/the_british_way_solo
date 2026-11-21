@@ -1,0 +1,200 @@
+{
+ "recruit": {
+  "n": 6000,
+  "win": 0.3875,
+  "mpaja": 0.059,
+  "R": 15.28,
+  "turns": 16.37,
+  "per": {
+   "extraction": 0.319,
+   "hunting": 0.6,
+   "repair": 0.448,
+   "adaptive": 0.398,
+   "counter": 0.225,
+   "mixed": 0.335
+  },
+  "goals": {
+   "AMBUSH": 0.365,
+   "TRAIN": 0.359,
+   "PLACE": 0.205,
+   "INTEL": 0.058,
+   "SUPPLY": 0.01,
+   "PASS": 0.002,
+   "CONTACT": 0.0
+  },
+  "ops": {
+   "L:TRAIN": 0.266,
+   "O:AMBUSH+GATHER": 0.201,
+   "O:AMBUSH": 0.145,
+   "L:CONTACT": 0.116,
+   "O:TRAIN+SUPPLY": 0.081,
+   "O:CONTACT+GATHER": 0.077,
+   "L:AMBUSH": 0.063,
+   "O:TRAIN": 0.022,
+   "O:CONTACT+SUPPLY": 0.016,
+   "O:SABOTAGE+GATHER": 0.009,
+   "O:CONTACT": 0.003,
+   "L:PASS": 0.002
+  }
+ },
+ "agent": {
+  "n": 6000,
+  "win": 0.6127,
+  "mpaja": 0.0467,
+  "R": 17.33,
+  "turns": 16.37,
+  "per": {
+   "extraction": 0.686,
+   "hunting": 0.74,
+   "repair": 0.727,
+   "adaptive": 0.65,
+   "counter": 0.376,
+   "mixed": 0.497
+  },
+  "goals": {
+   "TRAIN": 0.353,
+   "AMBUSH": 0.335,
+   "PLACE": 0.24,
+   "INTEL": 0.059,
+   "SUPPLY": 0.011,
+   "PASS": 0.001,
+   "CONTACT": 0.0
+  },
+  "ops": {
+   "L:TRAIN": 0.257,
+   "O:AMBUSH+RAID": 0.151,
+   "L:CONTACT": 0.142,
+   "O:AMBUSH+GATHER": 0.14,
+   "O:TRAIN+SUPPLY": 0.087,
+   "O:CONTACT+GATHER": 0.078,
+   "L:AMBUSH": 0.046,
+   "O:AMBUSH": 0.04,
+   "O:CONTACT+SUPPLY": 0.022,
+   "O:TRAIN+RAID": 0.019,
+   "O:SABOTAGE+GATHER": 0.012,
+   "O:CONTACT+RAID": 0.004,
+   "O:TRAIN": 0.002,
+   "L:PASS": 0.001
+  }
+ },
+ "veteran": {
+  "n": 6000,
+  "win": 0.7085,
+  "mpaja": 0.0415,
+  "R": 18.17,
+  "turns": 16.37,
+  "per": {
+   "extraction": 0.778,
+   "hunting": 0.826,
+   "repair": 0.792,
+   "adaptive": 0.759,
+   "counter": 0.484,
+   "mixed": 0.612
+  },
+  "goals": {
+   "TRAIN": 0.352,
+   "AMBUSH": 0.334,
+   "PLACE": 0.242,
+   "INTEL": 0.059,
+   "SUPPLY": 0.011,
+   "PASS": 0.001,
+   "CONTACT": 0.0
+  },
+  "ops": {
+   "L:TRAIN": 0.255,
+   "O:AMBUSH+RAID": 0.152,
+   "L:CONTACT": 0.143,
+   "O:AMBUSH+GATHER": 0.14,
+   "O:TRAIN+SUPPLY": 0.088,
+   "O:CONTACT+GATHER": 0.078,
+   "L:AMBUSH": 0.045,
+   "O:AMBUSH": 0.039,
+   "O:CONTACT+SUPPLY": 0.023,
+   "O:TRAIN+RAID": 0.019,
+   "O:SABOTAGE+GATHER": 0.012,
+   "O:CONTACT+RAID": 0.004,
+   "O:TRAIN": 0.002,
+   "L:PASS": 0.001
+  }
+ },
+ "legend": {
+  "n": 6000,
+  "win": 0.788,
+  "mpaja": 0.037,
+  "R": 18.79,
+  "turns": 16.37,
+  "per": {
+   "extraction": 0.85,
+   "hunting": 0.88,
+   "repair": 0.855,
+   "adaptive": 0.83,
+   "counter": 0.607,
+   "mixed": 0.706
+  },
+  "goals": {
+   "TRAIN": 0.352,
+   "AMBUSH": 0.334,
+   "PLACE": 0.242,
+   "INTEL": 0.059,
+   "SUPPLY": 0.012,
+   "PASS": 0.001,
+   "CONTACT": 0.0
+  },
+  "ops": {
+   "L:TRAIN": 0.255,
+   "O:AMBUSH+RAID": 0.151,
+   "L:CONTACT": 0.143,
+   "O:AMBUSH+GATHER": 0.14,
+   "O:TRAIN+SUPPLY": 0.088,
+   "O:CONTACT+GATHER": 0.078,
+   "L:AMBUSH": 0.045,
+   "O:AMBUSH": 0.039,
+   "O:CONTACT+SUPPLY": 0.023,
+   "O:TRAIN+RAID": 0.019,
+   "O:SABOTAGE+GATHER": 0.012,
+   "O:CONTACT+RAID": 0.004,
+   "O:TRAIN": 0.002,
+   "L:PASS": 0.001
+  }
+ },
+ "mastermind": {
+  "n": 6000,
+  "win": 0.8918,
+  "mpaja": 0.03,
+  "R": 19.49,
+  "turns": 16.37,
+  "per": {
+   "extraction": 0.93,
+   "hunting": 0.948,
+   "repair": 0.927,
+   "adaptive": 0.915,
+   "counter": 0.789,
+   "mixed": 0.842
+  },
+  "goals": {
+   "TRAIN": 0.35,
+   "AMBUSH": 0.332,
+   "PLACE": 0.245,
+   "INTEL": 0.059,
+   "SUPPLY": 0.012,
+   "PASS": 0.001,
+   "CONTACT": 0.0
+  },
+  "ops": {
+   "L:TRAIN": 0.254,
+   "O:AMBUSH+RAID": 0.152,
+   "L:CONTACT": 0.146,
+   "O:AMBUSH+GATHER": 0.14,
+   "O:TRAIN+SUPPLY": 0.088,
+   "O:CONTACT+GATHER": 0.078,
+   "L:AMBUSH": 0.045,
+   "O:AMBUSH": 0.037,
+   "O:CONTACT+SUPPLY": 0.024,
+   "O:TRAIN+RAID": 0.018,
+   "O:SABOTAGE+GATHER": 0.012,
+   "O:CONTACT+RAID": 0.004,
+   "O:TRAIN": 0.002,
+   "L:PASS": 0.001
+  }
+ }
+}

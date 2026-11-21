@@ -12,6 +12,8 @@ Changes after GPT's review of commit 615c870 (made by the primary author, not th
 British J22 (Gather does not activate) and British J27 (one extra Ambush or Sabotage space, the first
 in map order; never counted when testing whether a goal qualifies), from the revised section 7; and the
 v1.0.1 Train fallback (re-place an Active guerrilla of the colour from the Train space itself, section 6.2).
+v1.0.3: British J12 and J15 (new lines in section 7) were also added by the primary author, and the
+Japanese Redeploy and J25 return moved into the shared engine (Japan's choices).
 """
 from clean_base import CleanBase
 from expert import FastGame
@@ -510,8 +512,35 @@ class CleanForce136(CleanBase):
                 b[src]['force136'] -= 1
                 b[dst]['force136'] += 1
 
+    # ------------------------------------------------------------------ 7 British capability sides
+    # Added by the primary author for v1.0.3 from the new lines in rules section 7 (not clean-room work).
+    def british_j12(self, r):
+        """J12 (British side): when Construct removes Sabotage from railway r, set one adjacent Province
+        or Kuala Lumpur without Opposition to Opposition: highest Population; no Terror; map order."""
+        b = self.board
+        best = None
+        for s in ORDER:
+            if s not in self.rail_adj(r) or not POP[s] or b[s]['opposition']:
+                continue
+            key = (-POP[s], 1 if b[s]['terror'] else 0, ix(s))
+            if best is None or key < best[0]:
+                best = (key, s)
+        if best:
+            b[best[1]]['opposition'] = True
+
+    def british_j15(self):
+        """J15 (British side): when Japan Extracts, each New Village Province in map order gets one
+        guerrilla of the colour it has more of (red on a tie or if empty), if one is Available."""
+        b = self.board
+        for s in ORDER:
+            if not b[s]['new_village']:
+                continue
+            colour = 'red' if red(b[s]) >= blue(b[s]) else 'blue'
+            if self.available(colour) > 0:
+                b[s][colour + '_u'] += 1
+
     def j25_return_space(self, camp_provinces):
-        """7: a marker returning from J25 goes to a Camp Province: no Kempeitai; no F136; most
-        guerrillas; map order."""
+        """v1.0 to v1.0.2 rules section 7: a marker returning from J25 goes to a Camp Province: no Kempeitai;
+        no F136; most guerrillas; map order. No longer called: under rule 5.1 the choice is Japan's (v1.0.3)."""
         b = self.board
         return min(camp_provinces, key=lambda s: (bool(b[s]['kempeitai']), bool(b[s]['force136']), -gs(b[s]), ix(s)))

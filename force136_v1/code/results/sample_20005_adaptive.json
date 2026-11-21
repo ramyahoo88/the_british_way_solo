@@ -151,7 +151,7 @@
    "changes": [
     "Kedah: troops 1->2, force136 1->0",
     "Perak: force136 1->0",
-    "Negri Sembilan: troops 0->2, red_u 1->0, red_a 0->1",
+    "Negri Sembilan: troops 0->2",
     "Northern EC: troops 3->2",
     "Southern EC: troops 3->1"
    ],
@@ -531,20 +531,20 @@
    "card": "8 Radio from the ridge: INTEL > AMBUSH > TRAIN; Limited TRAIN first",
    "goal": "INTEL",
    "box": "Op & SA",
-   "op": "SABOTAGE",
+   "op": "AMBUSH",
    "sa": "GATHER",
    "R": [
     17,
-    17
+    18
    ],
    "changes": [
-    "Kedah: blue_u 2->0, blue_a 0->2, intel None->1",
+    "Kedah: blue_u 2->0, blue_a 0->2, kempeitai 1->0, intel None->1",
     "Perak: red_u 1->0, red_a 0->1, intel None->1",
     "Pahang: red_u 4->3, red_a 0->1, intel None->1",
-    "Selangor: red_u 1->0, red_a 0->1, intel None->0"
+    "Selangor: red_u 1->0, red_a 0->1, intel None->0",
+    "Kuala Lumpur: kempeitai 1->2"
    ],
    "sab": [
-    "Thailand-Kedah *",
     "Perak-Pahang-Selangor"
    ]
   },
@@ -554,11 +554,13 @@
    "who": "Japan",
    "box": "Limited",
    "R": [
-    17,
-    17
+    18,
+    18
    ],
    "changes": [
-    "Perak: police 0->1"
+    "Perak: police 0->1",
+    "Kuala Lumpur: kempeitai 2->1",
+    "Negri Sembilan: kempeitai 0->1"
    ],
    "res": 0
   },
@@ -568,13 +570,13 @@
    "who": "Japan",
    "box": "Op & SA",
    "R": [
-    17,
-    17
+    18,
+    18
    ],
    "changes": [
     "Kelantan: police 2->3"
    ],
-   "res": 6
+   "res": 7
   },
   {
    "draw": 15,
@@ -590,8 +592,8 @@
    "op": "TRAIN",
    "sa": null,
    "R": [
-    17,
-    17
+    18,
+    18
    ],
    "changes": [
     "Kedah: blue_u 0->1",
@@ -600,7 +602,6 @@
     "Selangor: red_u 0->2"
    ],
    "sab": [
-    "Thailand-Kedah *",
     "Perak-Pahang-Selangor"
    ]
   },
@@ -609,7 +610,7 @@
    "prop": true,
    "final": true,
    "R": [
-    17,
+    18,
     20
    ],
    "terms": {

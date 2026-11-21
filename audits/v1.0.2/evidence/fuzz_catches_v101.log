@@ -1,0 +1,4 @@
+Run at commit 338cb0d (v1.0.2 engine), old bot from commit 33745a6:
+{'positions': 1500, 'actions': 13500, 'differences': 57}
+57 ('propaganda',)
+('propaganda',) [('Perak', {'force136': (1, 0)}), ('Negri Sembilan', {'force136': (0, 1)})]

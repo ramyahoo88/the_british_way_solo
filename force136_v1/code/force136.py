@@ -345,6 +345,15 @@ class F136Game(FastGame):
             if sites:b[min(sites,key=lambda s:(b[s]['police']!=1,not b[s]['force136'],self.mo(s)))]['police']-=1
             self.cleanup();return
         return FastGame.icon(self,j)
+    def british_j12(self,r):
+        b=self.board
+        sites=[s for s in self.rail_adj(r) if POP[s] and not b[s]['opposition']]
+        if sites:b[min(sites,key=lambda s:(-POP[s],bool(b[s]['terror']),self.mo(s)))]['opposition']=True
+    def british_j15(self):
+        b=self.board
+        for s in [s for s in MAPO if b[s]['new_village']]:
+            c='blue' if blue(b[s])>red(b[s]) else 'red'
+            if self.available(c):b[s][c+'_u']+=1
     def redeploy_f136(self):
         b=self.board
         movers=[(src,b[src]['force136']) for src in MAPO if b[src]['force136'] and b[src]['kempeitai']
@@ -364,29 +373,13 @@ class F136Game(FastGame):
                 if sites:b[self.opp_pick(sites)]['opposition']=True
         self.construct();self.supply();self.reprisal()
         self.redeploy_f136()
-        sites=[s for s in ORDER if b[s]['troops']>gs(b[s])]
-        if sites:
-            movable=0
-            for s in ORDER:
-                keep=min(b[s]['police'],1) if s not in sites and b[s]['force136'] and b[s]['kempeitai'] else 0
-                movable+=b[s]['police']-keep;b[s]['police']=keep
-            ranked=sorted(sites,key=lambda s:(bool(b[s]['police']),not bool(b[s]['force136']),ix(s)))
-            for i in range(movable):b[ranked[i%len(ranked)]]['police']+=1
-            total=self.count('kempeitai')
-            for v in b.values():v['kempeitai']=0
-            ranked=sorted(sites,key=lambda s:(not bool(b[s]['force136']),gs(b[s])-b[s]['police'],ix(s)))
-            for i in range(total):b[ranked[i%len(ranked)]]['kempeitai']+=1
+        self.japan_redeploy()
         for v in b.values():
             v['terror']=0
             for c in ['red','blue']:v[c+'_u']+=v[c+'_a'];v[c+'_a']=0
         self.reset_intel(self.campaign)
         b['Kuala Lumpur']['troops']+=self.away_troops;self.away_troops=0
-        if self.away_f:
-            camps=[s for s in PROV if b[s]['camp']]
-            if camps:
-                dst=min(camps,key=lambda s:(bool(b[s]['kempeitai']),bool(b[s]['force136']),-gs(b[s]),ix(s)))
-                b[dst]['force136']+=self.away_f
-            self.away_f=0
+        self.j25_return()
         self.campaign+=1;self.first='B';self.regular_seen=0;self.chosen={};self.record('Reset complete',{})
         return result
     def score_only(self,final=False):

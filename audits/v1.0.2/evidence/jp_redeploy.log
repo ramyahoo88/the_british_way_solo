@@ -1,0 +1,7 @@
+variant 0.6106 baseline 0.6411 diff -0.0306 CI -0.0489 -0.0128
+extraction 0.687 0.68
+hunting 0.74 0.76
+repair 0.727 0.753
+adaptive 0.623 0.677
+counter 0.377 0.43
+mixed 0.51 0.547

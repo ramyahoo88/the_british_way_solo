@@ -1,0 +1,19 @@
+{
+ "mode": "games",
+ "checked": {
+  "ICON": 2400,
+  "CONTACT": 844,
+  "GATHER": 969,
+  "TURN": 3810,
+  "TRAIN": 1375,
+  "AMBUSH": 1566,
+  "SUPPLY": 785,
+  "games": 240,
+  "SABOTAGE": 29,
+  "RAID": 530,
+  "RAID_UNDECIDED": 7
+ },
+ "violations": 0,
+ "kinds": [],
+ "examples": []
+}

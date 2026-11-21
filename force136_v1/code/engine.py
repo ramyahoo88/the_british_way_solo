@@ -172,8 +172,9 @@ class Game:
                 color=k.split('_')[0];own=red(v) if color=='red' else blue(v);other=blue(v) if color=='red' else red(v)
                 return (not k.endswith('_a'),not(own<other and other>0),color!='blue')
         else:
-            # Keep a minority of the other color for compulsory future clashes.
-            def rank(k):return (not k.endswith('_a'),-(red(v) if k.startswith('red') else blue(v)),not k.startswith('red'))
+            # Japan's choice (Food Shortage, J11, J18): an Underground guerrilla first, since only those can
+            # Ambush, Sabotage or Gather (v1.0.3; before, Japan removed Active ones first, which favoured Britain).
+            def rank(k):return (not k.endswith('_u'),-(red(v) if k.startswith('red') else blue(v)),not k.startswith('red'))
         chosen=min(fields,key=rank);v[chosen]-=1;return chosen
     def activate(self,s,color=None):
         for c in ([color] if color else ['red','blue']):
@@ -628,9 +629,17 @@ class Game:
     def repair(self,r,construct=False):
         assert self.sabotage[r]>0
         self.sabotage[r]-=1
-        if construct and self.cap.get(12)=='U':
-            sites=[s for s in self.rail_adj(r) if POP[s] and not self.board[s]['opposition']]
-            if sites:self.board[min(sites,key=self.opp_rank)]['opposition']=True
+        if construct and self.cap.get(12)=='U':self.british_j12(r)
+    def british_j12(self,r):
+        """British side of J12: Opposition next to a railway repaired by Construct (British choice)."""
+        sites=[s for s in self.rail_adj(r) if POP[s] and not self.board[s]['opposition']]
+        if sites:self.board[min(sites,key=self.opp_rank)]['opposition']=True
+    def british_j15(self):
+        """British side of J15: a guerrilla in each New Village space when Japan Extracts (British choice)."""
+        used={}
+        for s in sorted([s for s in PROV if self.board[s]['new_village']],key=self.placement_rank):
+            c='blue' if blue(self.board[s]) and not red(self.board[s]) else 'red'
+            self.place_g(s,c,used=used)
     def construct(self,limit=3):
         selected=[]
         for _ in range(limit):
@@ -672,11 +681,7 @@ class Game:
             if best:self.repair(best[0])
         _,yields=live_and_yield(self.sabotage);gain=sum(yields.values())+self.count('new_village')
         old=self.resources;self.resources=clamp(self.resources+gain)
-        if self.cap.get(15)=='U':
-            used={}
-            for s in sorted([s for s in PROV if self.board[s]['new_village']],key=self.placement_rank):
-                c='blue' if blue(self.board[s]) and not red(self.board[s]) else 'red'
-                self.place_g(s,c,used=used)
+        if self.cap.get(15)=='U':self.british_j15();self.cleanup()
         return self.resources-old
     def reprisal(self,locations=None,limit=2):
         b=self.board;sites=[s for s in ORDER if b[s]['troops'] and (b[s]['opposition'] or gs(b[s]))] if locations is None else [s for s in locations if b[s]['troops']]
@@ -1073,6 +1078,36 @@ class Game:
         self.chosen['J']=plan['box'];self.jp_apply(plan);self.inc('japan_'+plan['op'])
         if plan.get('sa'):self.inc('japan_'+plan['sa'])
         self.record('Japanese turn',plan)
+    def japan_redeploy(self):
+        """Japanese Redeploy (6.5.2): Japan may move Police and Kempeitai to spaces with more Troops than
+        guerrillas. Policy: spread the Police over those spaces; move the Kempeitai there too, except that
+        one Kempeitai already with a Force 136 marker stays where it is (v1.0.3: before, every Kempeitai
+        was moved, which pulled them off Force 136 markers and favoured Britain)."""
+        b=self.board
+        sites=[s for s in ORDER if b[s]['troops']>gs(b[s])]
+        if not sites:return
+        movable=0
+        for s in ORDER:
+            keep=min(b[s]['police'],1) if s not in sites and b[s]['force136'] and b[s]['kempeitai'] else 0
+            movable+=b[s]['police']-keep;b[s]['police']=keep
+        ranked=sorted(sites,key=lambda s:(bool(b[s]['police']),not bool(b[s]['force136']),ix(s)))
+        for i in range(movable):b[ranked[i%len(ranked)]]['police']+=1
+        stay={s:1 for s in ORDER if b[s]['force136'] and b[s]['kempeitai'] and s not in sites}
+        total=self.count('kempeitai')-len(stay)
+        for s,v in b.items():v['kempeitai']=stay.get(s,0)
+        ranked=sorted(sites,key=lambda s:(not bool(b[s]['force136']),gs(b[s])-b[s]['police'],ix(s)))
+        for i in range(total):b[ranked[i%len(ranked)]]['kempeitai']+=1
+    def j25_return(self):
+        """Japanese side of J25: the marker returns in the Reset Phase to a Camp Province. Japan executed
+        the Event, so Japan chooses (rule 5.1): a Province with Kempeitai, then one that already has
+        Force 136, then fewest guerrillas, most Troops, map order. No Camp Province: back to Available."""
+        b=self.board
+        if self.away_f:
+            camps=[s for s in PROV if b[s]['camp']]
+            if camps:
+                dst=min(camps,key=lambda s:(not b[s]['kempeitai'],not b[s]['force136'],gs(b[s]),-b[s]['troops'],ix(s)))
+                b[dst]['force136']+=self.away_f
+            self.away_f=0
     def propaganda(self,final=False):
         result=self.score_only(final);self.record('Final scoring' if final else 'Nonfinal scoring',result)
         if final:return result
@@ -1092,31 +1127,13 @@ class Game:
             if eligible:
                 dst=min(eligible,key=lambda s:(bool(b[s]['kempeitai']),not(not b[s]['cache'] and self.available('cache')),-gs(b[s]),-POP[s],ix(s)))
                 v['force136']-=1;b[dst]['force136']+=1;selected.add(dst)
-        sites=[s for s in ORDER if b[s]['troops']>gs(b[s])]
-        if sites:
-            # Leave existing police at otherwise ineligible intelligence sites;
-            # every moved Police and Kempeitai has a legal destination.
-            movable=0
-            for s in ORDER:
-                keep=min(b[s]['police'],1) if s not in sites and b[s]['force136'] and b[s]['kempeitai'] else 0
-                movable+=b[s]['police']-keep;b[s]['police']=keep
-            ranked=sorted(sites,key=lambda s:(bool(b[s]['police']),not bool(b[s]['force136']),ix(s)))
-            for i in range(movable):b[ranked[i%len(ranked)]]['police']+=1
-            total=self.count('kempeitai')
-            for v in b.values():v['kempeitai']=0
-            ranked=sorted(sites,key=lambda s:(not bool(b[s]['force136']),gs(b[s])-b[s]['police'],ix(s)))
-            for i in range(total):b[ranked[i%len(ranked)]]['kempeitai']+=1
+        self.japan_redeploy()
         for v in b.values():
             v['terror']=0
             for c in ['red','blue']:v[c+'_u']+=v[c+'_a'];v[c+'_a']=0
         self.reset_intel(self.campaign)
         b['Kuala Lumpur']['troops']+=self.away_troops;self.away_troops=0
-        if self.away_f:
-            camps=[s for s in PROV if b[s]['camp']]
-            if camps:
-                dst=min(camps,key=lambda s:(bool(b[s]['kempeitai']),bool(b[s]['force136']),-gs(b[s]),ix(s)))
-                b[dst]['force136']+=self.away_f
-            self.away_f=0
+        self.j25_return()
         if self.card:self.bot_discard.append(self.card);self.card=None;self.age=0
         self.campaign+=1;self.first='B';self.regular_seen=0;self.chosen={};self.record('Reset complete',{})
         return result

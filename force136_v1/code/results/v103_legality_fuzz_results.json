@@ -1,0 +1,19 @@
+{
+ "mode": "fuzz",
+ "checked": {
+  "positions": 2000,
+  "AMBUSH": 4689,
+  "GATHER": 4532,
+  "TURN": 12000,
+  "ICON": 4000,
+  "RESOURCES": 2000,
+  "TRAIN": 3755,
+  "CONTACT": 3399,
+  "RAID": 1732,
+  "SUPPLY": 2134,
+  "SABOTAGE": 209
+ },
+ "violations": 0,
+ "kinds": [],
+ "examples": []
+}

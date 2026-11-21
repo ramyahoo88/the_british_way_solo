@@ -1,0 +1,1 @@
+agent variant 0.6006 baseline 0.6411 diff -0.0406 CI -0.0606 -0.0206 {'extraction': 0.683, 'hunting': 0.713, 'repair': 0.707, 'adaptive': 0.633, 'counter': 0.363, 'mixed': 0.503}

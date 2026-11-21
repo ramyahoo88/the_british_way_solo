@@ -8,9 +8,11 @@ remains the published independent actor.
 The physical base game, expansion, Event cards and player aids are required.
 The bot runs at the table without an application.
 
-## Force 136 v1.0.2 (new design, branch `claude-force136`)
+## Force 136 v1.0.3 (new design, branch `claude-force136`)
 
-A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Version 1.0.2, simulated on fresh seeds against six computer Japan policies: Recruit 41%, Agent 64%, Veteran 74%, Legend 82%, Mastermind 91% Force 136 wins (v0.2: 0%). v1.0.2 fixes the five issues in the latest audit below. Not yet playtested at the table.
+A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Version 1.0.3, simulated against six computer Japan policies: Recruit 39%, Agent 61%, Veteran 71%, Legend 79%, Mastermind 89% Force 136 wins (v0.2: 0%). Not yet playtested at the table.
+
+v1.0.3 follows a [full audit of v1.0.2](audits/v1.0.2/Force_136_v1.0.2_Audit_338cb0d.md) ([PDF](audits/v1.0.2/Force_136_v1.0.2_Audit_338cb0d.pdf)). The audit found the bot's play legal and consistent, but the computer Japan too kind in two places; correcting it lowered the win rates by about 3 points.
 
 ## Reviews of Claude's redesign
 

@@ -1,5 +1,23 @@
 # Results
 
+## v1.0.3 (after the full audit of v1.0.2; Japan model corrected)
+
+| File | What |
+|---|---|
+| v103_fresh.log, results_fresh_v103.csv.gz, fresh_v103_summary.json | all five levels on seeds 0–999 (6,000 games per level); `report_check.py` reads the CSV |
+| v103_equiv.log | tuning lab vs printed rules, 960 games |
+| v103_verify.log, v103_verify_results.json, v103_mutants.log, v103_mutants.json, v103_exit_status.log, v103_fixtures.log | checker, 15 mutants, exit status, 15 fixtures |
+| v103_fuzz.log, v103_fuzz_results.json | `fuzz_v1.py 12000 700000`: both bots on random positions |
+| v103_legality_games.log, v103_legality_fuzz.log, v103_legality_selftest.log (+ .json) | `legality_v1.py`: policy games, random positions, planted illegal actions |
+| v103_holdout1.log, results_holdout1_v103.json | Agent on the first holdout (seeds 20000–20127) |
+| v103_look.log, v103_lookc.log, v103_lookdeep.log, v103_lookexpert.log | lookahead Japan against the bot (five levels) and against the search player |
+| v103_refs.log, refs_v103.json | v0.2 bot, its best variant and the search player on the first holdout |
+| v103_exploits.log, results_exploits_v103.json | strict stress policies, 256 games per policy |
+| v103_corner.log | alternative railway-corner adjacency |
+| sample_20005_adaptive.json | the sample game (regenerated for v1.0.3) |
+
+Everything below was produced with the earlier Japan model (before v1.0.3's corrections).
+
 ## v1.0.2 (after GPT's audit of commit 33745a6)
 
 | File | What |

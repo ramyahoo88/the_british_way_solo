@@ -31,7 +31,7 @@ class CleanBase(FastGame):
     # ---- British hooks used during nonfinal Propaganda (implement in your subclass)
     def british_resources_phase(self):raise NotImplementedError
     def british_redeploy(self):raise NotImplementedError
-    def j25_return_space(self,camp_provinces):raise NotImplementedError
+    def j25_return_space(self,camp_provinces):raise NotImplementedError   # no longer called (v1.0.3: Japan chooses)
     def propaganda(self,final=False):
         result=self.score_only(final);self.record('Final scoring' if final else 'Nonfinal scoring',result)
         if final:return result
@@ -41,26 +41,12 @@ class CleanBase(FastGame):
         self.supply()                     # British Supply (your supply())
         self.reprisal()                   # Japanese Reprisal (engine policy)
         self.british_redeploy()
-        sites=[s for s in ORDER if b[s]['troops']>gs(b[s])]   # Japanese Redeploy (engine policy)
-        if sites:
-            movable=0
-            for s in ORDER:
-                keep=min(b[s]['police'],1) if s not in sites and b[s]['force136'] and b[s]['kempeitai'] else 0
-                movable+=b[s]['police']-keep;b[s]['police']=keep
-            ranked=sorted(sites,key=lambda s:(bool(b[s]['police']),not bool(b[s]['force136']),ix(s)))
-            for i in range(movable):b[ranked[i%len(ranked)]]['police']+=1
-            total=self.count('kempeitai')
-            for v in b.values():v['kempeitai']=0
-            ranked=sorted(sites,key=lambda s:(not bool(b[s]['force136']),gs(b[s])-b[s]['police'],ix(s)))
-            for i in range(total):b[ranked[i%len(ranked)]]['kempeitai']+=1
+        self.japan_redeploy()             # Japanese Redeploy (engine policy)
         for v in b.values():
             v['terror']=0
             for c in ['red','blue']:v[c+'_u']+=v[c+'_a'];v[c+'_a']=0
         self.reset_intel(self.campaign)
         b['Kuala Lumpur']['troops']+=self.away_troops;self.away_troops=0
-        if self.away_f:
-            camps=[s for s in PROV if b[s]['camp']]
-            if camps:b[self.j25_return_space(camps)]['force136']+=self.away_f
-            self.away_f=0
+        self.j25_return()                 # J25 marker returns: Japan's choice (rule 5.1; engine policy, v1.0.3)
         self.campaign+=1;self.first='B';self.regular_seen=0;self.chosen={};self.record('Reset complete',{})
         return result

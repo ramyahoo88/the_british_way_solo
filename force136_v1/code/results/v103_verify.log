@@ -1,0 +1,17 @@
+normal     games   960 cross-check failures 0 oracle failures 0  
+J8 U       games    96 cross-check failures 0 oracle failures 0 {'J8 British: Supply': 125} 
+J8 S       games    96 cross-check failures 0 oracle failures 0  
+J12 U      games    96 cross-check failures 0 oracle failures 0  
+J12 S      games    96 cross-check failures 0 oracle failures 0  
+J15 U      games    96 cross-check failures 0 oracle failures 0  
+J15 S      games    96 cross-check failures 0 oracle failures 0  
+J19 U      games    96 cross-check failures 0 oracle failures 0 {'J19 British: Gather': 331} 
+J19 S      games    96 cross-check failures 0 oracle failures 0  
+J22 U      games    96 cross-check failures 0 oracle failures 0 {'J22 British: Gather without activating': 328} 
+J22 S      games    96 cross-check failures 0 oracle failures 0  
+J27 U      games    96 cross-check failures 0 oracle failures 0 {'J27 British: extra Sabotage space': 12, 'J27 British: extra Ambush space': 245} 
+J27 S      games    96 cross-check failures 0 oracle failures 0  
+all U      games   192 cross-check failures 0 oracle failures 0 {'J22 British: Gather without activating': 612, 'J19 British: Gather': 718, 'J27 British: extra Ambush space': 709, 'J27 British: extra Sabotage space': 23, 'J8 British: Supply': 293} 
+all S      games   192 cross-check failures 0 oracle failures 0  
+TOTAL {'games': 2496, 'cross': 0, 'oracle': 0}
+exit 0

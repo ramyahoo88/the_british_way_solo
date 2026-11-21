@@ -1,0 +1,122 @@
+{
+ "normal": {
+  "games": 960,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {},
+  "examples": []
+ },
+ "J8 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "J8 British: Supply": 125
+  },
+  "examples": []
+ },
+ "J8 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {},
+  "examples": []
+ },
+ "J12 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {},
+  "examples": []
+ },
+ "J12 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {},
+  "examples": []
+ },
+ "J15 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {},
+  "examples": []
+ },
+ "J15 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {},
+  "examples": []
+ },
+ "J19 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "J19 British: Gather": 331
+  },
+  "examples": []
+ },
+ "J19 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {},
+  "examples": []
+ },
+ "J22 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "J22 British: Gather without activating": 328
+  },
+  "examples": []
+ },
+ "J22 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {},
+  "examples": []
+ },
+ "J27 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "J27 British: extra Sabotage space": 12,
+   "J27 British: extra Ambush space": 245
+  },
+  "examples": []
+ },
+ "J27 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {},
+  "examples": []
+ },
+ "all U": {
+  "games": 192,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "J22 British: Gather without activating": 612,
+   "J19 British: Gather": 718,
+   "J27 British: extra Ambush space": 709,
+   "J27 British: extra Sabotage space": 23,
+   "J8 British: Supply": 293
+  },
+  "examples": []
+ },
+ "all S": {
+  "games": 192,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {},
+  "examples": []
+ }
+}

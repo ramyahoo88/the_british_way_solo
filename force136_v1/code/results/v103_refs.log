@@ -1,0 +1,3 @@
+gpt_v0.2 {"per": {"extraction": [0.0, 1.8], "hunting": [0.0, 1.8], "repair": [0.0, 1.4], "adaptive": [0.0, 0.8], "counter": [0.0, 0.6], "mixed": [0.0, 0.8], "ALL": [0.0, 1.19, 0.0]}, "win": 0.0, "R": 1.19, "mpaja": 0.0, "sec": 31}
+gpt_primary_guard {"per": {"extraction": [0.016, 6.1], "hunting": [0.016, 5.6], "repair": [0.008, 6.2], "adaptive": [0.008, 5.3], "counter": [0.008, 3.9], "mixed": [0.0, 3.4], "ALL": [0.009, 5.1, 0.009]}, "win": 0.009, "R": 5.1, "mpaja": 0.009, "sec": 28}
+expert {"per": {"extraction": [0.711, 17.9], "hunting": [0.586, 17.3], "repair": [0.648, 17.7], "adaptive": [0.641, 17.3], "counter": [0.367, 14.6], "mixed": [0.438, 15.2], "ALL": [0.565, 16.66, 0.03]}, "win": 0.565, "R": 16.66, "mpaja": 0.03, "sec": 142}
