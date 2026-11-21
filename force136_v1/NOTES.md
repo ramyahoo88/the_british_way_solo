@@ -39,6 +39,7 @@ Brief (user, 22:00 CST, 20 Nov 2026): do for The British Way solo what was done 
 - 02:10 Flowchart, record sheet. More rule tests against the strongest opponents (Supply away from Troops; Raid keeping 2 guards): no gain.
 - 02:15 A wider lookahead Japan (16 candidates × 4 sampled bot replies) beats Agent 87% of the time. It strips Cache guards right after the bot activates them. Defensive rules made the bot weaker everywhere. A fifth level, Mastermind (start 6, +2 per nonfinal Propaganda), was added for players who learn the bot: 89% against the regular policies, 48% against the wide search.
 - 02:40 Final rerun for five levels: equivalence and clean-room checks (960 games each, 0 differences), both holdouts, all lookahead opponents.
+- 02:45 The wide search against the one-step search player: 21% British wins (8-move version: 29%). Most of its strength is strong Japanese play rather than exploitation of the bot. All-TRAIN and all-AMBUSH Limited decks: within noise; the printed mix stays.
 
 ## Decisions worth remembering
 

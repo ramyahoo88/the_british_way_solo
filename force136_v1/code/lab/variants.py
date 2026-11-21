@@ -154,5 +154,15 @@ class KeepCacheUG(B):
     def ambush_target(self,s,color=None):
         if self.protected(s):return None
         return B.ambush_target(self,s,color)
-VARIANTS={'guardfirst':GuardFirst,'keepcacheug':KeepCacheUG,'supplysafe':SupplySafe2,'raidkeep2':RaidKeep2,'limshot':LimShot,'biggather':BigGatherFirst,'gather_notroops':GatherSafe('notroops'),'gather_keepug':GatherSafe('keepug'),'final_supply0':FinalSupply(0),'final_supply12':FinalSupply(12),'final_supply15':FinalSupply(15),'redeploy_idle':RedeployIdle,'redeploy_thin':RedeployUG,'shot_le2':Shot2(2),'shot_le4':Shot2(4),'kempjungle':KempJungle,'kemptroop':KempTroopFirst,'base':B,'gatherfirst':GatherFirst,'mobnoblue':MobNoBlue,'kempfirst':KempFirst,'shot2':Shot(2),'shot4':Shot(4),
+def DeckVar(goals,lim):
+    class DV(B):
+        deck_cards=[F.card(i,'x',list(goals),lim) for i in range(1,10)]
+    return DV
+class DeckAllT(B):
+    deck_cards=[dict(c,limited_first='TRAIN') for c in F.DECK]
+class DeckAllA(B):
+    deck_cards=[dict(c,limited_first='AMBUSH') for c in F.DECK]
+VARIANTS={'deck9_T':DeckAllT,'deck9_A':DeckAllA,'deck_AIT_A':DeckVar(['AMBUSH','INTEL','TRAIN'],'AMBUSH'),'deck_AIT_T':DeckVar(['AMBUSH','INTEL','TRAIN'],'TRAIN'),
+ 'deck_IAT_A':DeckVar(['INTEL','AMBUSH','TRAIN'],'AMBUSH'),'deck_ASIT_T':DeckVar(['AMBUSH','SUPPLY','INTEL','TRAIN'],'TRAIN'),
+ 'deck_TAI_T':DeckVar(['TRAIN','AMBUSH','INTEL'],'TRAIN'),'guardfirst':GuardFirst,'keepcacheug':KeepCacheUG,'supplysafe':SupplySafe2,'raidkeep2':RaidKeep2,'limshot':LimShot,'biggather':BigGatherFirst,'gather_notroops':GatherSafe('notroops'),'gather_keepug':GatherSafe('keepug'),'final_supply0':FinalSupply(0),'final_supply12':FinalSupply(12),'final_supply15':FinalSupply(15),'redeploy_idle':RedeployIdle,'redeploy_thin':RedeployUG,'shot_le2':Shot2(2),'shot_le4':Shot2(4),'kempjungle':KempJungle,'kemptroop':KempTroopFirst,'base':B,'gatherfirst':GatherFirst,'mobnoblue':MobNoBlue,'kempfirst':KempFirst,'shot2':Shot(2),'shot4':Shot(4),
           'place_mountain':PlaceTerrain('mountain'),'place_jungle':PlaceTerrain('jungle')}

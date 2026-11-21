@@ -73,6 +73,15 @@ The wide search exploits the bot's predictability. It removes the early Caches (
 
 The levels carry the difference instead: Mastermind (Resistance 6, +2 per nonfinal Propaganda) wins 48% against it.
 
+How much of this is exploiting the bot? The same lookahead was run against the one-step search player, which has no fixed priorities, again simulating its exact reply:
+
+| Opponent | Search player | Agent |
+|---|---:|---:|
+| 8 moves | 29% | 34% |
+| 16 moves | 21% | 13% |
+
+So most of the wide search's edge is strong Japanese play; about 8 points come from the bot's predictability. A deck with TRAIN first on every Limited turn, or AMBUSH first on every card, stayed within noise of the printed mix against both this opponent and the regular policies.
+
 **Exploit attempts** (Agent, 256 games):
 
 | Japan always… | Force 136 wins |
@@ -214,6 +223,7 @@ python3 holdout_v1.py 20000 128 holdout                # level results (all five
 python3 look_run.py 20000 128 recruit,agent,veteran,legend,mastermind look
 python3 look_run.py 20000 128 recruit,agent,veteran,legend,mastermind lookc
 python3 look_deep.py 20000 128 recruit,agent,veteran,legend,mastermind lookc 16 4
+python3 look_expert.py 20000 128 16 1                # the same search against the one-step search player
 POLS=brute,tempo,econ,eventhog python3 holdout_v1.py 20000 64 exploits agent
 python3 corner_run.py
 python3 ev_test_v1.py 48 31000
