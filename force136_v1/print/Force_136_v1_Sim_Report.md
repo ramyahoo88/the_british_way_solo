@@ -135,6 +135,9 @@ Each step was measured on development seeds with matched games (all six policies
 - Moving idle markers at Redeploy: 0.
 - Avoiding blue spaces at Mobilize: −1.5.
 - Taking Limited when Japan took the Event: about 0 (+1.1 and −0.8 on two seed sets).
+- Supply only in Provinces with 1+ (or 2+) Underground guerrillas: −5 (−26), and also worse against the wide-search Japan.
+- INTEL without its Sabotage option, to shorten the lookup: −2 to −3 on two seed sets.
+- Limited Ambush only at good shots: +1.3, within noise.
 
 ### Events
 

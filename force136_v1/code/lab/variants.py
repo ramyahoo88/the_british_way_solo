@@ -162,7 +162,39 @@ class DeckAllT(B):
     deck_cards=[dict(c,limited_first='TRAIN') for c in F.DECK]
 class DeckAllA(B):
     deck_cards=[dict(c,limited_first='AMBUSH') for c in F.DECK]
-VARIANTS={'deck9_T':DeckAllT,'deck9_A':DeckAllA,'deck_AIT_A':DeckVar(['AMBUSH','INTEL','TRAIN'],'AMBUSH'),'deck_AIT_T':DeckVar(['AMBUSH','INTEL','TRAIN'],'TRAIN'),
+def SupplyGuard(minug):
+    class SG(B):
+        def supply(self):
+            limit=min(3 if self.zipper>=12 else 2,self.available('cache'))
+            selected=[];remote=False;b=self.board
+            while len(selected)<limit:
+                sites=[s for s in PROV if b[s]['camp'] and not b[s]['cache'] and s not in selected and ug(b[s])>=minug and (b[s]['force136'] or self.cap.get(8)=='U' and not remote)]
+                if not sites:break
+                s=min(sites,key=lambda s:(not b[s]['force136'],bool(b[s]['kempeitai']),-gs(b[s]),-POP[s],F.mo(s)))
+                selected.append(s)
+                if not b[s]['force136']:remote=True
+            n=0
+            for s in selected:
+                if self.cap.get(8)=='S' and self.die('Supply',s)<=2:continue
+                b[s]['camp']=False;b[s]['cache']=True;n+=1
+            if self.cap.get(27)=='S' and selected:
+                el=[s for s in selected if b[s]['opposition']]
+                if el:b[min(el,key=lambda s:(POP[s],F.mo(s)))]['opposition']=False
+            self.cleanup();return n
+    return SG
+class IntelNoSab(B):
+    def goal(self,name,full):
+        if name!='INTEL':return B.goal(self,name,full)
+        if not full:return None
+        for op in ('AMBUSH','CONTACT'):
+            p=self.clone()
+            if op=='AMBUSH':
+                if not self.useful_ambush():continue
+                p.strike()
+            elif not p.contact():continue
+            if len(p.clone().gather())>=2:return dict(op=op,sa='GATHER')
+        return None
+VARIANTS={'intel_nosab':IntelNoSab,'supply_ug1':SupplyGuard(1),'supply_ug2':SupplyGuard(2),'deck9_T':DeckAllT,'deck9_A':DeckAllA,'deck_AIT_A':DeckVar(['AMBUSH','INTEL','TRAIN'],'AMBUSH'),'deck_AIT_T':DeckVar(['AMBUSH','INTEL','TRAIN'],'TRAIN'),
  'deck_IAT_A':DeckVar(['INTEL','AMBUSH','TRAIN'],'AMBUSH'),'deck_ASIT_T':DeckVar(['AMBUSH','SUPPLY','INTEL','TRAIN'],'TRAIN'),
  'deck_TAI_T':DeckVar(['TRAIN','AMBUSH','INTEL'],'TRAIN'),'guardfirst':GuardFirst,'keepcacheug':KeepCacheUG,'supplysafe':SupplySafe2,'raidkeep2':RaidKeep2,'limshot':LimShot,'biggather':BigGatherFirst,'gather_notroops':GatherSafe('notroops'),'gather_keepug':GatherSafe('keepug'),'final_supply0':FinalSupply(0),'final_supply12':FinalSupply(12),'final_supply15':FinalSupply(15),'redeploy_idle':RedeployIdle,'redeploy_thin':RedeployUG,'shot_le2':Shot2(2),'shot_le4':Shot2(4),'kempjungle':KempJungle,'kemptroop':KempTroopFirst,'base':B,'gatherfirst':GatherFirst,'mobnoblue':MobNoBlue,'kempfirst':KempFirst,'shot2':Shot(2),'shot4':Shot(4),
           'place_mountain':PlaceTerrain('mountain'),'place_jungle':PlaceTerrain('jungle')}
