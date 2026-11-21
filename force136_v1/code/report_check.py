@@ -89,7 +89,7 @@ for (k,sm),label,agentlog in ((('8','3'),'lookc, 8 moves × 3 cards','v103_lookc
     if not line:bad.append(f'search-player table: no row for {label}');continue
     check(f'search player vs {label}',(line.group(1),line.group(2)),(fmt(100*ex[(k,sm)],0),fmt(100*logrows(agentlog)['agent'],0)))
 H=json.load(open(find('results_holdout1_v103.json')));hw=sum(r['winner']=='Force 136' for r in H)
-m=re.search(r"v1\.0\.3's Agent wins ([\d.]+)% \((\d+) games\)",rep)
+m=re.search(r"where Agent wins ([\d.]+)% \((\d+) games\)",rep)
 if not m:bad.append('holdout sentence missing')
 else:check('holdout 1 Agent',(m.group(1),m.group(2)),(fmt(100*hw/len(H),1),str(hw)))
 REF=json.load(open(find('refs_v103.json')))

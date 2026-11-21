@@ -1,5 +1,17 @@
 # Results
 
+## v1.0.4 (print and test tools only; games identical to v1.0.3)
+
+| File | What |
+|---|---|
+| v104_fuzz.log, v104_fuzz_results.json, v104_fuzz_b.log | `fuzz_v1.py 12000 700000` and `fuzz_v1.py 12000 240000`: both bots on random positions, every state field compared |
+| v104_legality_games.log, v104_legality_fuzz.log, v104_legality_selftest.log (+ .json) | `legality_v1.py games 32`, `fuzz 12000`, `selftest`: Supply rolls and selections checked, Raids checked step by step, nine planted illegal actions |
+| v104_fixtures.log | `review_fixtures.py`: 16 fixed tests |
+| v104_lookdeep_check.log | wide lookahead (Agent, Mastermind) after the lookahead stopped swallowing exceptions: identical to v103_lookdeep.log |
+| sample_20005_adaptive.json | the sample game, now with icons, Japanese moves and positions after each Reset |
+
+All result tables are v1.0.3's below; `report_check.py` reads them.
+
 ## v1.0.3 (after the full audit of v1.0.2; Japan model corrected)
 
 | File | What |
@@ -14,7 +26,6 @@
 | v103_refs.log, refs_v103.json | v0.2 bot, its best variant and the search player on the first holdout |
 | v103_exploits.log, results_exploits_v103.json | strict stress policies, 256 games per policy |
 | v103_corner.log | alternative railway-corner adjacency |
-| sample_20005_adaptive.json | the sample game (regenerated for v1.0.3) |
 
 Everything below was produced with the earlier Japan model (before v1.0.3's corrections).
 

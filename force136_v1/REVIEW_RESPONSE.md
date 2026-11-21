@@ -117,3 +117,19 @@ A full audit by Claude (Fable 5.2), a different model from the one that wrote v1
 **Effect on the results.** With A1 to A3 fixed, the same 6,000 games per level give Recruit 38.8%, Agent 61.3%, Veteran 70.9%, Legend 78.8% and Mastermind 89.2%: 2 to 3 points below v1.0.2 (Agent −3.2, 95% interval −4.2 to −2.2). Every table in the simulation report was rerun, and the report was rewritten around the current version, with a short version history in place of the running corrections.
 
 **One design check.** Since Kempeitai now stay beside Force 136 markers, a Redeploy that moves every such marker (not only exposed ones) was tested on the corrected Japan: 60.5% against 60.0% on 768 development games. No gain, so the rule is unchanged.
+
+## GPT's audit of v1.0.3 (commit 595f409) and v1.0.4
+
+GPT's independent audit (`audits/v1.0.3/` on `main`) confirmed no new gameplay or scoring defect. It reproduced the checker, mutant, equivalence, fuzz and fixture results, validated all 537 Raids of the 240-game legality sample with its own step checker, and ran 6,272 fresh games. Its four findings are fixed in v1.0.4. The bot and the engine did not change, so the results are v1.0.3's, game for game.
+
+| # | GPT's finding | Resolution in v1.0.4 |
+|---|---|---|
+| P1 (print) | The turn flowchart still said "Never the Event box", contradicting the corrected Pass rule beside it. | The footer now reads "Never execute the Event." A fixture asserts the old sentence is gone. |
+| V1 (verification) | The legality checker accepted a Camp converted after a failed J8 roll, a Supply that skipped J27's Opposition removal, and a Pass in the Event box on J6 or J9. | Confirmed with GPT's three positions. The checker now logs Supply rolls and uses the spaces actually selected (under J8's Japanese side the rolled spaces), requires J27's removal whenever a selected space has Opposition, and rejects any use of the Event box on J6 or J9. The random-position tests no longer offer the Event box on those cards. All three cases are in the self-test, which now plants nine illegal actions. |
+| V2 (verification) | The fuzzer's "full public state" left out capabilities, pieces off the map, deck and eligibility fields and the end-of-game flags. | It now compares every field the harness sets plus the terminal flags, and reports differences from the same list. A capability-only difference is checked at the end of each run. |
+| D1 (print) | The level footnote said the lookahead Japan previews the bot's reply "before every move"; it does so only when Japan acts first on a card. | Reworded in the rules, README and playtest guide. |
+| U1 (optional) | Page numbers; duplex and cutting instructions. | The booklet's pages are numbered, and section 1 has a printing note. |
+| U2 (optional) | The sample game omitted Japan's Operations, capability changes and the positions after Propaganda. | The sample now lists each icon, each Japanese Operation and Special Activity, capability changes, Resources, and the position after each Reset. |
+| U3 (optional) | Keep real Raid-step witnesses instead of a bounded search; fail loudly on lookahead preview exceptions. | The legality check now records the position after each Raid destination and checks each step, so no Raid is left unconfirmed. The lookahead no longer swallows exceptions; rerunning the wide search (256 games) raised none and gave identical results. |
+
+GPT's fresh matched games put v1.0.3's Agent at 62.9% (59.5–66.2%) and the change from v1.0.2 at −1.0 points (−3.0 to +0.9) on 256 new seeds, against −3.2 on the 1,000 stored seeds. The current rates stand; the size of the drop is less certain than one sample suggests, and the simulation report now says so.

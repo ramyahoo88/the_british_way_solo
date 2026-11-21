@@ -38,8 +38,7 @@ class LookMixin:
                     p=self.clone();p.jp_apply(c);p.chosen=dict(self.chosen);p.chosen['J']=c['box']
                     bfree=[b for b in BOXES if b not in p.chosen.values() and not(self.event in [6,9] and b=='Event')]
                     p.dqueue=[rng.choice(F.DECK)]
-                    try:p.bot_turn(bfree)
-                    except Exception:pass
+                    p.bot_turn(bfree)          # a failing preview stops the run (it used to be skipped silently)
                     tot+=p.jp_value()
                 v=tot/self.SAMPLES+(1.0 if c['box']=='Limited' else .3 if c['box']=='Event' else 0)
                 if best is None or v>best[0]:best=(v,c)

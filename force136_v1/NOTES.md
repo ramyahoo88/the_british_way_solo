@@ -60,6 +60,7 @@ Brief (user, 22:00 CST, 20 Nov 2026): do for The British Way solo what was done 
 - 11:45 J25's Japanese side: the return Province is Japan's choice (rule 5.1). Bot rule deleted. British J12 and J15 given printed procedures. Pass note for J6/J9.
 - 11:50 Redeploying every marker next to Kempeitai, tested on the corrected Japan: 60.5 vs 60.0%. Not adopted.
 - 12:20 v1.0.3 reruns: levels 38.8 / 61.3 / 70.9 / 78.8 / 89.2% (−2 to −3 points on the same seeds), lookahead, stress, references, checker, fuzz and legality.
+- 14:00 GPT's audit of v1.0.3 (commit 595f409): no gameplay or scoring defect; four print and verification points. v1.0.4 fixes them: flowchart footer, lookahead footnote, legality check (Supply spaces and rolls, closed Event box, Raids checked step by step from observed positions), fuzzer compares every state field. Page numbers and a fuller sample game added. Bot and results unchanged.
 
 ## Decisions worth remembering
 

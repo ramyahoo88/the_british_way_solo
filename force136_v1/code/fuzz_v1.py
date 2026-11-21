@@ -10,7 +10,8 @@ empty pools and British capability sides) and makes both bots act from each one:
   - a Mobilize Population icon and a Kill Traitors icon,
   - a Japanese Extract and a Japanese Construct (for the British sides of J15 and J12).
 
-After each action the full public state of both bots must match. Any difference is a place where one
+After each action every state field of both bots must match: the board, Sabotage, capabilities, tracks,
+pools and pieces off the map, deck and eligibility fields, and the terminal flags. Any difference is a place where one
 implementation does not follow the printed rules (or the rules can be read two ways).
 
 usage: python3 fuzz_v1.py [positions] [first_seed]      (default 2000 positions from seed 700000)
@@ -97,19 +98,27 @@ def make(cls,seed,level,state):
     g.invariants()
     return g
 
+def canon(x):
+    if isinstance(x,dict):return tuple(sorted((k,canon(v)) for k,v in x.items()))
+    if isinstance(x,(set,frozenset)):return tuple(sorted(x))
+    if isinstance(x,(list,tuple)):return tuple(canon(v) for v in x)
+    return x
+COMPARE=STATE+('ended','winner')     # every field the harness sets, plus the terminal flags
 def public(g):
-    return (tuple((s,tuple(sorted(v.items()))) for s,v in sorted(g.board.items())),tuple(sorted(g.sabotage.items())),
-            g.resistance,g.resources,g.zipper,g.track_cache,g.lost_cache,g.away_f,tuple(sorted(g.removed_intel)),
-            tuple(sorted(g.chosen.items())))
+    return tuple((k,canon(getattr(g,k))) for k in COMPARE)
 
 def describe(a,b):
     out=[]
     for s in ORDER:
         d={k:(a.board[s][k],b.board[s][k]) for k in a.board[s] if a.board[s][k]!=b.board[s][k]}
         if d:out.append((s,d))
-    for k in ('sabotage','resistance','resources','zipper','away_f','chosen'):
-        if getattr(a,k)!=getattr(b,k):out.append((k,getattr(a,k),getattr(b,k)))
+    for k in COMPARE:
+        if k!='board' and canon(getattr(a,k))!=canon(getattr(b,k)):out.append((k,getattr(a,k),getattr(b,k)))
     return out
+
+def offer(state,free):
+    """The boxes actually on offer: on J6 and J9 the Event box is closed to both players (rule 5.4)."""
+    return [b for b in free if not (state['event'] in (6,9) and b=='Event')]
 
 def run(n,first_seed,stop_after=40):
     rnd_master=random.Random(first_seed)
@@ -130,7 +139,7 @@ def run(n,first_seed,stop_after=40):
             try:
                 if act[0]=='turn':
                     a.dqueue=[V.DECK[act[1]]];b.dqueue=[clean_base.CARDS[act[1]]]
-                    a.bot_turn(list(act[2]));b.bot_turn(list(act[2]))
+                    free=offer(state,act[2]);a.bot_turn(list(free));b.bot_turn(list(free))
                     pa=a.last_plan;pb=b.last_plan
                     plan_same=all(pa.get(k)==pb.get(k) for k in ('goal','box','op','sa'))
                 elif act[0]=='propaganda':
@@ -164,4 +173,8 @@ if __name__=='__main__':
     print(dict(counts))
     for k,v in kinds.most_common(30):print(v,k)
     json.dump(dict(counts=dict(counts),kinds=[(str(k),v) for k,v in kinds.most_common()],examples=found),open('fuzz_results.json','w'),indent=1,default=str)
+    # negative control (GPT audit of 595f409, V2): a difference in a capability alone must be seen
+    a=make(V.Force136,1,'agent',random_state(random.Random(1)));b=make(V.Force136,1,'agent',random_state(random.Random(1)))
+    assert public(a)==public(b);b.cap[22]='S' if a.cap.get(22)!='S' else b.cap.pop(22)
+    assert public(a)!=public(b),'capability-only difference not detected'
     sys.exit(1 if counts['differences'] or counts['exception'] else 0)

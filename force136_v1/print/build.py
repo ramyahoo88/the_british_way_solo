@@ -12,7 +12,7 @@ HERE=Path(__file__).resolve().parent
 OUT=(Path(sys.argv[1]) if len(sys.argv)>1 else HERE/'out').resolve()
 OUT.mkdir(parents=True,exist_ok=True)
 CARDS=json.loads((HERE/'cards.json').read_text())
-VERSION='1.0.3';DATE='21 November 2026'
+VERSION='1.0.4';DATE='21 November 2026'
 
 BASE_CSS="""
 @page{size:Letter;margin:0.6in 0.65in 0.65in 0.65in}
@@ -24,6 +24,7 @@ strong{color:#14170f}
 """
 
 RULES_CSS=BASE_CSS+"""
+@page{@bottom-center{content:"Force 136 rules · page " counter(page);font-family:'DejaVu Sans',sans-serif;font-size:7pt;color:#5d6152}}
 .cover{border-bottom:3px solid #2f3a22;padding-bottom:10pt;margin-bottom:12pt}
 .cover h1{font-size:30pt;letter-spacing:.5pt}
 .cover .sub{font-family:'Bitter',serif;font-size:13pt;color:#7a2618;margin-top:3pt}
@@ -102,7 +103,7 @@ def build_rules():
     cover=(f"<div class='cover'><h1>Force 136</h1><div class='sub'>A card-driven British opponent for "
            f"<em>The British Way: Japanese Occupation 1942–1945</em></div>"
            f"<div class='meta'>Unofficial fan variant · version {VERSION} · {DATE}</div></div>")
-    return page(RULES_CSS,cover+f"<div class='cols'>{body}</div>",'Force 136 v1.0.3 Rules')
+    return page(RULES_CSS,cover+f"<div class='cols'>{body}</div>",'Force 136 v1.0.4 Rules')
 
 def chip(g):return f"<span class='chip' style='background:{GOAL_COL[g]}'>{g}</span>"
 
@@ -188,6 +189,7 @@ def build_cards():
     return page(CARD_CSS+BACK_CSS,body,'Force 136 Directive cards')
 
 DOC_CSS=BASE_CSS+"""
+@page{@bottom-center{content:counter(page);font-family:'DejaVu Sans',sans-serif;font-size:7pt;color:#5d6152}}
 h1{font-size:20pt;margin-bottom:6pt;border-bottom:3px solid #2f3a22;padding-bottom:4pt}
 h2{font-size:13pt;margin:12pt 0 4pt;border-bottom:1px solid #b9b49a;padding-bottom:2pt;break-after:avoid}
 h3{font-size:11pt;margin:9pt 0 3pt;break-after:avoid}
@@ -230,8 +232,8 @@ def main():
     for p in (rules,ref,cards,sheet):
         for pg in PdfReader(str(p)).pages:w.add_page(pg)
     with open(OUT/'Force_136_v1_Print_and_Play.pdf','wb') as f:w.write(f)
-    chrome_pdf(build_doc('Force_136_v1_Sim_Report.md','Force 136 v1.0.3 simulation report'),OUT/'Force_136_v1_Sim_Report.pdf')
-    chrome_pdf(build_doc('Force_136_v1_Sample_Game.md','Force 136 v1.0.3 sample game',small=True),OUT/'Force_136_v1_Sample_Game.pdf')
+    chrome_pdf(build_doc('Force_136_v1_Sim_Report.md','Force 136 v1.0.4 simulation report'),OUT/'Force_136_v1_Sim_Report.pdf')
+    chrome_pdf(build_doc('Force_136_v1_Sample_Game.md','Force 136 v1.0.4 sample game',small=True),OUT/'Force_136_v1_Sample_Game.pdf')
     for h in OUT.glob('*.html'):h.unlink()
     for p in sorted(OUT.glob('*.pdf')):print(p.name,len(PdfReader(str(p)).pages),'pages')
 

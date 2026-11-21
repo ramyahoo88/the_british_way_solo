@@ -12,7 +12,7 @@ rule a British player follows."
 
 usage: python3 legality_v1.py games [seeds]        policy games, all five levels (default 16 seeds)
        python3 legality_v1.py fuzz  [positions]    random positions from fuzz_v1.random_state (default 2000)
-       python3 legality_v1.py selftest             six planted illegal actions; each must be caught
+       python3 legality_v1.py selftest             nine planted illegal actions; each must be caught
 Exit status 1 if any violation is found.
 """
 import sys,os,itertools,collections,random,json
@@ -201,23 +201,38 @@ def check_gather(a,b):
     only_changed(a,b,touched,'Gather')
     need(a['sab']==b['sab'] and a['R']==b['R'],'Gather changed Sabotage or Resistance')
 
-def check_supply(a,b):
-    A,B=a['board'],b['board']
+def check_supply(a,b,rolls=None):
+    """rolls: {space: [die results]} logged during the Supply (Japanese side of J8). Under that side every
+    selected space is rolled for, so the rolled spaces are the selected ones; otherwise the selected
+    spaces are the converted ones."""
+    A,B=a['board'],b['board'];rolls=rolls or {}
     conv=[s for s in ORDER if B[s]['cache'] and not A[s]['cache']]
+    j8s=a['cap'].get(8)=='S'
+    if j8s:
+        need(all(len(r)==1 for r in rolls.values()),'J8: a Supply space was rolled for more than once')
+        need(set(conv)<=set(rolls),'J8: a Camp was converted without its roll')
+        for s,r in rolls.items():
+            need((s in conv)==(r[0]>=3),f'J8: {s} rolled {r[0]} but was {"" if s in conv else "not "}converted')
+        selected=list(rolls)
+    else:
+        need(not rolls,'Supply rolled without the Japanese side of J8')
+        selected=list(conv)
     touched=set()
-    need(len(conv)<=(3 if a['zipper']>=12 else 2),'Supply in too many Provinces')
-    need(len(conv)<=a['avail']['cache'],'Supply placed more Caches than Available')
+    need(len(selected)<=(3 if a['zipper']>=12 else 2),'Supply selected too many Provinces')
+    need(len(selected)<=a['avail']['cache'],'Supply selected more Provinces than Caches Available')
     remote=0
-    for s in conv:
-        need(s in PROV and A[s]['camp'] and not B[s]['camp'],f'Supply in {s} did not replace a Jungle Camp')
+    for s in selected:
+        need(s in PROV and A[s]['camp'] and not A[s]['cache'],f'Supply selected {s}, which has no Jungle Camp to replace')
         if not A[s]['force136']:remote+=1
-        touched|={(s,'camp'),(s,'cache')}
+    for s in conv:
+        need(not B[s]['camp'],f'Supply in {s} did not replace the Jungle Camp');touched|={(s,'camp'),(s,'cache')}
     need(remote<=(1 if a['cap'].get(8)=='U' else 0),'Supply in a Province without Force 136')
     lostopp=[s for s in ORDER if A[s]['opposition'] and not B[s]['opposition']]
-    if lostopp:
-        need(a['cap'].get(27)=='S' and len(lostopp)==1,'Supply removed Opposition without the Japanese side of J27')
-        s=lostopp[0];need(s in PROV and A[s]['camp'] and not A[s]['cache'],'J27: Opposition removed outside a Supply space')
-        touched.add((s,'opposition'))
+    if a['cap'].get(27)=='S':                              # "Each Supply removes Opposition from 1 selected space (if possible)"
+        could=[s for s in selected if A[s]['opposition']]
+        need(len(lostopp)==(1 if could else 0) and set(lostopp)<=set(could),f'J27: Opposition removed in {lostopp}, selected spaces with Opposition {could}')
+        touched|={(s,'opposition') for s in lostopp}
+    else:need(not lostopp,'Supply removed Opposition without the Japanese side of J27')
     only_changed(a,b,touched,'Supply')
     need(a['sab']==b['sab'] and a['R']==b['R'],'Supply changed Sabotage or Resistance')
 
@@ -269,19 +284,26 @@ def raid_steps(state,limit,used,trace,target,log):
                     if raid_steps((nb2,s2,R2),limit,used|{d},trace+[(src,d,combo)],target,log):return True
     return False
 
-BUDGET=4000          # search nodes per Raid; beyond it the Raid is counted as undecided, not as a violation
+BUDGET=20000         # search nodes for one Raid step; not reached in practice
 class Undecided(Exception):pass
-def check_raid(a,b):
+def check_raid(a,b,steps=None):
+    """steps: the positions observed after each Raid destination was resolved (witnesses). Each step must be
+    one legal Raid step to a new destination, and the last must equal the final position."""
     need(a['level']!='recruit' or a['board']==b['board'],'Recruit must not Raid')
     limit=3 if a['zipper']==20 else 2
-    start=(deepcopy(a['board']),dict(a['sab']),a['R']);target=(b['board'],b['sab'],b['R'])
-    a['nodes']=0;a['strict']=True                      # fast pass: each source still differs from the result
-    try:ok=raid_steps(start,limit,frozenset(),[],target,a)
-    except Undecided:ok=False
-    if not ok:
-        a['nodes']=0;a['strict']=False                 # full pass (a guerrilla may be relayed through a Cache space)
-        ok=raid_steps(start,limit,frozenset(),[],target,a)
-    need(ok,'Raid result cannot be produced by legal Raid steps')
+    seq=[(deepcopy(a['board']),dict(a['sab']),a['R'])]
+    for st in (steps or []):
+        if st!=seq[-1]:seq.append(st)
+    final=(b['board'],b['sab'],b['R'])
+    if seq[-1]!=final:seq.append(final)
+    need(len(seq)-1<=limit,f'Raid used {len(seq)-1} destinations; the limit is {limit}')
+    dests=[]
+    for x,y in zip(seq,seq[1:]):
+        gained=[s for s in ORDER if gcount(y[0][s])>gcount(x[0][s])]
+        need(len(gained)==1,f'Raid step moved guerrillas into {gained}')
+        need(gained[0] not in dests,f'Raid selected {gained[0]} twice');dests.append(gained[0])
+        log=dict(rail_adj=a['rail_adj'],nodes=0,strict=False)
+        need(raid_steps((deepcopy(x[0]),dict(x[1]),x[2]),1,frozenset(),[],y,log),f'Raid step into {gained[0]} is not a legal Raid step')
 
 CHECK={'TRAIN':check_train,'CONTACT':check_contact,'SABOTAGE':check_sabotage,'GATHER':check_gather,'SUPPLY':check_supply,'RAID':check_raid}
 
@@ -324,6 +346,8 @@ class Checked(V.Force136):
         top=self._depth==0;self._depth+=1
         before=snap(self) if (top or name=='AMBUSH') else None
         if name=='AMBUSH':saved=self._rolls;self._rolls=collections.defaultdict(list)
+        if name=='SUPPLY' and top:self._srolls=collections.defaultdict(list)
+        if name=='RAID' and top:self._raid_steps=[]
         try:r=fn(*a,**k)
         finally:self._depth-=1
         try:
@@ -331,6 +355,8 @@ class Checked(V.Force136):
             if name=='AMBUSH':
                 locs=k.get('locations',a[0] if a else None)
                 check_ambush(before,after,dict(self._rolls),limit_spaces=locs,extra_ok=k.get('extra',True))
+            elif top and name=='SUPPLY':check_supply(before,after,dict(self._srolls));self._srolls=None
+            elif top and name=='RAID':check_raid(before,after,self._raid_steps);self._raid_steps=None
             elif top:CHECK[name](before,after)
             self.viol.n[name]+=1
         except Undecided:self.viol.n['RAID_UNDECIDED']+=1
@@ -342,7 +368,12 @@ class Checked(V.Force136):
     def die(self,tag,space=''):
         r=V.Force136.die(self,tag,space)
         if not self.preview and tag=='Ambush' and self._rolls is not None:self._rolls[space].append(r)
+        if not self.preview and tag=='Supply' and getattr(self,'_srolls',None) is not None:self._srolls[space].append(r)
         return r
+    def cleanup(self):
+        V.Force136.cleanup(self)                    # the bot's Raid calls cleanup() after each destination: record the position
+        if not self.preview and getattr(self,'_raid_steps',None) is not None:
+            self._raid_steps.append((deepcopy(self.board),dict(self.sabotage),self.resistance))
     def contact(self,*a,**k):return self._run('CONTACT',V.Force136.contact,self,*a,**k)
     def train(self,*a,**k):return self._run('TRAIN',V.Force136.train,self,*a,**k)
     def strike(self,*a,**k):
@@ -362,7 +393,7 @@ class Checked(V.Force136):
         p=self.last_plan
         try:
             need(p['box'] in free,'chose a box that was not free')
-            need(self.event not in (6,9) or p['box']!='Event' or p['op']=='PASS','used the Event box on a Mandatory Event card')
+            need(self.event not in (6,9) or p['box']!='Event','used the Event box on a Mandatory Event card (rule 5.4), even for a Pass')
             if p['op']=='PASS':
                 after=snap(self);need(before['board']==after['board'] and before['sab']==after['sab'] and before['R']==after['R'],'a Pass changed the position')
             else:
@@ -405,7 +436,7 @@ def fuzz(n,first=900000):
         for ci in rnd.sample(range(9),3):
             for free in (Z.FREE[rnd.randrange(len(Z.FREE))],Z.FREE[0]):
                 g=Z.make(Checked,seed,level,state);g.dqueue=[V.DECK[ci]]
-                g.bot_turn(list(free));g.invariants();tot.update(g.viol.n);items+=g.viol.items
+                g.bot_turn(Z.offer(state,free));g.invariants();tot.update(g.viol.n);items+=g.viol.items
         for j in (1,13):
             g=Z.make(Checked,seed,level,state);g.icon(j);tot.update(g.viol.n);items+=g.viol.items
         # British Propaganda steps, one at a time
@@ -465,7 +496,48 @@ def selftest():
             p=V.Force136.choose(self,free)
             if 'Event' in free and p['op']!='PASS':p=dict(p,box='Event')
             return p
+    class J8Converts(Checked):                 # Japanese J8: the Camp is converted although the roll failed
+        def supply(self):
+            def fn(g):
+                n=V.Force136.supply(g)
+                for sp in PROV:
+                    if g.board[sp]['camp'] and g.board[sp]['force136'] and not g.board[sp]['cache'] and g.available('cache'):
+                        g.board[sp]['camp']=False;g.board[sp]['cache']=True
+                return n
+            return self._run('SUPPLY',fn,self)
+    class J27Keeps(Checked):                   # Japanese J27: Supply happens but the Opposition stays
+        def supply(self):
+            def fn(g):
+                opp={sp:g.board[sp]['opposition'] for sp in ORDER};n=V.Force136.supply(g)
+                for sp in ORDER:g.board[sp]['opposition']=opp[sp]
+                return n
+            return self._run('SUPPLY',fn,self)
+    class Die1(object):                        # mix-in: every Supply roll is a 1
+        def die(self,tag,space=''):
+            if tag=='Supply' and not self.preview:
+                if getattr(self,'_srolls',None) is not None:self._srolls[space].append(1)
+                return 1
+            return super().die(tag,space)
+    def one_space(cls,cap,opposition):
+        g=cls(5954001);g.board=E.new_board();b=g.board
+        b['Kuala Lumpur'].update(troops=15,police=6,kempeitai=3)
+        b['Perak'].update(force136=1,camp=True,red_u=1,opposition=opposition)
+        g.cap.update(cap);g.invariants();g.supply();return g
     rows=[]
+    g=one_space(type('M',(Die1,J8Converts),{}),{8:'S'},False);ctl=one_space(type('K',(Die1,Checked),{}),{8:'S'},False)
+    ok=bool(g.viol.items) and not ctl.viol.items and not ctl.board['Perak']['cache']
+    rows.append(('Supply: Japanese J8, converted on a roll of 1',1,int(bool(g.viol.items)),'CAUGHT' if ok else 'MISSED'));print(*rows[-1],flush=True)
+    g=one_space(J27Keeps,{27:'S'},True);ctl=one_space(Checked,{27:'S'},True)
+    ok=bool(g.viol.items) and not ctl.viol.items and not ctl.board['Perak']['opposition']
+    rows.append(('Supply: Japanese J27, Opposition not removed',1,int(bool(g.viol.items)),'CAUGHT' if ok else 'MISSED'));print(*rows[-1],flush=True)
+    g=Checked(3374504);g.board=E.new_board();b=g.board                 # nothing qualifies: the bot Passes
+    b['Kuala Lumpur'].update(troops=15,police=6,kempeitai=3)
+    for sp in ('Kedah','Perak','Negri Sembilan'):b[sp].update(force136=1,red_u=1)
+    for sp in ORDER:
+        if POP[sp]:b[sp]['intel']=0
+    g.event=6;g.invariants();g.dqueue=[V.DECK[0]];g.bot_turn(['Event','Op & SA'])      # an invalid offer: Event is closed on J6
+    ok=g.last_plan['op']=='PASS' and g.last_plan['box']=='Event' and bool(g.viol.items)
+    rows.append(('Turn: Pass in the Event box on J6',1,int(bool(g.viol.items)),'CAUGHT' if ok else 'MISSED'));print(*rows[-1],flush=True)
     for name,cls in (('Train: MPAJA without Camp or Cache',RedNoCamp),('Ambush: success on a failing roll',AlwaysHit),
                      ('Gather: three spaces without J19',Gather3),('Supply: Province without Force 136',SupplyAnywhere),
                      ('Raid: three destinations below Zipper 20',RaidThree),('Turn: acting in the Event box',EventBoxAct)):

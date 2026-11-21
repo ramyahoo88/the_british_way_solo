@@ -1,4 +1,4 @@
-"""GPT review fixtures (reviews of commits 615c870 and 33745a6), rewritten as tests of the revised code.
+"""Fixed-position tests from the reviews of commits 615c870, 33745a6, 338cb0d and 595f409, as tests of the revised code.
 
 Each fixture reproduces a setup from GPT's evidence package (probe_findings.py, regression_checks.py)
 and asserts the behaviour v1.0 (revised) must now have. Run from this folder: python3 review_fixtures.py
@@ -203,4 +203,11 @@ for cls in (F.Force136,C.CleanForce136):
     assert b['Perak']['opposition'] and not b['Kelantan']['opposition'],cls            # highest Population first, even with Terror
     assert b['Johore']['opposition'] and not b['Negri Sembilan']['opposition'],cls     # equal Population: the one without Terror
 passed('A4 British J15: red on a tie and in an empty New Village; British J12: highest Population, then no Terror')
+
+# ---------------------------------------------------------------- GPT audit of commit 595f409
+# P1: the flowchart must not forbid an Event-box Pass; D1: the level footnote must not say "before every move".
+svg=(PR/'turn_flow.svg').read_text()
+assert 'Never the Event box' not in svg and 'Never execute the Event.' in svg
+assert 'before every move' not in rules and 'whenever it acts first on a card' in rules
+passed('P1/D1 print: flowchart says "Never execute the Event."; the lookahead footnote says when it previews')
 print(len(ok),'fixtures passed')

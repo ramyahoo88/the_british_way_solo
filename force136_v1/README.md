@@ -1,4 +1,4 @@
-# Force 136 v1.0.3 — card-driven British bot for Japanese Occupation
+# Force 136 v1.0.4 — card-driven British bot for Japanese Occupation
 
 A new solo opponent for *The British Way: Enemy of My Enemy*, Japanese Occupation scenario. You play Japan; Force 136 plays the British; the MPAJA stays the game's independent actor. It replaces the v0.2 draft on `main` rather than revising it.
 
@@ -10,7 +10,7 @@ A new solo opponent for *The British Way: Enemy of My Enemy*, Japanese Occupatio
 
 | File | Contents |
 |---|---|
-| [Print-and-play PDF](print/Force_136_v1_Print_and_Play.pdf) | Rules (6 pages), two-sided reference sheet, nine Directive cards (1 sheet), optional card backs, record sheet |
+| [Print-and-play PDF](print/Force_136_v1_Print_and_Play.pdf) | Rules (6 numbered pages), two-sided reference sheet, nine Directive cards (1 sheet), optional card backs, record sheet |
 | [Rules PDF](print/Force_136_v1_Rules.pdf) · [Markdown](print/Force_136_v1_Rules.md) | Full rules with a worked opening |
 | [Reference sheet](print/Force_136_v1_Reference.pdf) | Front: turn, goals, orders, levels, scoring. Back: procedures and between-turn choices |
 | [Directive cards](print/Force_136_v1_Cards.pdf) | Nine poker-size cards; print at 100% and cut on the dashed lines. Page 2 holds the backs; all nine are identical, so duplex alignment does not matter |
@@ -20,7 +20,7 @@ A new solo opponent for *The British Way: Enemy of My Enemy*, Japanese Occupatio
 
 ## Levels and results
 
-v1.0.3, 6,000 simulated games per level on seeds never used for tuning, against six computer Japan policies:
+v1.0.4 (the same games as v1.0.3), 6,000 simulated games per level on seeds never used for tuning, against six computer Japan policies:
 
 | Level | Change | Force 136 wins |
 |---|---|---:|
@@ -30,7 +30,9 @@ v1.0.3, 6,000 simulated games per level on seeds never used for tuning, against 
 | Legend | starts at 4; +1 Resistance after each nonfinal Propaganda | 79% |
 | Mastermind | starts at 6; +2 Resistance after each nonfinal Propaganda | 89% |
 
-On the first holdout (seeds 20000–20127), Agent won 61%. On the same games, v0.2 won 0% and its best experimental variant 1%. A one-step search player won 57%; it compares a fixed menu of plans and scores each with a hand-written evaluation. Japan policies that preview the bot's reply before moving are much harder. The widest one holds Agent to about 15%, Legend to 30% and Mastermind to 54% (128 games each). Mastermind is for players who learn to exploit the bot. These are model results, not tabletop win rates. The bot has not yet been playtested at the table.
+On the first holdout (seeds 20000–20127), Agent won 61%. On the same games, v0.2 won 0% and its best experimental variant 1%. A one-step search player won 57%; it compares a fixed menu of plans and scores each with a hand-written evaluation. Japan policies that preview the bot's reply, whenever Japan acts first on a card, are much harder. The widest one holds Agent to about 15%, Legend to 30% and Mastermind to 54% (128 games each). Mastermind is for players who learn to exploit the bot. These are model results, not tabletop win rates. The bot has not yet been playtested at the table.
+
+**v1.0.4** (21 November) fixes the four findings of GPT's audit of v1.0.3 (commit 595f409), which found no gameplay or scoring defect. The turn flowchart now says "Never execute the Event" (a Pass may sit in the Event box). The level footnote says the lookahead Japan previews the bot's reply when it acts first on a card, not before every move. The legality check now uses the Supply spaces and rolls and checks Raids step by step, and the random-position test compares every state field. The booklet has page numbers and the sample game lists Japan's moves and the icons. The bot and all results are unchanged.
 
 **v1.0.3** (21 November) follows a full audit of v1.0.2 ([report](../audits/v1.0.2/Force_136_v1.0.2_Audit_338cb0d.md)). The bot's play was legal and both implementations agreed on 12,000 random positions. The main finding was in the simulation: the computer Japan removed Active guerrillas before Underground ones, and at Redeploy it pulled its Kempeitai away from Force 136 markers. Both helped Britain. With Japan corrected, the win rates are about 3 points lower than v1.0.2 printed (41 / 64 / 74 / 82 / 91%). Rules changes are small: after J25, Japan chooses where the marker returns (rule 5.1); the British sides of J12 and J15 get printed procedures; a Pass cannot use the Event box on J6 or J9.
 
@@ -52,7 +54,7 @@ See [REVIEW_RESPONSE.md](REVIEW_RESPONSE.md) for every review finding and its fi
 - `verify_v1.py` — the checker on whole games: compares both bots' full public state after every turn and Propaganda and their final results, recomputes every Propaganda score from the rulebook, and runs forced-capability games; `--mutants` shows it catches 15 planted errors.
 - `fuzz_v1.py` — both bots on random legal positions (stacked markers, empty pools, British capability sides), where whole games rarely go.
 - `legality_v1.py` — an independent check, written from GMT's player aid, that every bot action is one a British player could legally make.
-- `review_fixtures.py` — 15 fixed-position tests: 12 reproductions from GPT's reviews and 3 from the v1.0.2 audit; `report_check.py` checks every printed win rate, interval and stress-table count against the stored results; `check_exit_status.py` checks that the checker fails loudly.
+- `review_fixtures.py` — 16 fixed tests from the five reviews; `report_check.py` checks every printed win rate, interval and stress-table count against the stored results; `check_exit_status.py` checks that the checker fails loudly.
 - `force136.py` — the tuning lab; `equiv.py` checks it plays move-for-move like `force136_v1.py`.
 - `sample_game.py` + `sample_md.py` — regenerate the narrated sample game.
 - `results/` — fresh-seed and holdout results, checker output, Event tests, order sweeps, the sample game.

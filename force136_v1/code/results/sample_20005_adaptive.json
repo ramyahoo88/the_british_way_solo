@@ -16,6 +16,14 @@
   {
    "draw": 1,
    "event": 22,
+   "icon": "Kill Traitors",
+   "changes": [
+    "Perak: police 1->0"
+   ]
+  },
+  {
+   "draw": 1,
+   "event": 22,
    "campaign": 1,
    "free": [
     "Limited",
@@ -51,7 +59,26 @@
     2
    ],
    "changes": [],
-   "res": 0
+   "res": [
+    0,
+    0
+   ],
+   "plan": {
+    "op": "EVENT",
+    "sa": null,
+    "timing": null
+   },
+   "cap": [
+    22
+   ]
+  },
+  {
+   "draw": 2,
+   "event": 19,
+   "icon": "Food Shortage",
+   "changes": [
+    "Pahang: red_a 1->0"
+   ]
   },
   {
    "draw": 2,
@@ -67,7 +94,16 @@
     "Perak: troops 3->1, red_u 1->0, red_a 1->2, intel 2->None",
     "Johore: red_u 1->0, red_a 1->2, intel 2->None"
    ],
-   "res": 0
+   "res": [
+    0,
+    0
+   ],
+   "plan": {
+    "op": "SWEEP",
+    "sa": "ELIMINATE",
+    "timing": "after"
+   },
+   "cap": []
   },
   {
    "draw": 2,
@@ -92,6 +128,14 @@
     "Negri Sembilan: red_u 0->1"
    ],
    "sab": []
+  },
+  {
+   "draw": 3,
+   "event": 5,
+   "icon": "Food Shortage",
+   "changes": [
+    "Negri Sembilan: red_u 1->0"
+   ]
   },
   {
    "draw": 3,
@@ -137,7 +181,22 @@
     "Kuala Lumpur: kempeitai 2->1",
     "Johore: kempeitai 1->0"
    ],
-   "res": 0
+   "res": [
+    0,
+    0
+   ],
+   "plan": {
+    "op": "DEPLOY",
+    "sa": null,
+    "timing": "after"
+   },
+   "cap": []
+  },
+  {
+   "draw": 4,
+   "event": 16,
+   "icon": "Seize Supplies",
+   "changes": []
   },
   {
    "draw": 4,
@@ -155,7 +214,16 @@
     "Northern EC: troops 3->2",
     "Southern EC: troops 3->1"
    ],
-   "res": 0
+   "res": [
+    0,
+    0
+   ],
+   "plan": {
+    "op": "SWEEP",
+    "sa": "ELIMINATE",
+    "timing": "after"
+   },
+   "cap": []
   },
   {
    "draw": 4,
@@ -180,6 +248,14 @@
    ],
    "sab": [
     "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 5,
+   "event": 4,
+   "icon": "Mobilize Population",
+   "changes": [
+    "Kedah: opposition False->True"
    ]
   },
   {
@@ -225,7 +301,16 @@
     "Negri Sembilan: police 0->1, kempeitai 0->1",
     "Northern EC: kempeitai 0->1"
    ],
-   "res": 0
+   "res": [
+    0,
+    0
+   ],
+   "plan": {
+    "op": "DEPLOY",
+    "sa": null,
+    "timing": "after"
+   },
+   "cap": []
   },
   {
    "draw": 6,
@@ -235,6 +320,7 @@
     2,
     10
    ],
+   "zipper": 6,
    "terms": {
     "intel": 3,
     "caches": 3,
@@ -243,7 +329,30 @@
     "neutral_penalty": 1,
     "police_penalty": 1,
     "net_change": 8
-   }
+   },
+   "after": [
+    "Kedah: 2T, red 2u/0a, blue 2u/0a, F136, Camp, Opp",
+    "Perak: 1T, red 2u/0a, Cache",
+    "Kelantan: blue 1u/0a, F136, Cache",
+    "Pahang: red 1u/0a, F136, Cache",
+    "Selangor: red 1u/0a",
+    "Kuala Lumpur: 4T, 1P, red 1u/0a, Opp",
+    "Negri Sembilan: 2T, 1P, 1K, Cache",
+    "Johore: 3T, red 3u/0a, Opp",
+    "Northern EC: 2T, 1P, 1K",
+    "Southern EC: 1T, 1P, 1K"
+   ],
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 7,
+   "event": 13,
+   "icon": "Kill Traitors",
+   "changes": [
+    "Kuala Lumpur: police 1->0"
+   ]
   },
   {
    "draw": 7,
@@ -290,7 +399,22 @@
     "Perak: police 0->1",
     "Southern EC: kempeitai 1->0"
    ],
-   "res": 0
+   "res": [
+    0,
+    0
+   ],
+   "plan": {
+    "op": "DEPLOY",
+    "sa": null,
+    "timing": "after"
+   },
+   "cap": []
+  },
+  {
+   "draw": 8,
+   "event": 10,
+   "icon": "Mobilize Population",
+   "changes": []
   },
   {
    "draw": 8,
@@ -310,7 +434,16 @@
     "Northern EC: troops 2->0",
     "Southern EC: troops 1->0"
    ],
-   "res": 0
+   "res": [
+    0,
+    0
+   ],
+   "plan": {
+    "op": "SWEEP",
+    "sa": "ELIMINATE",
+    "timing": "after"
+   },
+   "cap": []
   },
   {
    "draw": 8,
@@ -335,6 +468,14 @@
    ],
    "sab": [
     "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 9,
+   "event": 27,
+   "icon": "Food Shortage",
+   "changes": [
+    "Kedah: red_a 2->1"
    ]
   },
   {
@@ -378,7 +519,24 @@
     "Kuala Lumpur: kempeitai 1->0",
     "Northern EC: kempeitai 1->0"
    ],
-   "res": 0
+   "res": [
+    0,
+    0
+   ],
+   "plan": {
+    "op": "DEPLOY",
+    "sa": null,
+    "timing": "after"
+   },
+   "cap": []
+  },
+  {
+   "draw": 10,
+   "event": 29,
+   "icon": "Kill Traitors",
+   "changes": [
+    "Perak: police 1->0"
+   ]
   },
   {
    "draw": 10,
@@ -395,7 +553,16 @@
     "Kuala Lumpur: intel 2->None",
     "Negri Sembilan: kempeitai 1->0"
    ],
-   "res": 0
+   "res": [
+    0,
+    0
+   ],
+   "plan": {
+    "op": "EVENT",
+    "sa": null,
+    "timing": null
+   },
+   "cap": []
   },
   {
    "draw": 10,
@@ -427,6 +594,14 @@
   {
    "draw": 11,
    "event": 25,
+   "icon": "Seize Supplies",
+   "changes": [
+    "Pahang: camp False->True, cache True->False"
+   ]
+  },
+  {
+   "draw": 11,
+   "event": 25,
    "who": "Japan",
    "box": "Op & SA",
    "R": [
@@ -438,7 +613,16 @@
     "Pahang: red_a 1->0, force136 1->0",
     "Negri Sembilan: cache True->False"
    ],
-   "res": 0
+   "res": [
+    0,
+    0
+   ],
+   "plan": {
+    "op": "ASSAULT",
+    "sa": "ELIMINATE",
+    "timing": "after"
+   },
+   "cap": []
   },
   {
    "draw": 11,
@@ -462,6 +646,14 @@
    ],
    "sab": [
     "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 12,
+   "event": 31,
+   "icon": "Mobilize Population",
+   "changes": [
+    "Pahang: opposition False->True"
    ]
   },
   {
@@ -500,7 +692,16 @@
     11
    ],
    "changes": [],
-   "res": 6
+   "res": [
+    0,
+    6
+   ],
+   "plan": {
+    "op": "EVENT",
+    "sa": null,
+    "timing": null
+   },
+   "cap": []
   },
   {
    "draw": 13,
@@ -510,6 +711,7 @@
     11,
     17
    ],
+   "zipper": 12,
    "terms": {
     "intel": 1,
     "caches": 4,
@@ -518,7 +720,44 @@
     "neutral_penalty": 1,
     "police_penalty": 1,
     "net_change": 6
-   }
+   },
+   "after": [
+    "Kedah: 1K, red 1u/0a, blue 2u/0a, F136, Camp, Opp",
+    "Perak: 1T, red 1u/0a, Cache",
+    "Kelantan: 2T, 2P, 1K, Cache",
+    "Trengganu: F136, Cache",
+    "Pahang: 2T, red 4u/0a, blue 1u/0a, Camp, Opp",
+    "Selangor: red 1u/0a, F136, Cache",
+    "Kuala Lumpur: 5T, 1P, 1K, Opp",
+    "Negri Sembilan: 2T, 1P",
+    "Johore: 3T, red 3u/0a, Opp"
+   ],
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 14,
+   "event": 6,
+   "icon": "Food Shortage",
+   "changes": [
+    "Kedah: red_u 1->0"
+   ]
+  },
+  {
+   "draw": 14,
+   "event": 6,
+   "mandatory": true,
+   "R": [
+    17,
+    17
+   ],
+   "changes": [
+    "Trengganu: cache True->False",
+    "Kuala Lumpur: troops 5->6",
+    "Negri Sembilan: troops 2->1"
+   ],
+   "ends": false
   },
   {
    "draw": 14,
@@ -562,7 +801,24 @@
     "Kuala Lumpur: kempeitai 2->1",
     "Negri Sembilan: kempeitai 0->1"
    ],
-   "res": 0
+   "res": [
+    0,
+    0
+   ],
+   "plan": {
+    "op": "DEPLOY",
+    "sa": null,
+    "timing": "after"
+   },
+   "cap": []
+  },
+  {
+   "draw": 15,
+   "event": 28,
+   "icon": "Food Shortage",
+   "changes": [
+    "Pahang: red_u 3->2"
+   ]
   },
   {
    "draw": 15,
@@ -576,7 +832,16 @@
    "changes": [
     "Kelantan: police 2->3"
    ],
-   "res": 7
+   "res": [
+    0,
+    7
+   ],
+   "plan": {
+    "op": "DEPLOY",
+    "sa": "EXTRACT",
+    "timing": "after"
+   },
+   "cap": []
   },
   {
    "draw": 15,
@@ -607,12 +872,32 @@
   },
   {
    "draw": 16,
+   "event": 9,
+   "icon": "Seize Supplies",
+   "changes": [
+    "Selangor: camp False->True, cache True->False"
+   ]
+  },
+  {
+   "draw": 16,
+   "event": 9,
+   "mandatory": true,
+   "R": [
+    18,
+    20
+   ],
+   "changes": [],
+   "ends": true
+  },
+  {
+   "draw": 16,
    "prop": true,
    "final": true,
    "R": [
     18,
     20
    ],
+   "zipper": 20,
    "terms": {
     "intel": 3,
     "caches": 2,
@@ -621,7 +906,11 @@
     "neutral_penalty": 1,
     "police_penalty": 1,
     "net_change": 6
-   }
+   },
+   "after": null,
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
   }
  ],
  "winner": "Force 136",

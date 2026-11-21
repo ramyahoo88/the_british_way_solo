@@ -1,8 +1,9 @@
-"""Narrated sample game: Force 136 v1.0 (Agent) vs the 'adaptive' Japan policy."""
+"""Narrated sample game: Force 136 (Agent) vs one Japan policy. Records every bot turn, Japanese move, icon,
+Mandatory Event and Propaganda, with the position after each nonfinal Propaganda."""
 import sys,json
 from copy import deepcopy
 import force136_v1 as F
-from engine import ORDER,gs,cubes,POP
+from engine import ORDER,gs,cubes,POP,MOBILIZE,KILL,SEIZE
 def brief(b):
     out=[]
     for s in ORDER:
@@ -33,13 +34,29 @@ class Narr(F.Force136):
         p=self.last_plan;d=self.directive
         self.narr.append(dict(draw=self.draw,event=self.event,campaign=self.campaign,free=free,card=f"{d['id']} {d['name']}: {' > '.join(d['goals'])}; Limited {d['limited_first']} first",
             goal=p['goal'],box=p['box'],op=p['op'],sa=p.get('sa'),R=(R,self.resistance),changes=diff(before,self.board),sab=[r for r,n in self.sabotage.items() if n]))
+    def jp_apply(self,plan):
+        if not self.preview:self.jp_plan=dict(op=plan['op'],sa=plan.get('sa'),timing=plan.get('timing'))
+        return F.Force136.jp_apply(self,plan)
     def japan_turn(self,free):
-        before=deepcopy(self.board);R=self.resistance
+        before=deepcopy(self.board);R=self.resistance;res=self.resources;caps=dict(self.cap)
         F.Force136.japan_turn(self,free)
-        self.narr.append(dict(draw=self.draw,event=self.event,who='Japan',box=self.chosen.get('J'),R=(R,self.resistance),changes=diff(before,self.board),res=self.resources))
+        self.narr.append(dict(draw=self.draw,event=self.event,who='Japan',box=self.chosen.get('J'),R=(R,self.resistance),changes=diff(before,self.board),
+                              res=(res,self.resources),plan=self.jp_plan,cap=[k for k in self.cap if k not in caps]))
+    def icon(self,j):
+        if self.preview:return F.Force136.icon(self,j)
+        before=deepcopy(self.board);F.Force136.icon(self,j)
+        name='Mobilize Population' if j in MOBILIZE else 'Kill Traitors' if j in KILL else 'Seize Supplies' if j in SEIZE else 'Food Shortage'
+        self.narr.append(dict(draw=self.draw,event=j,icon=name,changes=diff(before,self.board)))
+    def mandatory(self,j):
+        if self.preview or j not in (6,9):return F.Force136.mandatory(self,j)
+        before=deepcopy(self.board);R=self.resistance;n=len(self.narr)
+        F.Force136.mandatory(self,j)
+        self.narr.insert(n,dict(draw=self.draw,event=j,mandatory=True,R=(R,self.resistance),changes=[] if (j==9 and self.ended) else diff(before,self.board),ends=bool(j==9 and self.ended)))
     def propaganda(self,final=False):
         R=self.resistance;r=F.Force136.propaganda(self,final)
-        self.narr.append(dict(draw=self.draw,prop=True,final=final,R=(R,self.resistance),terms={k:r[k] for k in('intel','caches','majorities','resource_penalty','neutral_penalty','police_penalty','net_change')}))
+        self.narr.append(dict(draw=self.draw,prop=True,final=final,R=(R,self.resistance),zipper=self.zipper,
+                              terms={k:r[k] for k in('intel','caches','majorities','resource_penalty','neutral_penalty','police_penalty','net_change')},
+                              after=None if final else brief(self.board),sab=[x for x,n in self.sabotage.items() if n]))
         return r
 seed=int(sys.argv[1]);pol=sys.argv[2]
 g=Narr(seed);g.policy=pol;g.narr=[];g.quiet=True

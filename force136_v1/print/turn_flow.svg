@@ -38,5 +38,5 @@
   <text class="s" x="176" y="256">nothing qualifies</text>
   <rect class="box" x="96" y="263" width="148" height="22" rx="4"/>
   <text class="t" x="170" y="278" text-anchor="middle">Pass in the leftmost free box</text>
-  <text class="s" x="10" y="296">Never the Event box. Discard the Directive after the turn.</text>
+  <text class="s" x="10" y="296">Never execute the Event. Discard the Directive after the turn.</text>
 </svg>

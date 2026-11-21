@@ -1,0 +1,17 @@
+PASS J22 British: Gather reveals 6, all 8 guerrillas stay Underground, boards equal
+PASS J27 British: Ambush adds Pahang, removes its Police, boards equal
+PASS J27 British: Sabotage extra space is Kedah (map order); railways ['Thailand-Kedah *', 'Perak-Pahang-Selangor', 'Negri Sembilan-Pahang']
+PASS J27 British: extra space alone does not qualify AMBUSH (both implementations)
+PASS J8 British: two F136 Provinces fill the limit; the Province without F136 is not added
+PASS Exhausted pools (v1.0.1): every Directive Trains by re-placing Active guerrillas; Directive 4 then Supplies 2 Caches
+PASS Comparator: rejects a Resistance difference and an extra trace entry
+PASS GPT +1 final-scoring mutant: 9 of 9 changed games caught by both checks; 16 unchanged pairs agree
+PASS F1 Redeploy: stacked exposed markers all move (Kedah, Kelantan, Trengganu); single-marker and no-destination controls agree
+PASS F2 J27: Negri Sembilan loses Opposition (not Neutral Trengganu); both/none controls; reference text has "with Opposition"
+PASS F3 stress policies: fixtures choose Event and Limited; over 8 games {'eventhog': 61, 'tempo': 64} offers, 0 violations
+PASS F5 Pass: Event-box Pass is legal and the rules, reference and cards no longer forbid it
+PASS A1 Food Shortage: Japan removes the Underground guerrilla, not the Active one (both bots)
+PASS A2/A3 Reset: the Kempeitai stays with Force 136 in Perak; the J25 marker returns beside it (Japan's choice)
+PASS A4 British J15: red on a tie and in an empty New Village; British J12: highest Population, then no Terror
+PASS P1/D1 print: flowchart says "Never execute the Event."; the lookahead footnote says when it previews
+16 fixtures passed

@@ -1,10 +1,10 @@
-# Force 136 v1.0.3 — simulation report
+# Force 136 v1.0.4 — simulation report
 
 21 November 2026 · Human Japan vs the Force 136 bot · standard standalone Japanese Occupation
 
 ## Summary
 
-Force 136 is a card-driven British bot for the Japanese Occupation scenario. On 6,000 simulated games per level (seeds 0–999, never used for tuning), against six computer Japan policies, v1.0.3 wins:
+Force 136 is a card-driven British bot for the Japanese Occupation scenario. On 6,000 simulated games per level (seeds 0–999, never used for tuning), against six computer Japan policies, Force 136 wins:
 
 | Level | Change | Force 136 wins | 95% interval | Mean final Resistance | MPAJA wins |
 |---|---|---:|---:|---:|---:|
@@ -16,16 +16,18 @@ Force 136 is a card-driven British bot for the Japanese Occupation scenario. On 
 
 The rules print the rounded figures 39%, 61%, 71%, 79% and 89%. Intervals: whole-seed bootstrap, 10,000 resamples, `random.Random(33745)` for each level (`report_check.py` recomputes them).
 
-These are computer-model results, not tabletop win rates. A strong human Japan player is expected to beat the computer policies more often. A computer Japan that previews the bot's reply before moving holds Agent to about 15% and Mastermind to 54% (below). No physical playtest has been run.
+These are computer-model results, not tabletop win rates. A strong human Japan player is expected to beat the computer policies more often. A computer Japan that previews the bot's reply, whenever it acts first on a card, holds Agent to about 15% and Mastermind to 54% (below). No physical playtest has been run.
+
+**What changed in v1.0.4.** Print and test tools only: the turn flowchart's footer, one footnote about the lookahead opponent, page numbers, a fuller sample game, and stronger checks (below). The bot and the engine are unchanged, so every result here is v1.0.3's, game for game.
 
 **What changed in v1.0.3.** A full audit of v1.0.2 (`audits/v1.0.2/` in the repository) found no illegal bot play and no difference between the two bot implementations on 12,000 random positions. Its main finding was in the model, not the bot: the computer Japan made two choices that a real Japan player would not, and both helped Britain.
 
 - When Japan removed a guerrilla (Food Shortage icon, J11, J18), it took an Active one first. An Underground guerrilla is the better one to remove: only those can Ambush, Sabotage or Gather.
 - At Japanese Redeploy it moved every Kempeitai to a space with more Troops than guerrillas, even one that was already sitting with a Force 136 marker. The move is optional (rule 6.5.2), and a Kempeitai next to a marker is where Japan wants it.
 
-Japan now removes Underground guerrillas first and leaves one Kempeitai with each Force 136 marker it already shares a space with. A third fix follows rule 5.1: after the Japanese side of J25, Japan chooses the Province the marker returns to, not Britain. On the same 6,000 games per level, these lower the win rates by 2 to 3 points: Recruit −2.5, Agent −3.2 (95% interval −4.2 to −2.2), Veteran −3.2, Legend −2.8, Mastermind −2.1. v1.0.2 printed 41%, 64%, 74%, 82% and 91%. The bot's own procedures did not change, apart from that J25 choice and two new lines for British capability sides that never arise in these games.
+Japan now removes Underground guerrillas first and leaves one Kempeitai with each Force 136 marker it already shares a space with. A third fix follows rule 5.1: after the Japanese side of J25, Japan chooses the Province the marker returns to, not Britain. On the same 6,000 games per level, these lower the win rates by 2 to 3 points: Recruit −2.5, Agent −3.2 (95% interval −4.2 to −2.2), Veteran −3.2, Legend −2.8, Mastermind −2.1. v1.0.2 printed 41%, 64%, 74%, 82% and 91%. GPT's audit reran both versions on 256 other seeds and found a smaller change at Agent, −1.0 points (−3.0 to +0.9), with Agent at 62.9%. The size of the drop is therefore less certain than the stored sample alone suggests; the current rates are consistent with both. The bot's own procedures did not change, apart from that J25 choice and two new lines for British capability sides that never arise in these games.
 
-On the first holdout (seeds 20000–20127, 768 games), where v1.0.3's Agent wins 61.3% (471 games):
+On the first holdout (seeds 20000–20127, 768 games), where Agent wins 61.3% (471 games):
 
 - GPT's v0.2 paper bot, run in the same executor, won 0.0% (mean Resistance 1.2).
 - v0.2's best experimental variant ("primary + recovery/guard") won 0.9% (mean Resistance 5.1).
@@ -44,7 +46,7 @@ On the first holdout (seeds 20000–20127, 768 games), where v1.0.3's Agent wins
 - **Information.** Policies see only public information. Concealed Intel values stay hidden from both sides' decisions. Dice and Intel draws are keyed to the seed, so matched games share Event deals.
 - **Protocol.** Rules were tuned only on development seeds (6000–7300 and 10000–10327). Level results use seeds 0–999 (first used for v1.0.1, after tuning ended); the lookahead and reference runs use the holdout seeds 20000–20127 (128 seeds, so differences under about 10 points are noise). Games on the same seed share Event deals across policies, levels and versions.
 
-## Results by Japan policy (v1.0.3, seeds 0–999)
+## Results by Japan policy (seeds 0–999)
 
 | Japan policy | Recruit | Agent | Veteran | Legend | Mastermind | Search player (holdout 1) |
 |---|---:|---:|---:|---:|---:|---:|
@@ -55,7 +57,7 @@ On the first holdout (seeds 20000–20127, 768 games), where v1.0.3's Agent wins
 | counter | 23% | 38% | 48% | 61% | 79% | 37% |
 | mixed | 34% | 50% | 61% | 71% | 84% | 44% |
 
-**Lookahead Japan** (v1.0.3; 128 holdout seeds per cell):
+**Lookahead Japan** (128 holdout seeds per cell):
 
 | Opponent | Recruit | Agent | Veteran | Legend | Mastermind |
 |---|---:|---:|---:|---:|---:|
@@ -74,7 +76,7 @@ The same lookahead was run against the one-step search player, which has no fixe
 
 The search player loses almost as badly, so most of the wide search's edge looks like strong Japanese play. The 8-point gap against the wide search is an observed difference between two different British players on 128 games, not a measured cost of predictability.
 
-**Scripted stress policies** (Agent v1.0.3, seeds 20000–20255: 256 games per policy, 1,024 in all). Each takes the best plan, by the adaptive values, that keeps its rule; only when no plan does may it play anything else.
+**Scripted stress policies** (Agent, seeds 20000–20255: 256 games per policy, 1,024 in all). Each takes the best plan, by the adaptive values, that keeps its rule; only when no plan does may it play anything else.
 
 | Japan always… | Force 136 wins |
 |---|---:|
@@ -166,11 +168,11 @@ So Force 136 never takes Events. That also removes the bot's longest lookup. (Th
 
     For v1.0.3, 2,496 games (960 normal ones across the five levels, plus 1,536 forced-capability games) gave 0 cross-check failures and 0 oracle failures.
 - **Mutation tests.** `verify_v1.py --mutants` plants 15 deliberate errors in the bots and the engine's scoring and Zipper code; all 15 are caught. Both modes exit with status 1 on a failure (`check_exit_status.py`).
-- **Random positions** (`fuzz_v1.py`, new in v1.0.3). The checker above only sees positions that the computer Japan policies reach; that is how v1.0.1's stacked-marker Redeploy error went unseen. The fuzzer builds random legal positions directly: any mix of pieces, markers, tracks and capability sides, including stacked markers and empty pools. From each it makes both bots take a Force 136 turn (three Directive cards, two sets of free boxes), run a nonfinal Propaganda, resolve both British icons, and receive a Japanese Extract and Construct (for British J15 and J12). For v1.0.3: 12,000 positions and 132,000 actions, with 0 differences. Run against v1.0.1's bot, the same fuzzer finds the Redeploy error in 57 of 1,500 positions.
-- **Legality** (`legality_v1.py`, new in v1.0.3). An independent check, written from GMT's player aid and rulebook rather than from the bot's procedures, of whether a British player could legally have made each change to the board: every Operation, Special Activity, icon and British Resources step, with Ambush rolls checked against the logged die. For v1.0.3 it checked 240 policy games (3,810 bot turns) and 2,000 random positions (12,000 bot turns), about 35,000 Operations, Special Activities and icons in all, and found 0 violations. Seven three-destination Raids in the games were too large for its search and stay unconfirmed. It flags all six planted illegal actions in its self-test.
-- **Fixtures.** `review_fixtures.py` holds 15 fixed-position tests: 12 reproductions from GPT's three reviews, using GPT's saved positions (`fixtures/audit_33745a6/`), and 3 for the v1.0.2 audit's findings (Japan's guerrilla choice, the Kempeitai that stays and the J25 return, British J12 and J15). All pass.
+- **Random positions** (`fuzz_v1.py`). The checker above only sees positions that the computer Japan policies reach; that is how v1.0.1's stacked-marker Redeploy error went unseen. The fuzzer builds random legal positions directly: any mix of pieces, markers, tracks and capability sides, including stacked markers and empty pools. From each it makes both bots take a Force 136 turn (three Directive cards, two sets of free boxes), run a nonfinal Propaganda, resolve both British icons, and receive a Japanese Extract and Construct (for British J15 and J12). Afterwards every state field must match: board, Sabotage, capabilities, tracks, pools, pieces off the map, deck and eligibility fields, and the end-of-game flags. Two runs of 12,000 positions (264,000 actions in all) show 0 differences. Run against v1.0.1's bot, the fuzzer finds the Redeploy error in 57 of 1,500 positions.
+- **Legality** (`legality_v1.py`). A check, written from GMT's player aid and rulebook rather than from the bot's procedures, of whether a British player could legally have made each change to the board: every Operation, Special Activity, icon and British Resources step. Ambush and Supply rolls are checked against the logged dice, Supply against the spaces actually selected, and each Raid step by step from the positions observed after every destination. It checked 960 policy games (15,690 bot turns) and 12,000 random positions (72,000 bot turns), about 194,000 Operations, Special Activities, icons and Resources steps in all, and found 0 violations; all 12,207 Raids were confirmed. GPT's audit of v1.0.3 validated all 537 Raids of its 240-game sample with its own step checker. The self-test plants nine illegal actions and all are flagged.
+- **Fixtures.** `review_fixtures.py` holds 16 fixed tests: 12 reproductions from GPT's first three reviews, using GPT's saved positions (`fixtures/audit_33745a6/`); 3 for the v1.0.2 audit's findings (Japan's guerrilla choice, the Kempeitai that stays and the J25 return, British J12 and J15); and 1 that the flowchart and footnote corrected in v1.0.4 stay corrected. All pass.
 - **Printed numbers.** `report_check.py` recomputes every win-rate cell and interval in this report's summary and per-policy tables, the stress table's counts, the rules' level table and the README from the stored results, and fails on any mismatch.
-- **Limits.** The engine is GPT's research executor. Only its Propaganda scoring and Zipper placement are checked independently; its Operations and Events were compared with the player aids and card faces by reading, not by a second implementation. The Japan policies are heuristics: v1.0.3 corrected two weak choices, and others may remain, so the win rates could still be somewhat high against sound play.
+- **Limits.** The two bots share the engine, including Japan's choices, and the clean-room bot's later rules were added by the primary author, so their agreement shows consistency, not full independence. The random positions satisfy the piece limits but are not shown to be reachable in play. The engine is GPT's research executor. Only its Propaganda scoring and Zipper placement are checked independently; its Operations and Events were compared with the player aids and card faces by reading, not by a second implementation. The Japan policies are heuristics: v1.0.3 corrected two weak choices, and others may remain, so the win rates could still be somewhat high against sound play.
 
 ## Bot behaviour (Agent, seeds 0–999)
 
@@ -229,6 +231,7 @@ Win rates on seeds 0–999 (6,000 games per level), for Recruit / Agent / Vetera
 | v1.0.1 | Train re-places an Active guerrilla in its own space as the last source: +4.8 at Agent (GPT's independent check: +4.2) | 41.3 / 64.4 / 74.0 / 81.6 / 91.3 |
 | v1.0.2 | stacked exposed markers all Redeploy; text fixes; strict stress policies | unchanged, game for game |
 | v1.0.3 | Japan model corrected (Underground guerrillas removed first; Kempeitai stay with Force 136; J25 return is Japan's choice) | 38.8 / 61.3 / 70.9 / 78.8 / 89.2 |
+| v1.0.4 | print fixes (flowchart footer, lookahead footnote, page numbers); stronger test tools | unchanged, game for game |
 
 The reviews behind each step are in `REVIEW_RESPONSE.md` and the repository's `audits/` folder.
 
@@ -241,10 +244,10 @@ python3 equiv.py 32 recruit,agent,veteran,legend,mastermind   # printed rules ==
 python3 fresh_v101.py 0 1000 fresh_v103                # level results, seeds 0-999 (6,000 games per level)
 python3 verify_v1.py 32                                # checker: cross-check, scoring oracle, forced capabilities
 python3 verify_v1.py --mutants 16                      # the checker must catch 15 planted errors
-python3 fuzz_v1.py 12000 700000                        # both bots on 12,000 random positions
-python3 legality_v1.py games 8                         # legality of every action in 240 games
-python3 legality_v1.py fuzz 2000                       # legality from 2,000 random positions
-python3 legality_v1.py selftest                        # six planted illegal actions
+python3 fuzz_v1.py 12000 700000                        # both bots on 12,000 random positions (also run from seed 240000)
+python3 legality_v1.py games 32                        # legality of every action in 960 games
+python3 legality_v1.py fuzz 12000                      # legality from 12,000 random positions
+python3 legality_v1.py selftest                        # nine planted illegal actions
 python3 review_fixtures.py                             # GPT's reproductions as tests
 python3 check_exit_status.py                           # the checker fails loudly
 python3 report_check.py                                # printed tables == stored results
