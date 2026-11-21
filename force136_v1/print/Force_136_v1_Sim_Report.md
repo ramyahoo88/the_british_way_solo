@@ -18,7 +18,7 @@ The rules print the rounded figures 41%, 64%, 74%, 82% and 91%.
 
 **What changed in v1.0.1.** GPT reviewed v1.0 (see `REVIEW_RESPONSE.md`). Two things moved the numbers:
 
-- *A better Train.* When no guerrilla of the colour is Available and no other space can give one, Train now re-places an Active guerrilla in the Train space itself, back Underground. Rule 1.4.1 allows it; v1.0 had wrongly treated it as unclear. In paired games on the same seeds it adds 4.8 points at Agent (95% interval +3.8 to +5.8), against every Japan policy.
+- *A better Train.* When no guerrilla of the colour is Available and no other space can give one, Train now re-places an Active guerrilla in the Train space itself, back Underground. Rule 1.4.1 allows it; v1.0 had wrongly treated it as unclear. In paired games on the same seeds it adds 4.8 points at Agent (95% interval +3.8 to +5.8), against every Japan policy. GPT's re-audit confirmed it independently on untouched seeds 120000–120255: +4.2 points (+2.3 to +6.3) in 1,536 paired games.
 - *A larger fresh sample.* v1.0 printed 36%, 61%, 71%, 79% and 89%, pooled from 2,304 games per level on the holdout seeds 20000–20383. GPT ran v1.0's Agent on 192 other seeds (50000–50063 and 60000–60127) and got 53.6%. I reproduced those 1,152 games exactly, so the code is not the cause. I then ran v1.0's Agent on five blocks of 1,000 fresh seeds: 58.2–60.5% per block, 59.5% (58.7–60.2%) over all 30,000 games. GPT's windows were unusually low: only about 3 in 1,000 random sets of 192 seeds do that badly. The holdout's 61% was about 1.5 points high, which happens about one time in eight. On seeds 0–999, v1.0 won 34.7%, 59.7%, 70.1%, 78.1% and 89.0%.
 
 On the first holdout (seeds 20000–20127, 768 games), where v1.0's Agent won 59.9% and v1.0.1's wins 64.7%:
@@ -29,7 +29,7 @@ On the first holdout (seeds 20000–20127, 768 games), where v1.0's Agent won 59
 
 The printed Agent bot plays better than that search player against these opponents.
 
-These are computer-model results, not tabletop win rates. A strong human Japan player is expected to beat the computer policies more often. Japan policies that preview the bot's reply (its real procedures, with randomly sampled Directive cards) before moving do much better (below): the widest search holds Agent to 13% and Legend to 31%. GPT reran it on 32 fresh seeds: Agent 1 of 32, Mastermind 16 of 32. The Mastermind level exists for players who learn to exploit the bot that way.
+These are computer-model results, not tabletop win rates. A strong human Japan player is expected to beat the computer policies more often. Japan policies that preview the bot's reply (its real procedures, with randomly sampled Directive cards) before moving do much better (below): the widest search holds v1.0.1's Agent to about 15%, Legend to 26% and Mastermind to 51% (128 holdout seeds each). GPT's re-audit replayed the Agent and Mastermind runs and got the same results. The Mastermind level exists for players who learn to exploit the bot that way.
 
 ## The model
 
@@ -51,16 +51,16 @@ These are computer-model results, not tabletop win rates. A strong human Japan p
 - **Information.** Policies see only public information. Concealed Intel values stay hidden from both sides' decisions. Dice and Intel draws are keyed to the seed, so matched games share Event deals.
 - **Protocol.** Rules were tuned only on development seeds (6000–7300 and 10000–10327). The first results used the untouched holdout seeds 20000–20383. After GPT's review, every level was rerun on fresh seeds 0–999 (6,000 games per level), and Agent on four more 1,000-seed blocks. Games on the same seed share Event deals across policies and levels. The intervals resample whole seeds.
 
-## Results by Japan policy (fresh seeds 0–999)
+## Results by Japan policy (v1.0.1, fresh seeds 0–999)
 
-| Japan policy | Recruit | Agent | Veteran | Legend | Mastermind | Search player (holdout 1) |
+| Japan policy | Recruit | Agent | Veteran | Legend | Mastermind | Search player (v1.0 holdout 1) |
 |---|---:|---:|---:|---:|---:|---:|
-| extraction | 25% | 66% | 76% | 85% | 93% | 66% |
-| hunting | 57% | 72% | 82% | 88% | 95% | 63% |
-| repair | 40% | 70% | 77% | 84% | 92% | 67% |
-| adaptive | 35% | 64% | 76% | 82% | 92% | 64% |
-| counter | 20% | 38% | 49% | 60% | 78% | 36% |
-| mixed | 31% | 48% | 60% | 70% | 84% | 46% |
+| extraction | 33% | 71% | 80% | 88% | 95% | 66% |
+| hunting | 63% | 77% | 85% | 90% | 96% | 63% |
+| repair | 49% | 77% | 83% | 88% | 95% | 67% |
+| adaptive | 44% | 69% | 79% | 87% | 94% | 64% |
+| counter | 23% | 40% | 50% | 62% | 80% | 36% |
+| mixed | 35% | 53% | 66% | 75% | 87% | 46% |
 
 **Lookahead Japan** (v1.0.1; 128 holdout seeds per cell, v1.0 in brackets):
 
@@ -113,7 +113,7 @@ Each step was measured on development seeds with matched games (all six policies
 5. **Fix the procedures that mattered.**
 
     - Taking a guerrilla from elsewhere on the map when none is Available (rule 1.4.1) was worth +7 points.
-    - Rule 1.4.1's example also lets Train take an Active guerrilla from the Train space itself and place it back Underground (a "refresh"). v1.0 wrongly called that unclear and left it out. After GPT's review it was tested again on the final bot. Refreshing before other sources: −0.9 (GPT's own matched test: −6). Refreshing only when no other source exists: +6.5 and +7.1 on two development seed sets, then +4.8 (95% interval +3.8 to +5.8) in 6,000 paired games on fresh seeds 0–999, better against every policy. v1.0.1 adopts it as Train's last source.
+    - Rule 1.4.1's example also lets Train take an Active guerrilla from the Train space itself and place it back Underground (a "refresh"). v1.0 wrongly called that unclear and left it out. After GPT's review it was tested again on the final bot. Refreshing before other sources: −0.9 (GPT's own matched test: −6). Refreshing only when no other source exists: +6.5 and +7.1 on two development seed sets, then +4.8 (95% interval +3.8 to +5.8) in 6,000 paired games on fresh seeds 0–999, better against every policy. GPT's independent check on seeds 120000–120255 gave +4.2 (+2.3 to +6.3). v1.0.1 adopts it as Train's last source.
     - A fuller Raid procedure (Sabotage › Ambush › Majority, 1–2 pieces) was worth about 11 points over the first simple version.
     - Placing Force 136 away from cubes: +3 to +4 on two seed sets.
     - "Gather if it would reveal 2 or more" as the first Special Activity: +1–2.
@@ -176,13 +176,15 @@ So Force 136 never takes Events. That also removes the bot's longest lookup. (Th
 - **The checker now** (`verify_v1.py`) has three parts:
 
     1. *Cross-check.* Both bots play the same seed. After every Force 136 turn the Directive card, goal, box, Operation, Special Activity and board must match, along with every track and the pieces off the map and in pools. The same holds after every Propaganda reset and for the final result. Unequal trace lengths fail.
-    2. *Scoring oracle.* Every Propaganda score in both bots is recomputed from the rulebook alone (6.1–6.2, 7.0.1, 1.13) plus the level bonus. This catches errors in the engine code both bots share, which a cross-check cannot see.
+    2. *Scoring oracle.* Every Propaganda score in both bots is recomputed from the rulebook alone (6.1–6.2.5, 6.7.2, 7.0.1, 1.13) plus the level bonus. That covers Resistance, the winner, the Zipper box, the Cache track and which Caches stay on the map. This catches errors in the engine code both bots share, which a cross-check cannot see. (The Zipper part was added after GPT's re-audit of v1.0.1.)
     3. *Forced capabilities.* 96 games with each side of each capability (J8, J12, J15, J19, J22, J27) in play from the start, and 192 each with all six British sides or all six Japanese sides. Counters show the British effects fired: for example, 333 Gathers under British J22 and 246 extra Ambush spaces under British J27.
 
     For v1.0.1, 2,496 games (960 normal ones across the five levels, plus 1,536 forced-capability games) gave 0 cross-check failures and 0 oracle failures.
-- **Mutation tests.** `verify_v1.py --mutants` plants 13 deliberate errors, and the checker must flag each one. They are: the level bonus at final scoring; an Agent bonus; 18–19 ties given to Britain; the Train refresh left out; British J22 ignored; British J27 ignored for Ambush or for Sabotage, or ranked by railway order; GPT's +1 Resistance before final scoring in the clean-room bot; a skipped clean-room turn; and three engine scoring errors (Neutral Population counted per 4, no Police penalty, Caches counted double). All 13 are caught. Only the oracle sees the three engine errors.
+- **Mutation tests.** `verify_v1.py --mutants` plants 15 deliberate errors, and the checker must flag each one. They are: the level bonus at final scoring; an Agent bonus; 18–19 ties given to Britain; the Train refresh left out; British J22 ignored; British J27 ignored for Ambush or for Sabotage, or ranked by railway order; GPT's +1 Resistance before final scoring in the clean-room bot; a skipped clean-room turn; three engine scoring errors (Neutral Population counted per 4, no Police penalty, Caches counted double); and two engine Zipper errors (frozen at Propaganda, one box low). All 15 are caught. Only the oracle sees the five engine errors.
+- **Exit status.** `verify_v1.py` exits with status 1 if any game fails, and `--mutants` exits with status 1 if any mutant is missed, so an automated check cannot pass on a failure. `check_exit_status.py` tests this with an injected engine error and an uncatchable mutant (GPT's re-audit found the earlier version always exited 0).
+- **Printed numbers.** `report_check.py` recomputes every win-rate cell in this report's summary and per-policy tables, the rules' level table and the README from the stored results, and fails on any mismatch. (GPT's re-audit found the per-policy table still showing v1.0 values.)
 - **Review fixtures.** `review_fixtures.py` turns GPT's reproductions into tests: British J22 and J27 in both bots, the J27 extra space never qualifying a goal, the J8 limit, the exhausted-pool position (all nine Directives now Train), and the comparator rejecting score and length differences.
-- **Limits.** The engine is GPT's research executor. Only its scoring is checked independently. Its Operations, Events and Japan policies are not reimplemented. The British capability coverage comes from forced setups; combinations of capabilities with particular Events are not exhaustively covered.
+- **Limits.** The engine is GPT's research executor. Only its Propaganda scoring and Zipper placement are checked independently. Its Operations, Events and Japan policies are not reimplemented. The British capability coverage comes from forced setups; combinations of capabilities with particular Events are not exhaustively covered.
 
 ## Bot behaviour (Agent, fresh seeds 0–999)
 
@@ -240,8 +242,10 @@ From the `code/` folder, with Python 3.11+ and only the standard library:
 python3 equiv.py 32 recruit,agent,veteran,legend,mastermind   # printed rules == tuning lab (960 games, 0 mismatches)
 python3 fresh_v101.py 0 1000 fresh_v101                # v1.0.1 level results, fresh seeds 0-999 (6,000 games per level)
 python3 verify_v1.py 32                                # checker: cross-check, scoring oracle, forced capabilities
-python3 verify_v1.py --mutants 16                      # the checker must catch 13 planted errors
+python3 verify_v1.py --mutants 16                      # the checker must catch 15 planted errors
 python3 review_fixtures.py                             # GPT's reproductions as tests
+python3 check_exit_status.py                           # the checker fails loudly
+python3 report_check.py                                # printed tables == stored results
 python3 holdout_v1.py 20000 128 holdout1_v101 agent    # first holdout
 python3 look_run.py 20000 128 recruit,agent,veteran,legend,mastermind look
 python3 look_run.py 20000 128 recruit,agent,veteran,legend,mastermind lookc

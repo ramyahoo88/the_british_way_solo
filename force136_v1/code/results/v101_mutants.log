@@ -11,4 +11,7 @@ secondary: one turn skipped 96 96 0 CAUGHT
 engine: Neutral Population /4 96 0 77 CAUGHT
 engine: no Police penalty 96 0 95 CAUGHT
 engine: Caches count double 96 0 96 CAUGHT
+engine: Zipper frozen at Propaganda 96 0 95 CAUGHT
+engine: Zipper one box low 96 0 95 CAUGHT
 all caught
+exit 0

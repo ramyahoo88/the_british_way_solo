@@ -49,6 +49,7 @@ Brief (user, 22:00 CST, 20 Nov 2026): do for The British Way solo what was done 
 - 07:45 New checker `verify_v1.py`: full public state after every turn and reset, final results, a scoring oracle from the rulebook, and forced-capability games. Clean-room bot given British J22 and J27. J27's extra space now follows a written rule (first in map order; never qualifies a goal; not with Raid). All 12 planted errors caught.
 - 08:05 Train refresh retested now that it is known to be legal. Refresh first: −0.9. Refresh as the last source: +6.5 and +7.1 on two development sets, +4.8 (3.8–5.8) on 6,000 fresh paired games. Adopted as v1.0.1.
 - 08:30 v1.0.1 reruns: equivalence (0 mismatches), checker (2,496 games, 0 failures), 13 mutants caught, fresh levels 41 / 64 / 74 / 82 / 91%, lookahead and exploit opponents.
+- 09:35 GPT's re-audit of v1.0.1: passed for tabletop testing. Fixed its two follow-ups: the report's per-policy table (still v1.0 numbers) and checker exit codes. Added its optional Zipper check to the oracle. New `report_check.py` ties every printed win rate to the stored results.
 
 ## Decisions worth remembering
 

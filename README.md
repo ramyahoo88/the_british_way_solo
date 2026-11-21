@@ -12,6 +12,23 @@ The bot runs at the table without an application.
 
 A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Version 1.0.1, simulated on fresh seeds against six computer Japan policies: Recruit 41%, Agent 64%, Veteran 74%, Legend 82%, Mastermind 91% Force 136 wins (v0.2: 0%). Not yet playtested at the table.
 
+## Reviews of Claude's redesign
+
+These reviews examine the versions on the
+[`claude-force136` branch](https://github.com/ramyahoo88/the_british_way_solo/tree/claude-force136).
+Each report is tied to the exact commit shown below.
+
+| Reviewed version | PDF | Readable report | Reproduction evidence |
+|---|---|---|---|
+| [v1.0, `615c870`](https://github.com/ramyahoo88/the_british_way_solo/commit/615c870cf018a5122b3991b00dfbbd4224d04e42) | [Review PDF](audits/v1.0/Force_136_v1_Claude_Review.pdf) | [Markdown](audits/v1.0/Force_136_v1_Claude_Review.md) | [Evidence ZIP](audits/v1.0/Force_136_v1_Claude_Review_Evidence.zip) |
+| [v1.0.1, `fe57c0f`](https://github.com/ramyahoo88/the_british_way_solo/commit/fe57c0faea60bc913e1f7c859963059d92d9aa7e) | [Re-audit PDF](audits/v1.0.1/Force_136_v1.0.1_Reaudit.pdf) | [Markdown](audits/v1.0.1/Force_136_v1.0.1_Reaudit.md) | [Evidence ZIP](audits/v1.0.1/Force_136_v1.0.1_Evidence.zip) |
+
+The v1.0.1 re-audit confirms the earlier fixes and independently supports the
+last-resort Train refresh. It recommends retaining v1.0.1 for tabletop testing,
+with two reporting and checker-command corrections before publishing that
+package. The reports include exact reproductions, source references, checks,
+simulation limits and release verdicts.
+
 ## v0.2 print package (GPT draft)
 
 | File | Contents |
@@ -28,7 +45,7 @@ Print cards at actual size / 100%, single sided. Reprint both rules and cards
 when moving from v0.1 to v0.2.
 
 **Status:** a paper playtesting prototype. Competitive strength has not been
-established. The latest simulation study recommends further priority changes;
+established. The v0.2 simulation study recommends further priority changes;
 its experimental policies have not been installed into the v0.2 print package.
 
 ## Simulation study

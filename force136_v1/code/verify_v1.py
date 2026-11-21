@@ -7,15 +7,16 @@ Three checks, each of which can fail a game on its own:
    (plan, board, Sabotage markers, Resistance, capabilities), after every Propaganda round
    (board, Resistance, Zipper) and in the final result (winner, Resistance, Camps, markers).
 2. Scoring oracle. Every Propaganda scoring, in both implementations, is recomputed from the
-   rulebook text alone (Japanese Occupation rules 6.1.1-6.2.4, 7.0.1 and 1.13) plus the level's
-   printed bonus. This catches errors in code the two bots share (the engine's scoring), which a
+   rulebook text alone (Japanese Occupation rules 6.1.1-6.2.5, 6.7.2, 7.0.1 and 1.13) plus the
+   level's printed bonus: Resistance, winner, Zipper box, Cache track and Caches on the map. This catches errors in code the two bots share (the engine's scoring), which a
    cross-check cannot see.
 3. Coverage. Forced-capability games put each side of every capability card (J8, J12, J15, J19,
    J22, J27) in play from the start, so British-side effects that the Japan policies never choose
    are exercised. Coverage counters report how often each British-side effect actually fired.
 
-usage: python3 verify_v1.py [seeds_per_block]          (default 32)
+usage: python3 verify_v1.py [seeds_per_block]          (default 32; at least 2)
        python3 verify_v1.py --mutants [seeds]           (mutation tests: each must be caught)
+Exit status 1 if any game fails (normal mode) or any mutant is missed (--mutants).
 """
 import sys,os,json,collections
 from copy import deepcopy
@@ -32,6 +33,8 @@ POLS=('extraction','hunting','repair','adaptive','counter','mixed')
 LEVELS=('recruit','agent','veteran','legend','mastermind')
 CAPS=(8,12,15,19,22,27)
 ST_ORIG=engine.score_terms
+MZ_ORIG=engine.Game.move_zipper
+ZIPPER_BOXES=(0,6,12,18,20);CACHE_BOXES=(6,18)
 BONUS={'recruit':0,'agent':0,'veteran':0,'legend':1,'mastermind':2}   # printed rules, section 10
 
 class Box:                      # not a dict/list/set, so FastGame.clone shares it instead of copying it
@@ -47,7 +50,7 @@ def tracks(g):
 
 # ---------------------------------------------------------------- 2. scoring oracle (rulebook only)
 def oracle(pre,final,bonus):
-    """Return (Resistance after scoring, winner or None, notes) from the pre-scoring snapshot."""
+    """Return (Resistance after scoring, winner or None, notes, Zipper expectations) from the pre-scoring snapshot."""
     b=deepcopy(pre['board']);notes=[]
     def red_(v):return v['red_u']+v['red_a']
     def blue_(v):return v['blue_u']+v['blue_a']
@@ -71,11 +74,23 @@ def oracle(pre,final,bonus):
     neutral=sum(b[s]['population'] for s in b if not opposed(s))//5             # 6.2.4
     police=sum(1 for v in b.values() if v['police'])//3                          # 6.2.4
     R=min(20,max(0,pre['R']+intel+caches+imbalance-res-neutral-police))          # 1.13
+    # 6.2.5: Zipper to the highest box of equal or lower value than Resistance (before any level bonus).
+    # 6.7.2: reaching a Cache box releases its Cache to Available; falling past one returns a Cache to it,
+    # first from Available, then from the map (the bot's choice, rules section 7: fewest guerrillas,
+    # then most Troops, then reverse map order). Box values and Cache boxes (6, 18) as set up.
+    zipper=max(x for x in ZIPPER_BOXES if x<=R)
+    track=sum(1 for x in CACHE_BOXES if x>zipper)
+    returned=max(0,track-pre['track']);from_map=max(0,returned-pre['cache_avail'])
+    map_caches=set(pre['map_caches'])
+    for _ in range(from_map):
+        src=min(map_caches,key=lambda s:(red_(b[s])+blue_(b[s]),-b[s]['troops'],-V.MAP_ORDER.index(s)))
+        map_caches.discard(src)
+    z=dict(zipper=zipper,track=track,map_caches=map_caches)
     if not final:
-        return min(20,R+bonus),None,notes                                         # level bonus, nonfinal only
+        return min(20,R+bonus),None,notes,z                                       # level bonus, nonfinal only
     camps=sum(1 for v in b.values() if v['camp']);f136=sum(v['force136'] for v in b.values())
     w='Japan' if R<18 else 'Force 136' if R==20 or camps<f136 else 'MPAJA'       # 7.0.1
-    return R,w,notes
+    return R,w,notes,z
 
 # ---------------------------------------------------------------- tracing wrapper
 def traced(cls,forced=None):
@@ -86,11 +101,13 @@ def traced(cls,forced=None):
         def score_only(self,final=False):
             if self.preview:return cls.score_only(self,final)
             pre=dict(board=deepcopy(self.board),resources=self.resources,R=self.resistance,
-                     red_avail=self.available('red'),cap15=self.cap.get(15))
+                     red_avail=self.available('red'),cap15=self.cap.get(15),track=self.track_cache,
+                     cache_avail=self.available('cache'),map_caches=[s for s in ORDER if self.board[s]['cache']])
             r=cls.score_only(self,final)
-            R,w,notes=oracle(pre,final,BONUS[self.level])
-            if R!=self.resistance or (final and w!=self.winner) or self.resources!=0:
-                self.box.fail.append(dict(draw=self.draw,final=final,expected=(R,w),got=(self.resistance,self.winner),notes=notes))
+            R,w,notes,z=oracle(pre,final,BONUS[self.level])
+            got_z=dict(zipper=self.zipper,track=self.track_cache,map_caches={s for s in ORDER if self.board[s]['cache']})
+            if R!=self.resistance or (final and w!=self.winner) or self.resources!=0 or z!=got_z:
+                self.box.fail.append(dict(draw=self.draw,final=final,expected=(R,w,z),got=(self.resistance,self.winner,got_z),notes=notes))
             self.box.items.append(('score',self.draw,final,pre['R'],self.resistance,self.winner if final else None))
             return r
         def propaganda(self,final=False):
@@ -232,29 +249,49 @@ def shared_mutants():
         t=st(b,r);t['caches']*=2;return t
     return [('engine: Neutral Population /4',neutral4),('engine: no Police penalty',no_police),('engine: Caches count double',caches_double)]
 
-if __name__=='__main__':
-    if '--mutants' in sys.argv:
-        n=int(sys.argv[-1]) if sys.argv[-1].isdigit() else 16
+def zipper_mutants():
+    """Errors in the shared engine's Zipper placement: again only the oracle can see them."""
+    def frozen(self,steps=None,target=None):          # GPT's control: Zipper never moves at Propaganda
+        if target is not None:return
+        return MZ_ORIG(self,steps,target)
+    def one_low(self,steps=None,target=None):         # Zipper placed one box too low (never below Delay)
+        if target is not None and target>0:target=ZIPPER_BOXES[ZIPPER_BOXES.index(target)-1]
+        return MZ_ORIG(self,steps,target)
+    return [('engine: Zipper frozen at Propaganda',frozen),('engine: Zipper one box low',one_low)]
+
+def main(argv):
+    """Exit status: 0 only if every game passes (normal mode) or every mutant is caught (--mutants)."""
+    if '--mutants' in argv:
+        n=int(argv[-1]) if argv[-1].isdigit() else 16
+        if n<1:raise SystemExit('seeds must be at least 1')
         rows=[]
         for name,cls,levels,forced,side in mutants():
             jobs=[(s,p,l,forced) for l in levels for s in range(23000,23000+n) for p in POLS]
             r=run_block(jobs,P=cls) if side=='P' else run_block(jobs,Q=cls);caught=r['cross']+r['oracle']
             rows.append((name,r['games'],r['cross'],r['oracle'],'CAUGHT' if caught else 'MISSED'));print(*rows[-1],flush=True)
-        for name,fn in shared_mutants():
-            engine.score_terms=fn
-            try:
-                jobs=[(s,p,'agent',None) for s in range(23000,23000+n) for p in POLS]
-                r=run_block(jobs);caught=r['cross']+r['oracle']
-            finally:engine.score_terms=ST_ORIG
-            rows.append((name,r['games'],r['cross'],r['oracle'],'CAUGHT' if caught else 'MISSED'));print(*rows[-1],flush=True)
+        for group,attr,orig in ((shared_mutants(),'score_terms',ST_ORIG),(zipper_mutants(),'move_zipper',MZ_ORIG)):
+            for name,fn in group:
+                target=engine if attr=='score_terms' else engine.Game
+                setattr(target,attr,fn)
+                try:
+                    jobs=[(s,p,'agent',None) for s in range(23000,23000+n) for p in POLS]
+                    r=run_block(jobs);caught=r['cross']+r['oracle']
+                finally:setattr(target,attr,orig)
+                rows.append((name,r['games'],r['cross'],r['oracle'],'CAUGHT' if caught else 'MISSED'));print(*rows[-1],flush=True)
         json.dump(rows,open('verify_mutants.json','w'),indent=1)
-        print('all caught' if all(r[-1]=='CAUGHT' for r in rows) else 'SOME MISSED')
-    else:
-        n=int(sys.argv[1]) if len(sys.argv)>1 else 32
-        out={};tot=collections.Counter()
-        for name,jobs in blocks(n):
-            r=run_block(jobs);out[name]=r
-            tot['games']+=r['games'];tot['cross']+=r['cross'];tot['oracle']+=r['oracle']
-            print(f"{name:10s} games {r['games']:5d} cross-check failures {r['cross']} oracle failures {r['oracle']} {r['cov'] or ''} {r['examples'] or ''}",flush=True)
-        print('TOTAL',dict(tot))
-        json.dump(out,open('verify_results.json','w'),indent=1)
+        ok=all(r[-1]=='CAUGHT' for r in rows)
+        print('all caught' if ok else 'SOME MISSED')
+        return 0 if ok else 1
+    n=int(argv[0]) if argv else 32
+    if n<2:raise SystemExit('seeds per block must be at least 2 (forced-capability blocks use half)')
+    out={};tot=collections.Counter()
+    for name,jobs in blocks(n):
+        r=run_block(jobs);out[name]=r
+        tot['games']+=r['games'];tot['cross']+=r['cross'];tot['oracle']+=r['oracle']
+        print(f"{name:10s} games {r['games']:5d} cross-check failures {r['cross']} oracle failures {r['oracle']} {r['cov'] or ''} {r['examples'] or ''}",flush=True)
+    print('TOTAL',dict(tot))
+    json.dump(out,open('verify_results.json','w'),indent=1)
+    return 0 if tot['cross']==0 and tot['oracle']==0 else 1
+
+if __name__=='__main__':
+    sys.exit(main(sys.argv[1:]))
