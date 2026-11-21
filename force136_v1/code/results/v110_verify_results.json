@@ -1,0 +1,162 @@
+{
+ "normal": {
+  "games": 960,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "Event J4 (4.2)": 181,
+   "Event J25 (4.2)": 326
+  },
+  "examples": []
+ },
+ "J8 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "J8 British: Supply": 145,
+   "Event J25 (4.2)": 28,
+   "Event J4 (4.2)": 19
+  },
+  "examples": []
+ },
+ "J8 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "Event J25 (4.2)": 29,
+   "Event J4 (4.2)": 21
+  },
+  "examples": []
+ },
+ "J12 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "Event J25 (4.2)": 29,
+   "Event J4 (4.2)": 20
+  },
+  "examples": []
+ },
+ "J12 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "Event J25 (4.2)": 28,
+   "Event J4 (4.2)": 21
+  },
+  "examples": []
+ },
+ "J15 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "Event J25 (4.2)": 25,
+   "Event J4 (4.2)": 19
+  },
+  "examples": []
+ },
+ "J15 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "Event J25 (4.2)": 28,
+   "Event J4 (4.2)": 19
+  },
+  "examples": []
+ },
+ "J19 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "J19 British: Gather": 333,
+   "Event J25 (4.2)": 28,
+   "Event J4 (4.2)": 18
+  },
+  "examples": []
+ },
+ "J19 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "Event J25 (4.2)": 29,
+   "Event J4 (4.2)": 18
+  },
+  "examples": []
+ },
+ "J22 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "J22 British: Gather without activating": 330,
+   "Event J25 (4.2)": 31,
+   "Event J4 (4.2)": 24
+  },
+  "examples": []
+ },
+ "J22 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "Event J25 (4.2)": 27,
+   "Event J4 (4.2)": 23
+  },
+  "examples": []
+ },
+ "J27 U": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "J27 British: extra Sabotage space": 15,
+   "Event J25 (4.2)": 26,
+   "J27 British: extra Ambush space": 236,
+   "Event J4 (4.2)": 17
+  },
+  "examples": []
+ },
+ "J27 S": {
+  "games": 96,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "Event J25 (4.2)": 28,
+   "Event J4 (4.2)": 24
+  },
+  "examples": []
+ },
+ "all U": {
+  "games": 192,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "J22 British: Gather without activating": 612,
+   "J19 British: Gather": 714,
+   "J27 British: extra Ambush space": 725,
+   "J27 British: extra Sabotage space": 29,
+   "J8 British: Supply": 339,
+   "Event J25 (4.2)": 59,
+   "Event J4 (4.2)": 8
+  },
+  "examples": []
+ },
+ "all S": {
+  "games": 192,
+  "cross": 0,
+  "oracle": 0,
+  "cov": {
+   "Event J25 (4.2)": 63,
+   "Event J4 (4.2)": 2
+  },
+  "examples": []
+ }
+}

@@ -1,4 +1,4 @@
-"""Fixed-position tests from the reviews of commits 615c870, 33745a6, 338cb0d and 595f409, as tests of the revised code.
+"""Fixed-position tests from the reviews of commits 615c870, 33745a6, 338cb0d and 595f409, and for v1.1's Event step.
 
 Each fixture reproduces a setup from GPT's evidence package (probe_findings.py, regression_checks.py)
 and asserts the behaviour v1.0 (revised) must now have. Run from this folder: python3 review_fixtures.py
@@ -158,8 +158,8 @@ passed(f'F3 stress policies: fixtures choose Event and Limited; over 8 games {of
 g=restore('F5_event_box_pass');g.directive=F.DECK[0]
 plan=g.choose(['Event','Op & SA']);assert plan['op']=='PASS' and plan['box']=='Event'
 rules=(PR/'Force_136_v1_Rules.md').read_text()
-assert 'never executes an Event' in rules and 'even if that is the Event box' in rules and 'never chooses the Event box' not in rules
-assert 'Never</span> execute an Event' in src and 'Never execute the Event.' in src
+assert 'even if that is the Event box' in rules and 'never chooses the Event box' not in rules
+assert 'Otherwise never execute an Event' in src
 passed('F5 Pass: Event-box Pass is legal and the rules, reference and cards no longer forbid it')
 
 # ---------------------------------------------------------------- full audit of v1.0.2 (commit 338cb0d)
@@ -207,7 +207,37 @@ passed('A4 British J15: red on a tie and in an empty New Village; British J12: h
 # ---------------------------------------------------------------- GPT audit of commit 595f409
 # P1: the flowchart must not forbid an Event-box Pass; D1: the level footnote must not say "before every move".
 svg=(PR/'turn_flow.svg').read_text()
-assert 'Never the Event box' not in svg and 'Never execute the Event.' in svg
+assert 'Never the Event box' not in svg and 'Otherwise never execute the Event.' in svg
 assert 'before every move' not in rules and 'whenever it acts first on a card' in rules
-passed('P1/D1 print: flowchart says "Never execute the Event."; the lookahead footnote says when it previews')
+passed('P1/D1 print: flowchart says "Otherwise never execute the Event."; the lookahead footnote says when it previews')
+# ---------------------------------------------------------------- v1.1: step 4.2, J4 and J25 as second to act
+def ev_setup(cls,seed,j,japan):
+    g=cls(seed);g.board=new_board();b=g.board
+    b['Kuala Lumpur'].update(troops=15,police=3,kempeitai=3)
+    b['Perak'].update(force136=1,camp=True,red_u=2,cache=True)
+    b['Kedah'].update(force136=1,camp=True,blue_u=1)
+    b['Johore'].update(red_u=1)
+    g.event=j;g.chosen={'J':japan} if japan else {};g.resistance=5;g.invariants();return g
+for cls in (F.Force136,C.CleanForce136):
+    g=ev_setup(cls,1100001,4,'Op & SA');g.bot_turn(['Limited','Event'])
+    assert g.last_plan['op']=='EVENT' and g.last_plan['box']=='Event' and g.resistance==7,(cls,g.last_plan,g.resistance)
+    g=ev_setup(cls,1100002,4,None);g.bot_turn(['Limited','Event','Op & SA'])         # Force 136 first: no Event
+    assert g.last_plan['op']!='EVENT' and g.last_plan['box']=='Op & SA',(cls,g.last_plan)
+    g=ev_setup(cls,1100003,4,'Op & SA');g.board['Perak']['camp']=False;g.board['Kedah']['camp']=False
+    g.bot_turn(['Limited','Event']);assert g.last_plan['op']!='EVENT',(cls,'J4 with no Force 136 Camp taken')
+    g=ev_setup(cls,1100004,7,'Op & SA');g.bot_turn(['Limited','Event'])              # an unlisted Event: never
+    assert g.last_plan['op']!='EVENT',cls
+passed('4.2 J4: taken only as second to act and only if it scores (+1 per F136 Camp space); never as first player or on other cards')
+boards=[]
+for cls in (F.Force136,C.CleanForce136):
+    g=ev_setup(cls,1100005,25,'Op & SA');g.bot_turn(['Limited','Event'])
+    assert g.last_plan['op']=='EVENT' and g.last_plan['box']=='Event',(cls,g.last_plan)
+    assert g.count('force136')==3,(cls,'J25 Contact did not place the Available marker')
+    boards.append((g.board,g.sabotage,g.resistance))
+assert boards[0]==boards[1]
+passed('4.2 J25: Contact places the Available marker, then the CONTACT Special Activity; both bots end on the same board')
+rules=(PR/'Force_136_v1_Rules.md').read_text()
+assert '**J4 Chin Peng**' in rules and '**J25 John Davis**' in rules and 'never executes an Event' not in rules
+assert 'J4 or J25' in svg and 'J4 / J25' in src
+passed('4.2 print: rules, flowchart and reference/cards name J4 and J25')
 print(len(ok),'fixtures passed')

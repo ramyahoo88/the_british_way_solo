@@ -62,10 +62,19 @@ Brief (user, 22:00 CST, 20 Nov 2026): do for The British Way solo what was done 
 - 12:20 v1.0.3 reruns: levels 38.8 / 61.3 / 70.9 / 78.8 / 89.2% (−2 to −3 points on the same seeds), lookahead, stress, references, checker, fuzz and legality.
 - 14:00 GPT's audit of v1.0.3 (commit 595f409): no gameplay or scoring defect; four print and verification points. v1.0.4 fixes them: flowchart footer, lookahead footnote, legality check (Supply spaces and rolls, closed Event box, Raids checked step by step from observed positions), fuzzer compares every state field. Page numbers and a fuller sample game added. Bot and results unchanged.
 
+### 21 November, afternoon: the Event question and v1.1
+
+- 14:20 Question from the user: will players think less of a bot that never plays an Event? Probably, so the v1.0 Event test (288 games per Event, before the Train refresh and the Japan corrections) was redone on v1.0.4 with a larger design: `ev_study_v104.py`.
+- 14:45 Screen, 1,536 paired games per Event and variant (seeds 410000–410255). As first player every Event lowers the win rate (−1.5 to −26 points where the choice arises), including pure denial. As second player nine Events have positive estimates.
+- 15:05 First confirmation block, 6,000 games (seeds 420000–420999), seven Events as second player: J4 +4.3 and J25 +3.0 clear zero; J26 +4.0 and J10 +2.5 do not; J1, J23, J28 flat.
+- 15:20 Second block (seeds 430000–430999): J4 +4.1, J25 +2.1, J26 +3.1, J10 −0.4. J4 and J25 adopted; J26 left out (rare, not clear, needs a targeting rule and a roll).
+- 15:40 Package on seeds 0–999, all levels: +0.8 / +1.7 / +1.6 / +1.4 / +0.8. Against the lookahead Japan not worse.
+- 16:00 v1.1: step 4.2 in the rules, reference, cards and flowchart; both bots, the lab, the checker, the fuzzer and the legality check updated; three new fixtures and two new mutants. The printed bot plays all 30,000 level games exactly as the study's variant did.
+
 ## Decisions worth remembering
 
 - Japan's choices are Japan's: which guerrilla Food Shortage removes, where Kempeitai sit after Redeploy, and every choice in an Event Japan executes (J20, J25, J28). The simulation's Japan should make them the way a player would.
-- The bot never takes Events. 27 of 28 Events taken as first player lowered results; none taken as second player gained more than 0.12 Resistance. (Tested on v1.0, before the Train refresh.)
+- The bot plays only J4 and J25, and only as second player (v1.1). Every Event taken as first player lowered results, and only these two gained as second player in two fresh 6,000-game blocks. (v1.0 had no Events; its smaller test ran before the Train refresh and the Japan corrections.)
 - PLACE is not printed on the cards as a choice: it is always first.
 - Cards 1–8 carry the same three goals (AMBUSH, INTEL, TRAIN); card 9 adds SUPPLY. Only the order and the Limited preference differ.
 - No zero-effect Operations: SUPPLY needs a Train that places a guerrilla, INTEL needs a real accompanying Operation, and Contact must place or move.

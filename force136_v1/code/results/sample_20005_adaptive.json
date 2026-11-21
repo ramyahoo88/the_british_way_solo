@@ -633,16 +633,17 @@
     "Event"
    ],
    "card": "2 Hit the convoy: AMBUSH > INTEL > TRAIN; Limited AMBUSH first",
-   "goal": "PLACE",
-   "box": "Limited",
-   "op": "CONTACT",
-   "sa": null,
+   "goal": "EVENT",
+   "box": "Event",
+   "op": "EVENT",
+   "sa": "SUPPLY",
    "R": [
     11,
     11
    ],
    "changes": [
-    "Selangor: force136 0->1, camp False->True"
+    "Kedah: camp True->False, cache False->True",
+    "Selangor: force136 0->1, cache False->True"
    ],
    "sab": [
     "Perak-Pahang-Selangor"
@@ -669,14 +670,14 @@
    "goal": "PLACE",
    "box": "Op & SA",
    "op": "CONTACT",
-   "sa": "SUPPLY",
+   "sa": "GATHER",
    "R": [
     11,
     11
    ],
    "changes": [
-    "Trengganu: force136 0->1, cache False->True",
-    "Selangor: camp True->False, cache False->True"
+    "Kedah: blue_u 1->0, blue_a 2->3, intel None->2",
+    "Trengganu: force136 0->1, camp False->True"
    ],
    "sab": [
     "Perak-Pahang-Selangor"
@@ -709,20 +710,20 @@
    "final": false,
    "R": [
     11,
-    17
+    19
    ],
-   "zipper": 12,
+   "zipper": 18,
    "terms": {
-    "intel": 1,
+    "intel": 3,
     "caches": 4,
     "majorities": 4,
     "resource_penalty": 1,
     "neutral_penalty": 1,
     "police_penalty": 1,
-    "net_change": 6
+    "net_change": 8
    },
    "after": [
-    "Kedah: 1K, red 1u/0a, blue 2u/0a, F136, Camp, Opp",
+    "Kedah: 1K, red 1u/0a, blue 2u/0a, F136, Cache, Opp",
     "Perak: 1T, red 1u/0a, Cache",
     "Kelantan: 2T, 2P, 1K, Cache",
     "Trengganu: F136, Cache",
@@ -741,7 +742,7 @@
    "event": 6,
    "icon": "Food Shortage",
    "changes": [
-    "Kedah: red_u 1->0"
+    "Pahang: red_u 4->3"
    ]
   },
   {
@@ -749,8 +750,8 @@
    "event": 6,
    "mandatory": true,
    "R": [
-    17,
-    17
+    19,
+    19
    ],
    "changes": [
     "Trengganu: cache True->False",
@@ -773,13 +774,13 @@
    "op": "AMBUSH",
    "sa": "GATHER",
    "R": [
-    17,
-    18
+    19,
+    20
    ],
    "changes": [
-    "Kedah: blue_u 2->0, blue_a 0->2, kempeitai 1->0, intel None->1",
+    "Kedah: red_u 1->0, red_a 0->1, blue_u 2->1, blue_a 0->1, kempeitai 1->0, intel None->1",
     "Perak: red_u 1->0, red_a 0->1, intel None->1",
-    "Pahang: red_u 4->3, red_a 0->1, intel None->1",
+    "Pahang: red_u 3->2, red_a 0->1, intel None->1",
     "Selangor: red_u 1->0, red_a 0->1, intel None->0",
     "Kuala Lumpur: kempeitai 1->2"
    ],
@@ -793,8 +794,8 @@
    "who": "Japan",
    "box": "Limited",
    "R": [
-    18,
-    18
+    20,
+    20
    ],
    "changes": [
     "Perak: police 0->1",
@@ -817,7 +818,7 @@
    "event": 28,
    "icon": "Food Shortage",
    "changes": [
-    "Pahang: red_u 3->2"
+    "Pahang: red_u 2->1"
    ]
   },
   {
@@ -826,8 +827,8 @@
    "who": "Japan",
    "box": "Op & SA",
    "R": [
-    18,
-    18
+    20,
+    20
    ],
    "changes": [
     "Kelantan: police 2->3"
@@ -857,13 +858,11 @@
    "op": "TRAIN",
    "sa": null,
    "R": [
-    18,
-    18
+    20,
+    20
    ],
    "changes": [
-    "Kedah: blue_u 0->1",
-    "Trengganu: blue_u 0->1",
-    "Pahang: blue_u 1->0",
+    "Kedah: blue_u 1->3, blue_a 1->0",
     "Selangor: red_u 0->2"
    ],
    "sab": [
@@ -875,7 +874,7 @@
    "event": 9,
    "icon": "Seize Supplies",
    "changes": [
-    "Selangor: camp False->True, cache True->False"
+    "Kedah: camp False->True, cache True->False"
    ]
   },
   {
@@ -883,7 +882,7 @@
    "event": 9,
    "mandatory": true,
    "R": [
-    18,
+    20,
     20
    ],
    "changes": [],
@@ -894,18 +893,18 @@
    "prop": true,
    "final": true,
    "R": [
-    18,
+    20,
     20
    ],
    "zipper": 20,
    "terms": {
     "intel": 3,
-    "caches": 2,
-    "majorities": 4,
+    "caches": 3,
+    "majorities": 2,
     "resource_penalty": 1,
     "neutral_penalty": 1,
     "police_penalty": 1,
-    "net_change": 6
+    "net_change": 5
    },
    "after": null,
    "sab": [

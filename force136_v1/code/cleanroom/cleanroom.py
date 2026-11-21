@@ -12,6 +12,7 @@ Changes after GPT's review of commit 615c870 (made by the primary author, not th
 British J22 (Gather does not activate) and British J27 (one extra Ambush or Sabotage space, the first
 in map order; never counted when testing whether a goal qualifies), from the revised section 7; and the
 v1.0.1 Train fallback (re-place an Active guerrilla of the colour from the Train space itself, section 6.2).
+v1.1: the Event step (4.2: J4 and J25 when second to act) was added by the primary author too.
 v1.0.3: British J12 and J15 (new lines in section 7) were also added by the primary author, and the
 Japanese Redeploy and J25 return moved into the shared engine (Japan's choices).
 """
@@ -71,6 +72,11 @@ class CleanForce136(CleanBase):
     def bot_turn(self, free):
         self.draw_directive()                                   # 4.1 draw (base class handles discard)
         card = self.directive
+        if self._event_qualifies(free):                         # 4.2 (v1.1): J4 or J25 as second to act
+            self.chosen['B'] = 'Event'
+            sa = self._british_event(self.event)
+            self._finish(dict(goal='EVENT', box='Event', op='EVENT', sa=sa, directive=card['id']))
+            return
         if 'Op & SA' in free:                                   # 4.3
             box = 'Op & SA'
             goals = ['PLACE'] + list(card['goals']) + ['CONTACT']
@@ -96,6 +102,37 @@ class CleanForce136(CleanBase):
         box = min(free, key=BOXES.index)
         self.chosen['B'] = box
         self._finish(dict(goal='PASS', box=box, op='PASS', sa=None, directive=card['id']))
+
+    # ------------------------------------------------------------------ 4.2 Events (v1.1)
+    # Added by the primary author for v1.1 from the new step 4.2 (not clean-room work).
+    def _event_qualifies(self, free):
+        """4.2: Japan has already acted on this card, the Event box is free, the card is J4 or J25,
+        and its British side would do something."""
+        if 'J' not in self.chosen or 'Event' not in free or self.event in (6, 9):
+            return False
+        if self.event == 4:
+            return self.resistance < 20 and any(v['force136'] and v['camp'] for v in self.board.values())
+        if self.event == 25:
+            p = self.clone()
+            p.contact_done = bool(p.contact())
+            return p.contact_done or p._choose_sa('CONTACT') is not None
+        return False
+
+    def _british_event(self, j):
+        """J4: +1 Resistance per space with Force 136 and a Jungle Camp. J25: Contact (6.1), then the
+        CONTACT goal's Special Activity: the first of Supply, Gather, Raid that would do something.
+        Returns J25's Special Activity (None for J4)."""
+        b = self.board
+        sa = None
+        if j == 4:
+            self.resistance = clamp(self.resistance + sum(1 for v in b.values() if v['force136'] and v['camp']))
+        else:
+            self.contact()
+            sa = self._choose_sa('CONTACT')
+            if sa:
+                self.special(sa)
+        self.cleanup()
+        return sa
 
     def _finish(self, plan):
         self.last_plan = plan

@@ -1,5 +1,28 @@
 # Results
 
+## v1.1 (J4 and J25 as second player)
+
+| File | What |
+|---|---|
+| v110_ev_screen.log, ev_screen_410000_256.json | `ev_study_v104.py screen 256 410000`: every Event, first and second player, 1,536 paired games per Event and variant (summaries) |
+| v110_ev_confirm_420000.log, ev_confirm_420000_1000.json.gz | first confirmation block: seven Events as second player, 6,000 games each, with every decision row |
+| v110_ev_confirm_430000.log, ev_confirm_430000_1000.json.gz | second block: J4, J25, J10, J26 |
+| v110_ev_package_look.log | the study's J4 + J25 variant against the lookahead Japan (Agent, Mastermind), before the rules were printed; identical to the v110 lookahead rows |
+| v110_fresh.log, results_fresh_v110.csv.gz, fresh_v110_summary.json | all five levels on seeds 0–999 (6,000 games per level); `report_check.py` reads the CSV |
+| v110_ev_package.log | `ev_package.py`: v1.1 against v1.0.3/v1.0.4 on those games, paired |
+| v110_equiv.log | tuning lab vs printed rules, 960 games |
+| v110_verify.log, v110_verify_results.json, v110_mutants.log, v110_mutants.json, v110_exit_status.log | checker (with Event coverage), 17 mutants, exit status |
+| v110_fixtures.log | `review_fixtures.py`: 19 fixed tests |
+| v110_fuzz.log, v110_fuzz_results.json, v110_fuzz_b.log | `fuzz_v1.py 12000 700000` and `12000 240000` |
+| v110_legality_games.log, v110_legality_fuzz.log, v110_legality_selftest.log (+ .json) | legality: 960 policy games, 12,000 random positions, ten planted illegal actions |
+| v110_holdout1.log, results_holdout1_v110.json | Agent on the first holdout (seeds 20000–20127) |
+| v110_look.log, v110_lookc.log, v110_lookdeep.log | lookahead Japan against the bot, five levels |
+| v110_exploits.log, results_exploits_v110.json | strict stress policies, 256 games per policy |
+| v110_corner.log | alternative railway-corner adjacency |
+| sample_20005_adaptive.json | the sample game (card 11 now shows the J25 Event) |
+
+The search player and the references do not use the bot's rules: `v103_lookexpert.log` and `refs_v103.json` stand.
+
 ## v1.0.4 (print and test tools only; games identical to v1.0.3)
 
 | File | What |
@@ -10,7 +33,7 @@
 | v104_lookdeep_check.log | wide lookahead (Agent, Mastermind) after the lookahead stopped swallowing exceptions: identical to v103_lookdeep.log |
 | sample_20005_adaptive.json | the sample game, now with icons, Japanese moves and positions after each Reset |
 
-All result tables are v1.0.3's below; `report_check.py` reads them.
+The result tables were v1.0.3's below.
 
 ## v1.0.3 (after the full audit of v1.0.2; Japan model corrected)
 

@@ -8,11 +8,11 @@ remains the published independent actor.
 The physical base game, expansion, Event cards and player aids are required.
 The bot runs at the table without an application.
 
-## Force 136 v1.0.4 (new design, branch `claude-force136`)
+## Force 136 v1.1 (new design, branch `claude-force136`)
 
-A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Version 1.0.4, simulated against six computer Japan policies: Recruit 39%, Agent 61%, Veteran 71%, Legend 79%, Mastermind 89% Force 136 wins (v0.2: 0%). Not yet playtested at the table.
+A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Version 1.1, simulated against six computer Japan policies: Recruit 40%, Agent 63%, Veteran 72%, Legend 80%, Mastermind 90% Force 136 wins (v0.2: 0%). Not yet playtested at the table.
 
-v1.0.3 follows a [full audit of v1.0.2](audits/v1.0.2/Force_136_v1.0.2_Audit_338cb0d.md) ([PDF](audits/v1.0.2/Force_136_v1.0.2_Audit_338cb0d.pdf)). The audit found the bot's play legal and consistent, but the computer Japan too kind in two places; correcting it lowered the win rates by about 3 points. v1.0.4 then fixes the four print and verification points of the v1.0.3 review listed below; the bot and its results are unchanged.
+v1.0.3 follows a [full audit of v1.0.2](audits/v1.0.2/Force_136_v1.0.2_Audit_338cb0d.md) ([PDF](audits/v1.0.2/Force_136_v1.0.2_Audit_338cb0d.pdf)). The audit found the bot's play legal and consistent, but the computer Japan too kind in two places; correcting it lowered the win rates by about 3 points. v1.0.4 then fixed the four print and verification points of the v1.0.3 review listed below. v1.1 adds two Events, J4 and J25, played as second player when they would do something: the only ones that gained in a fresh retest of every Event (+0.8 to +1.7 points by level).
 
 ## Reviews of Claude's redesign
 

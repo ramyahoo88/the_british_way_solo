@@ -1,0 +1,5 @@
+recruit {"n": 6000, "win": 0.3957, "mpaja": 0.0572, "R": 15.42, "per": {"extraction": 0.339, "hunting": 0.601, "repair": 0.449, "adaptive": 0.414, "counter": 0.24, "mixed": 0.331}}
+agent {"n": 6000, "win": 0.6295, "mpaja": 0.0452, "R": 17.47, "per": {"extraction": 0.703, "hunting": 0.738, "repair": 0.731, "adaptive": 0.673, "counter": 0.401, "mixed": 0.531}}
+veteran {"n": 6000, "win": 0.7248, "mpaja": 0.0403, "R": 18.28, "per": {"extraction": 0.796, "hunting": 0.829, "repair": 0.808, "adaptive": 0.773, "counter": 0.515, "mixed": 0.628}}
+legend {"n": 6000, "win": 0.8018, "mpaja": 0.0352, "R": 18.87, "per": {"extraction": 0.859, "hunting": 0.888, "repair": 0.863, "adaptive": 0.849, "counter": 0.632, "mixed": 0.72}}
+mastermind {"n": 6000, "win": 0.9002, "mpaja": 0.0285, "R": 19.53, "per": {"extraction": 0.937, "hunting": 0.953, "repair": 0.923, "adaptive": 0.927, "counter": 0.811, "mixed": 0.85}}

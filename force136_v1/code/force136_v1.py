@@ -1,4 +1,4 @@
-"""Force 136 v1.0.3 — the printed bot, as code.
+"""Force 136 v1.1 — the printed bot, as code.
 
 A card-driven British opponent for The British Way: Japanese Occupation
 (standard standalone scenario; the human plays Japan). Each function names the
@@ -280,6 +280,31 @@ class Force136(FastGame):
             if not full:return dict(op='CONTACT')
             return dict(op='CONTACT',sa_list=('SUPPLY','GATHER','RAID'))
         raise ValueError(name)
+    # ----------------------------------------------------------------- §4.2 Events (v1.1)
+    EVENTS=(4,25)
+    def j4_gain(self):return sum(1 for v in self.board.values() if v['force136'] and v['camp'])
+    def event_would(self,j):
+        """Would the British side of this listed Event do something on the visible board?"""
+        if j==4:return self.j4_gain()>0 and self.resistance<20
+        if j==25:
+            p=self.clone();moved=bool(p.contact())
+            return moved or self.first_sa(p,self.J25_SA) is not None
+        return False
+    J25_SA=('SUPPLY','GATHER','RAID')
+    def take_event(self,free):
+        """§4.2: only when Japan has already acted on this card and the Event box is free."""
+        return ('J' in self.chosen and 'Event' in free and self.event in self.EVENTS
+                and self.event not in (6,9) and self.event_would(self.event))
+    def british_event(self,j):
+        """Play the British side; returns J25's Special Activity (None for J4)."""
+        sa=None
+        if j==4:self.resistance=clamp(self.resistance+self.j4_gain())
+        elif j==25:                                # Contact, then Supply › Gather › Raid (as the CONTACT goal)
+            self.contact()
+            sa=self.first_sa(self,self.J25_SA)
+            if sa:self.special(sa)
+        self.cleanup()
+        return sa
     # ----------------------------------------------------------------- §4 the turn
     def draw_directive(self):
         if not self.dqueue:
@@ -289,6 +314,7 @@ class Force136(FastGame):
         self.directive=self.dqueue.pop(0);self.ddisc.append(self.directive)
     def choose(self,free):
         d=self.directive;plan=None
+        if self.take_event(free):return dict(op='EVENT',box='Event',goal='EVENT')
         if 'Op & SA' in free:
             for g in ['PLACE']+d['goals']+['CONTACT']:
                 p=self.goal(g,True)
@@ -301,6 +327,7 @@ class Force136(FastGame):
         return dict(op='PASS',box=min(free,key=BOXES.index),goal='PASS')
     def execute(self,plan):
         op=plan['op']
+        if op=='EVENT':plan['sa']=self.british_event(self.event);return
         if op in('CONTACT','PASS'):self.contact()
         elif op=='TRAIN':self.train()
         elif op=='AMBUSH':self.strike()

@@ -1,0 +1,18 @@
+Legend bonus at final scoring 192 59 59 CAUGHT
+Agent bonus +1 96 96 96 CAUGHT
+18-19 tie counted for Britain 192 2 2 CAUGHT
+Train refresh fallback omitted 96 80 0 CAUGHT
+Event step omitted (J4, J25) 96 43 0 CAUGHT
+Listed Events taken as first player too 96 48 0 CAUGHT
+British J22 ignored (Gather activates) 96 96 0 CAUGHT
+British J27 ignored for Ambush 96 89 0 CAUGHT
+British J27 ignored for Sabotage 96 11 0 CAUGHT
+British J27 Sabotage space in railway order 96 7 0 CAUGHT
+secondary: +1 Resistance before final scoring (GPT F1) 96 51 51 CAUGHT
+secondary: one turn skipped 96 96 0 CAUGHT
+engine: Neutral Population /4 96 0 82 CAUGHT
+engine: no Police penalty 96 0 94 CAUGHT
+engine: Caches count double 96 0 96 CAUGHT
+engine: Zipper frozen at Propaganda 96 0 94 CAUGHT
+engine: Zipper one box low 96 0 94 CAUGHT
+all caught

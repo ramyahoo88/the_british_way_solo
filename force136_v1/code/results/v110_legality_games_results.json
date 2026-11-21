@@ -1,0 +1,20 @@
+{
+ "mode": "games",
+ "checked": {
+  "ICON": 9930,
+  "CONTACT": 3886,
+  "GATHER": 3750,
+  "TURN": 15690,
+  "TRAIN": 5584,
+  "AMBUSH": 5962,
+  "SUPPLY": 3761,
+  "EVENT_J25": 255,
+  "games": 960,
+  "EVENT_J4": 119,
+  "SABOTAGE": 192,
+  "RAID": 2290
+ },
+ "violations": 0,
+ "kinds": [],
+ "examples": []
+}

@@ -131,6 +131,7 @@ def run(n,first_seed,stop_after=40):
         try:make(V.Force136,seed,level,state)
         except AssertionError:counts['illegal_position_skipped']+=1;continue
         counts['positions']+=1
+        if rnd.random()<0.3:state['event']=rnd.choice([4,25])      # the v1.1 Event step needs these cards
         cards=rnd.sample(range(9),3)
         actions=[('turn',ci,f) for ci in cards for f in (FREE[rnd.randrange(len(FREE))],FREE[0])]
         actions+=[('propaganda',),('icon',1),('icon',13),('extract',),('construct',)]
@@ -139,9 +140,14 @@ def run(n,first_seed,stop_after=40):
             try:
                 if act[0]=='turn':
                     a.dqueue=[V.DECK[act[1]]];b.dqueue=[clean_base.CARDS[act[1]]]
-                    free=offer(state,act[2]);a.bot_turn(list(free));b.bot_turn(list(free))
+                    free=offer(state,act[2])
+                    if len(act[2])==2:                           # two boxes left: Japan has taken the third
+                        a.chosen=b.chosen={'J':[x for x in BOXES if x not in act[2]][0]}
+                        a.chosen=dict(a.chosen);b.chosen=dict(b.chosen)
+                    a.bot_turn(list(free));b.bot_turn(list(free))
                     pa=a.last_plan;pb=b.last_plan
                     plan_same=all(pa.get(k)==pb.get(k) for k in ('goal','box','op','sa'))
+                    if pa.get('op')=='EVENT':counts[f'event_turns_J{state["event"]}']+=1
                 elif act[0]=='propaganda':
                     a.propaganda(False);b.propaganda(False);plan_same=True
                 elif act[0]=='extract':                          # Japanese Extract: British J15 places guerrillas

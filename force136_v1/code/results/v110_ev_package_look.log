@@ -1,0 +1,4 @@
+lookc K=8 S=3 agent 128 win 0.328 wins 42
+lookc K=8 S=3 mastermind 128 win 0.773 wins 99
+lookc K=16 S=4 agent 128 win 0.156 wins 20
+lookc K=16 S=4 mastermind 128 win 0.602 wins 77

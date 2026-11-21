@@ -1,0 +1,16 @@
+normal     games   960 cross-check failures 0 oracle failures 0 {'Event J4 (4.2)': 181, 'Event J25 (4.2)': 326} 
+J8 U       games    96 cross-check failures 0 oracle failures 0 {'J8 British: Supply': 145, 'Event J25 (4.2)': 28, 'Event J4 (4.2)': 19} 
+J8 S       games    96 cross-check failures 0 oracle failures 0 {'Event J25 (4.2)': 29, 'Event J4 (4.2)': 21} 
+J12 U      games    96 cross-check failures 0 oracle failures 0 {'Event J25 (4.2)': 29, 'Event J4 (4.2)': 20} 
+J12 S      games    96 cross-check failures 0 oracle failures 0 {'Event J25 (4.2)': 28, 'Event J4 (4.2)': 21} 
+J15 U      games    96 cross-check failures 0 oracle failures 0 {'Event J25 (4.2)': 25, 'Event J4 (4.2)': 19} 
+J15 S      games    96 cross-check failures 0 oracle failures 0 {'Event J25 (4.2)': 28, 'Event J4 (4.2)': 19} 
+J19 U      games    96 cross-check failures 0 oracle failures 0 {'J19 British: Gather': 333, 'Event J25 (4.2)': 28, 'Event J4 (4.2)': 18} 
+J19 S      games    96 cross-check failures 0 oracle failures 0 {'Event J25 (4.2)': 29, 'Event J4 (4.2)': 18} 
+J22 U      games    96 cross-check failures 0 oracle failures 0 {'J22 British: Gather without activating': 330, 'Event J25 (4.2)': 31, 'Event J4 (4.2)': 24} 
+J22 S      games    96 cross-check failures 0 oracle failures 0 {'Event J25 (4.2)': 27, 'Event J4 (4.2)': 23} 
+J27 U      games    96 cross-check failures 0 oracle failures 0 {'J27 British: extra Sabotage space': 15, 'Event J25 (4.2)': 26, 'J27 British: extra Ambush space': 236, 'Event J4 (4.2)': 17} 
+J27 S      games    96 cross-check failures 0 oracle failures 0 {'Event J25 (4.2)': 28, 'Event J4 (4.2)': 24} 
+all U      games   192 cross-check failures 0 oracle failures 0 {'J22 British: Gather without activating': 612, 'J19 British: Gather': 714, 'J27 British: extra Ambush space': 725, 'J27 British: extra Sabotage space': 29, 'J8 British: Supply': 339, 'Event J25 (4.2)': 59, 'Event J4 (4.2)': 8} 
+all S      games   192 cross-check failures 0 oracle failures 0 {'Event J25 (4.2)': 63, 'Event J4 (4.2)': 2} 
+TOTAL {'games': 2496, 'cross': 0, 'oracle': 0}

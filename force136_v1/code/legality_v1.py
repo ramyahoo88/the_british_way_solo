@@ -12,7 +12,7 @@ rule a British player follows."
 
 usage: python3 legality_v1.py games [seeds]        policy games, all five levels (default 16 seeds)
        python3 legality_v1.py fuzz  [positions]    random positions from fuzz_v1.random_state (default 2000)
-       python3 legality_v1.py selftest             nine planted illegal actions; each must be caught
+       python3 legality_v1.py selftest             ten planted illegal actions; each must be caught
 Exit status 1 if any violation is found.
 """
 import sys,os,itertools,collections,random,json
@@ -396,6 +396,17 @@ class Checked(V.Force136):
             need(self.event not in (6,9) or p['box']!='Event','used the Event box on a Mandatory Event card (rule 5.4), even for a Pass')
             if p['op']=='PASS':
                 after=snap(self);need(before['board']==after['board'] and before['sab']==after['sab'] and before['R']==after['R'],'a Pass changed the position')
+            elif p['op']=='EVENT':                    # either side of an Event may be executed by either player (5.2)
+                need(p['box']=='Event','executed an Event outside the Event box')
+                self.viol.n[f'EVENT_J{self.event}']+=1
+                after=snap(self)
+                if self.event==4:                     # J4 British side: +1 Resistance per space with Force 136 and a Jungle Camp
+                    n=sum(1 for v in before['board'].values() if v['force136'] and v['camp'])
+                    need(after['board']==before['board'] and after['sab']==before['sab'],'J4 changed the board')
+                    need(after['R']==min(20,before['R']+n),f"J4: Resistance {before['R']}->{after['R']}, expected +{n}")
+                elif self.event==25:                  # J25 British side: Contact, then any one Special Activity
+                    pass                              # the Contact and the Special Activity are each checked as they happen
+                else:raise Bad(f'executed J{self.event}, which no printed rule allows')
             else:
                 need(p['box'] in ('Limited','Op & SA'),'acted in the Event box')
                 if p['box']=='Limited':need(not p.get('sa'),'Limited Operation with a Special Activity')
@@ -433,9 +444,11 @@ def fuzz(n,first=900000):
         try:Z.make(V.Force136,seed,level,state)
         except AssertionError:continue
         tot['positions']+=1
+        if rnd.random()<0.3:state['event']=rnd.choice([4,25])      # v1.1: exercise the Event step
         for ci in rnd.sample(range(9),3):
             for free in (Z.FREE[rnd.randrange(len(Z.FREE))],Z.FREE[0]):
                 g=Z.make(Checked,seed,level,state);g.dqueue=[V.DECK[ci]]
+                if len(free)==2:g.chosen={'J':[x for x in BOXES if x not in free][0]}   # Japan took the third box
                 g.bot_turn(Z.offer(state,free));g.invariants();tot.update(g.viol.n);items+=g.viol.items
         for j in (1,13):
             g=Z.make(Checked,seed,level,state);g.icon(j);tot.update(g.viol.n);items+=g.viol.items
@@ -523,7 +536,14 @@ def selftest():
         b['Kuala Lumpur'].update(troops=15,police=6,kempeitai=3)
         b['Perak'].update(force136=1,camp=True,red_u=1,opposition=opposition)
         g.cap.update(cap);g.invariants();g.supply();return g
-    rows=[]
+    class J4PerMarker(Checked):                # J4 counted per marker instead of per space
+        def j4_gain(self):return sum(v['force136'] for v in self.board.values() if v['camp'])
+    g=J4PerMarker(5954005);g.board=E.new_board();b=g.board
+    b['Kuala Lumpur'].update(troops=15,police=6,kempeitai=3)
+    b['Perak'].update(force136=2,camp=True);b['Kedah'].update(force136=1,camp=True)
+    g.event=4;g.chosen={'J':'Op & SA'};g.invariants();g.dqueue=[V.DECK[0]];g.bot_turn(['Limited','Event'])
+    j4=('Event: J4 counted per marker, not per space',1,int(bool(g.viol.items)),'CAUGHT' if g.viol.items and g.last_plan['op']=='EVENT' else 'MISSED')
+    rows=[j4];print(*j4,flush=True)
     g=one_space(type('M',(Die1,J8Converts),{}),{8:'S'},False);ctl=one_space(type('K',(Die1,Checked),{}),{8:'S'},False)
     ok=bool(g.viol.items) and not ctl.viol.items and not ctl.board['Perak']['cache']
     rows.append(('Supply: Japanese J8, converted on a roll of 1',1,int(bool(g.viol.items)),'CAUGHT' if ok else 'MISSED'));print(*rows[-1],flush=True)

@@ -24,8 +24,8 @@ def phr(c):
         a,b=items['intel'];o.append(f"Intel revealed ({b})" if a=='None' else 'Intel concealed' if b=='None' else f"Intel {a}→{b}")
     return f"{s}: "+'; '.join(o)
 OPS={'DEPLOY':'Deploy','CONSTRUCT':'Construct','ASSAULT':'Assault','SWEEP':'Sweep','EVENT':'Japanese side','PASS':'Pass'}
-L=["# Force 136 v1.0.4 — sample game","",
-f"Seed {seed}, Agent level, against the simulation's *{pol}* Japan policy. The game was generated with `python3 sample_game.py {seed} {pol}` and `python3 sample_md.py {seed} {pol} <file>`. The Japanese moves come from one computer policy and are not advice. The log lists each card's MPAJA icon, each Force 136 turn (Directive card, the goal that qualified, the board changes) and each Japanese move, then every Propaganda with the position after its Reset.","",
+L=["# Force 136 v1.1 — sample game","",
+f"Seed {seed}, Agent level, against the simulation's *{pol}* Japan policy. The game was generated with `python3 sample_game.py {seed} {pol}` and `python3 sample_md.py {seed} {pol} <file>`. The Japanese moves come from one computer policy and are not advice. The log lists each card's MPAJA icon, each Force 136 turn (Directive card, the goal that qualified, the board changes; or the Event it played) and each Japanese move, then every Propaganda with the position after its Reset.","",
 "## Starting position","","Standard setup. Resistance 2, Zipper at Delay, Japanese Resources 0. Force 136 is first eligible.",""]
 L+=[f"- {x}" for x in d['start']]
 L+=["","## Play",""]
@@ -48,6 +48,9 @@ for x in d['narr']:
         res=f"; Resources {x['res'][0]}→{x['res'][1]}" if x['res'][0]!=x['res'][1] else ''
         cap=''.join(f"; capability J{c} now in play" for c in x.get('cap',[]))
         L.append(f"- *Card {x['draw']} (J{x['event']}) · Japan · {x['box']}: {what}* · R {x['R'][0]}→{x['R'][1]}{res}{cap}{ch}");continue
+    if x['op']=='EVENT':
+        what='Contact'+(f" + {x['sa'].title()}" if x['sa'] else '') if x['event']==25 else '+1 Resistance per space with Force 136 and a Camp'
+        L.append(f"- **Card {x['draw']} (J{x['event']}) · Force 136 · Event box: British side ({what})** · R {x['R'][0]}→{x['R'][1]}{ch}");continue
     sa=f" + {x['sa'].title()}" if x['sa'] else ''
     card=x['card'].split(':')[0]
     L.append(f"- **Card {x['draw']} (J{x['event']}) · Force 136 · Directive {card} · {x['goal']} → {x['box']}: {x['op'].title()}{sa}** · R {x['R'][0]}→{x['R'][1]}{ch}")

@@ -133,3 +133,15 @@ GPT's independent audit (`audits/v1.0.3/` on `main`) confirmed no new gameplay o
 | U3 (optional) | Keep real Raid-step witnesses instead of a bounded search; fail loudly on lookahead preview exceptions. | The legality check now records the position after each Raid destination and checks each step, so no Raid is left unconfirmed. The lookahead no longer swallows exceptions; rerunning the wide search (256 games) raised none and gave identical results. |
 
 GPT's fresh matched games put v1.0.3's Agent at 62.9% (59.5–66.2%) and the change from v1.0.2 at −1.0 points (−3.0 to +0.9) on 256 new seeds, against −3.2 on the 1,000 stored seeds. The current rates stand; the size of the drop is less certain than one sample suggests, and the simulation report now says so.
+
+## The Event question and v1.1
+
+The user asked whether players would look poorly on a bot that never executes an Event. Probably yes: in a COIN-style game the Event box is half the decision. v1.0's "no Events" rested on a small test (288 games per Event) run before the Train refresh and the Japan corrections, so the question was reopened rather than defended. GPT's re-audit of v1.0.4 (`audits/v1.0.4/` on `main`) passed it with no findings and listed the same point as optional work: repeat the Event study on the current model before claiming that Events cannot help.
+
+| Step | What was done | Result |
+|---|---|---|
+| Screen | Every Event a player can choose (30 cards), on v1.0.4 against the corrected Japan, 1,536 paired games per Event and variant; taken when the British side would do something, and a *deny* variant that also takes it as first player only to keep it from Japan | As first player every Event lowers the win rate (−1.5 to −26 points where the choice arises); denial is no better. As second player nine have positive estimates. |
+| Confirmation | The seven most promising as second player on 6,000 fresh games; those still positive on 6,000 more | J4 Chin Peng (+4.3, +4.1) and J25 John Davis (+3.0, +2.1) gain in both. J26 gains in both but not clearly and needs its own targeting rule; J10 does not repeat; J1, J23 and J28 are flat. |
+| Package | J4 and J25 together on the 6,000 level games per level | +0.8 / +1.7 / +1.6 / +1.4 / +0.8 points (Recruit to Mastermind); against the lookahead Japan not worse |
+
+v1.1 adds rules section 4, step 2: if Japan has already acted on the card and the Event box is free, Force 136 plays the British side of J4 or J25 when it would do something. J4 adds 1 Resistance per space with Force 136 and a Jungle Camp; J25 is a Contact plus the CONTACT goal's Special Activity. Every other Event, and every Event as first player, is still left to Japan. The reference sheet, Directive cards and flowchart carry the step. Both bots, the tuning lab, the checker (coverage and two new mutants), the random-position test (J4 and J25 with Japan already acted), the legality check (J4's exact gain; Events only in the Event box; a new planted error) and three new fixtures cover it. All result tables were rerun.

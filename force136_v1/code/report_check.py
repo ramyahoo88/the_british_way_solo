@@ -1,13 +1,16 @@
-"""Check that the printed win-rate tables match the stored v1.0.1 results (GPT re-audit, finding R1).
+"""Check that the printed win-rate tables match the stored v1.1 results (GPT re-audit, finding R1).
 
-Recomputes every cell from results/results_fresh_v103.csv.gz and compares it with:
+Recomputes every cell from results/results_fresh_v110.csv.gz and compares it with:
 - the simulation report's summary table (win %, mean final Resistance, MPAJA %; one decimal),
 - the simulation report's per-policy table (whole percent; the search-player column is historical). Rounding is half up.,
 - the level table in the rules and the force136_v1 README (whole percent),
 - the summary table's 95% intervals: whole-seed bootstrap, 10,000 resamples, random.Random(33745) per level,
   2.5th and 97.5th percentiles, one decimal,
-- the stress-policy table: wins / games per policy from results/results_exploits_v103.json,
-- the lookahead, search-player, reference and map-reading figures from the stored v103 logs.
+- the stress-policy table: wins / games per policy from results/results_exploits_v110.json,
+- the v1.1 change table (ev_package.py: v1.1 paired with v1.0.3/v1.0.4 on the same games) and the lookahead
+  comparison with v1.0.4 (v103 logs),
+- the lookahead, holdout and map-reading figures from the stored v110 logs; the search player and the
+  references do not use the bot's rules, so their figures stay v1.0.3's (v103_lookexpert.log, refs_v103.json).
 Exit status 1 on any mismatch. Run from code/: python3 report_check.py
 """
 import csv,gzip,os,re,sys
@@ -17,7 +20,7 @@ HERE=os.path.dirname(os.path.abspath(__file__));PKG=os.path.dirname(HERE)
 def find(name):
     p=os.path.join(HERE,'results',name)
     return p if os.path.exists(p) else os.path.join(HERE,name)
-RES=find('results_fresh_v103.csv.gz')
+RES=find('results_fresh_v110.csv.gz')
 rows=list(csv.DictReader(gzip.open(RES,'rt')))
 LEVELS=('recruit','agent','veteran','legend','mastermind');POLS=('extraction','hunting','repair','adaptive','counter','mixed')
 def cell(l,p=None):
@@ -46,7 +49,7 @@ for l in LEVELS:
     line=re.search(r'^\| \**'+l.capitalize()+r'\** \|[^|]*\| [^|]* \| ([\d.]+)–([\d.]+)% \|',rep,re.M)
     if not line:bad.append(f'report interval: no row for {l}');continue
     check(f'report interval {l}',(line.group(1),line.group(2)),interval(l))
-EX=json.load(open(find('results_exploits_v103.json')))
+EX=json.load(open(find('results_exploits_v110.json')))
 LABEL={'brute':'Eliminates, or makes a Limited Assault or Sweep','tempo':'takes the Limited box','econ':'Deploys or Constructs','eventhog':'takes the Event'}
 for pol,label in LABEL.items():
     rs=[r for r in EX if r['pol']==pol];w=sum(r['winner']=='Force 136' for r in rs)
@@ -75,7 +78,7 @@ def logrows(name):
         m=re.match(r'^(look|lookc)( K=16 S=4)? (\w+) (\d+) win ([\d.]+)',line)
         if m:n=int(m.group(4));out[m.group(3)]=round(float(m.group(5))*n)/n      # the log rounds to 3 decimals: recover the count
     return out
-for label,name in (('look: adaptive values','v103_look.log'),('lookc: counter values, 8 moves','v103_lookc.log'),('lookc, wide','v103_lookdeep.log')):
+for label,name in (('look: adaptive values','v110_look.log'),('lookc: counter values, 8 moves','v110_lookc.log'),('lookc, wide','v110_lookdeep.log')):
     rowdata=logrows(name)
     line=re.search(r'^\| '+re.escape(label)+r'[^|]*\| (\d+)% \| (\d+)% \| (\d+)% \| (\d+)% \| (\d+)% \|$',rep,re.M)
     if not line:bad.append(f'lookahead table: no row for {label}');continue
@@ -84,11 +87,11 @@ ex={}
 for line in open(find('v103_lookexpert.log')):
     m=re.match(r'^expert vs lookc (\d+) (\d+) (\d+) ([\d.]+)',line)
     if m:n=int(m.group(3));ex[(m.group(1),m.group(2))]=round(float(m.group(4))*n)/n
-for (k,sm),label,agentlog in ((('8','3'),'lookc, 8 moves × 3 cards','v103_lookc.log'),(('16','4'),'lookc, 16 moves × 4 cards','v103_lookdeep.log')):
+for (k,sm),label,agentlog in ((('8','3'),'lookc, 8 moves × 3 cards','v110_lookc.log'),(('16','4'),'lookc, 16 moves × 4 cards','v110_lookdeep.log')):
     line=re.search(r'^\| '+re.escape(label)+r' \| (\d+)% \| (\d+)% \|$',rep,re.M)
     if not line:bad.append(f'search-player table: no row for {label}');continue
     check(f'search player vs {label}',(line.group(1),line.group(2)),(fmt(100*ex[(k,sm)],0),fmt(100*logrows(agentlog)['agent'],0)))
-H=json.load(open(find('results_holdout1_v103.json')));hw=sum(r['winner']=='Force 136' for r in H)
+H=json.load(open(find('results_holdout1_v110.json')));hw=sum(r['winner']=='Force 136' for r in H)
 m=re.search(r"where Agent wins ([\d.]+)% \((\d+) games\)",rep)
 if not m:bad.append('holdout sentence missing')
 else:check('holdout 1 Agent',(m.group(1),m.group(2)),(fmt(100*hw/len(H),1),str(hw)))
@@ -103,9 +106,34 @@ for p in POLS:
     line=re.search(r'^\| '+p+r' \|(?: \d+% \|){5} (\d+)% \|$',rep,re.M)
     if not line:bad.append(f'search-player column: no row for {p}');continue
     check(f'search-player column {p}',line.group(1),fmt(100*REF['expert']['per'][p][0],0))
-corner=[round(float(l.split()[2])*768)/768 for l in open(find('v103_corner.log')) if l.startswith('corner')]
+corner=[round(float(l.split()[2])*768)/768 for l in open(find('v110_corner.log')) if l.startswith('corner')]
 m=re.search(r'Agent wins ([\d.]+)% instead of ([\d.]+)% \(holdout 1\)',rep)
 if not m:bad.append('map-reading sentence missing')
 else:check('map reading',(m.group(1),m.group(2)),(fmt(100*corner[1],1),fmt(100*corner[0],1)))
-print('\n'.join(bad) if bad else 'all printed results match the stored v1.0.3 results')
+# ---- v1.1: the Event step's change table (paired with v1.0.3/v1.0.4) and the lookahead comparison
+import ev_package
+def sfmt(x,d):
+    v=Decimal(repr(x)).quantize(Decimal('1') if d==0 else Decimal('0.1') if d==1 else Decimal('0.01'),rounding=ROUND_HALF_UP)
+    return ('+' if v>0 else '−' if v<0 else '')+str(abs(v))
+for l,(d,lo,hi,dR,f) in ev_package.change().items():
+    line=re.search(r'^\| '+l.capitalize()+r' \| ([+−]?[\d.]+) \| ([+−]?[\d.]+) to ([+−]?[\d.]+) \| ([+−]?[\d.]+) \|$',rep,re.M)
+    if not line:bad.append(f'v1.1 change table: no row for {l}');continue
+    check(f'v1.1 change {l}',line.groups(),(sfmt(d,1),sfmt(lo,1),sfmt(hi,1),sfmt(dR,2)))
+ch=ev_package.change()
+m=re.search(r'between (\d+) \(Mastermind\) and (\d+) \(Recruit\) of the 6,000 have a different winner',rep)
+if not m:bad.append('different-winner sentence missing')
+else:check('different winners',(m.group(1),m.group(2)),(str(ch['mastermind'][4]),str(ch['recruit'][4])))
+tot_new=tot_old=games=0
+for label,new,old in (('look, 8 moves × 3 cards','v110_look.log','v103_look.log'),('lookc, 8 moves × 3 cards','v110_lookc.log','v103_lookc.log'),
+                      ('lookc, wide: 16 moves × 4 cards','v110_lookdeep.log','v103_lookdeep.log')):
+    a,b=logrows(new),logrows(old)
+    line=re.search(r'^\| '+re.escape(label)+r' \|'+r' (\d+)% \((\d+)%\) \|'*5+'$',rep,re.M)
+    if not line:bad.append(f'lookahead comparison: no row for {label}');continue
+    for k,l in enumerate(LEVELS):
+        check(f'lookahead comparison {label}/{l}',(line.group(2*k+1),line.group(2*k+2)),(fmt(100*a[l],0),fmt(100*b[l],0)))
+        tot_new+=round(a[l]*128);tot_old+=round(b[l]*128);games+=128
+m=re.search(r'(\d+) more wins in the ([\d,]+) games of the 15 lookahead cells, \+([\d.]+) points',rep)
+if not m:bad.append('lookahead summary sentence missing')
+else:check('lookahead summary',(m.group(1),m.group(2).replace(',',''),m.group(3)),(str(tot_new-tot_old),str(games),fmt(100*(tot_new-tot_old)/games,1)))
+print('\n'.join(bad) if bad else 'all printed results match the stored v1.1 results')
 sys.exit(1 if bad else 0)

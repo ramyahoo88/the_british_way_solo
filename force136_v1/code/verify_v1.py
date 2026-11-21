@@ -130,6 +130,7 @@ def traced(cls,forced=None):
             if c27 and 'SABOTAGE' in ops and sab:self.box.cov['J27 British: extra Sabotage space']+=1
             if mine and self.cap.get(8)=='U' and 'SUPPLY' in ops:self.box.cov['J8 British: Supply']+=1
             if mine and self.cap.get(19)=='U' and 'GATHER' in ops:self.box.cov['J19 British: Gather']+=1
+            if mine and p.get('op')=='EVENT':self.box.cov[f'Event J{self.event} (4.2)']+=1
             self.box.items.append(('turn',self.draw,tuple(free),self.directive['id'],
                                    (p.get('box'),p.get('op'),p.get('sa')),p.get('goal'),bkey(self.board),tracks(self)))
     T.__name__='Traced'+cls.__name__
@@ -212,6 +213,11 @@ def mutants():
             if not donors:return False
             x=min(donors,key=lambda x:(not self.board[x][c+'_a'],-cubes(self.board[x]),V.mo(x)))
             f=c+('_a' if self.board[x][c+'_a'] else '_u');self.board[x][f]-=1;v[c+'_u']+=1;return True
+    class NoEvents(B):                    # v1.1 Event step omitted (the v1.0 behaviour)
+        def take_event(self,free):return False
+    class EventsFirst(B):                 # the listed Events taken as first player too
+        def take_event(self,free):
+            return 'Event' in free and self.event in self.EVENTS and self.event not in (6,9) and self.event_would(self.event)
     class J27EngineOrder(B):              # British J27 extra Sabotage space chosen by the engine's railway order
         def rail(self,region='C',locations=None,color=None,extra=True):return V.FastGame.rail(self,region,locations,color,extra)
     Q=C.CleanForce136
@@ -232,6 +238,8 @@ def mutants():
            ('Agent bonus +1',AgentBonus,('agent',),None),
            ('18-19 tie counted for Britain',TieToBritain,('agent','legend'),None),
            ('Train refresh fallback omitted',NoRefresh,('agent',),None),
+           ('Event step omitted (J4, J25)',NoEvents,('agent',),None),
+           ('Listed Events taken as first player too',EventsFirst,('agent',),None),
            ('British J22 ignored (Gather activates)',J22Activates,('agent',),{22:'U'}),
            ('British J27 ignored for Ambush',J27NoExtraAmbush,('agent',),{27:'U'}),
            ('British J27 ignored for Sabotage',J27NoExtraSabotage,('agent',),{27:'U'}),

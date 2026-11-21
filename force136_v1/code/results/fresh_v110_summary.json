@@ -1,0 +1,207 @@
+{
+ "recruit": {
+  "n": 6000,
+  "win": 0.3957,
+  "mpaja": 0.0572,
+  "R": 15.42,
+  "turns": 16.37,
+  "per": {
+   "extraction": 0.339,
+   "hunting": 0.601,
+   "repair": 0.449,
+   "adaptive": 0.414,
+   "counter": 0.24,
+   "mixed": 0.331
+  },
+  "goals": {
+   "AMBUSH": 0.352,
+   "TRAIN": 0.346,
+   "PLACE": 0.205,
+   "INTEL": 0.058,
+   "EVENT": 0.026,
+   "SUPPLY": 0.01,
+   "PASS": 0.002,
+   "CONTACT": 0.0
+  },
+  "ops": {
+   "L:TRAIN": 0.247,
+   "O:AMBUSH+GATHER": 0.197,
+   "O:AMBUSH": 0.138,
+   "L:CONTACT": 0.113,
+   "O:TRAIN+SUPPLY": 0.081,
+   "O:CONTACT+GATHER": 0.078,
+   "L:AMBUSH": 0.059,
+   "O:TRAIN": 0.029,
+   "E:EVENT": 0.026,
+   "O:CONTACT+SUPPLY": 0.017,
+   "O:SABOTAGE+GATHER": 0.009,
+   "O:CONTACT": 0.003,
+   "L:PASS": 0.002,
+   "E:PASS": 0.0
+  }
+ },
+ "agent": {
+  "n": 6000,
+  "win": 0.6295,
+  "mpaja": 0.0452,
+  "R": 17.47,
+  "turns": 16.37,
+  "per": {
+   "extraction": 0.703,
+   "hunting": 0.738,
+   "repair": 0.731,
+   "adaptive": 0.673,
+   "counter": 0.401,
+   "mixed": 0.531
+  },
+  "goals": {
+   "TRAIN": 0.343,
+   "AMBUSH": 0.322,
+   "PLACE": 0.239,
+   "INTEL": 0.059,
+   "EVENT": 0.026,
+   "SUPPLY": 0.011,
+   "PASS": 0.001,
+   "CONTACT": 0.0
+  },
+  "ops": {
+   "L:TRAIN": 0.238,
+   "O:AMBUSH+RAID": 0.145,
+   "O:AMBUSH+GATHER": 0.138,
+   "L:CONTACT": 0.137,
+   "O:TRAIN+SUPPLY": 0.086,
+   "O:CONTACT+GATHER": 0.079,
+   "L:AMBUSH": 0.043,
+   "O:AMBUSH": 0.036,
+   "O:TRAIN+RAID": 0.027,
+   "E:EVENT": 0.026,
+   "O:CONTACT+SUPPLY": 0.024,
+   "O:SABOTAGE+GATHER": 0.012,
+   "O:CONTACT+RAID": 0.004,
+   "O:TRAIN": 0.002
+  }
+ },
+ "veteran": {
+  "n": 6000,
+  "win": 0.7248,
+  "mpaja": 0.0403,
+  "R": 18.28,
+  "turns": 16.37,
+  "per": {
+   "extraction": 0.796,
+   "hunting": 0.829,
+   "repair": 0.808,
+   "adaptive": 0.773,
+   "counter": 0.515,
+   "mixed": 0.628
+  },
+  "goals": {
+   "TRAIN": 0.342,
+   "AMBUSH": 0.321,
+   "PLACE": 0.241,
+   "INTEL": 0.059,
+   "EVENT": 0.025,
+   "SUPPLY": 0.011,
+   "PASS": 0.001,
+   "CONTACT": 0.0
+  },
+  "ops": {
+   "L:TRAIN": 0.237,
+   "O:AMBUSH+RAID": 0.145,
+   "L:CONTACT": 0.138,
+   "O:AMBUSH+GATHER": 0.138,
+   "O:TRAIN+SUPPLY": 0.088,
+   "O:CONTACT+GATHER": 0.08,
+   "L:AMBUSH": 0.043,
+   "O:AMBUSH": 0.036,
+   "O:TRAIN+RAID": 0.026,
+   "E:EVENT": 0.025,
+   "O:CONTACT+SUPPLY": 0.025,
+   "O:SABOTAGE+GATHER": 0.012,
+   "O:CONTACT+RAID": 0.004,
+   "O:TRAIN": 0.002
+  }
+ },
+ "legend": {
+  "n": 6000,
+  "win": 0.8018,
+  "mpaja": 0.0352,
+  "R": 18.87,
+  "turns": 16.37,
+  "per": {
+   "extraction": 0.859,
+   "hunting": 0.888,
+   "repair": 0.863,
+   "adaptive": 0.849,
+   "counter": 0.632,
+   "mixed": 0.72
+  },
+  "goals": {
+   "TRAIN": 0.342,
+   "AMBUSH": 0.321,
+   "PLACE": 0.241,
+   "INTEL": 0.059,
+   "EVENT": 0.025,
+   "SUPPLY": 0.011,
+   "PASS": 0.001,
+   "CONTACT": 0.0
+  },
+  "ops": {
+   "L:TRAIN": 0.237,
+   "O:AMBUSH+RAID": 0.145,
+   "L:CONTACT": 0.139,
+   "O:AMBUSH+GATHER": 0.138,
+   "O:TRAIN+SUPPLY": 0.088,
+   "O:CONTACT+GATHER": 0.079,
+   "L:AMBUSH": 0.043,
+   "O:AMBUSH": 0.035,
+   "O:TRAIN+RAID": 0.026,
+   "E:EVENT": 0.025,
+   "O:CONTACT+SUPPLY": 0.025,
+   "O:SABOTAGE+GATHER": 0.012,
+   "O:CONTACT+RAID": 0.004,
+   "O:TRAIN": 0.002
+  }
+ },
+ "mastermind": {
+  "n": 6000,
+  "win": 0.9002,
+  "mpaja": 0.0285,
+  "R": 19.53,
+  "turns": 16.37,
+  "per": {
+   "extraction": 0.937,
+   "hunting": 0.953,
+   "repair": 0.923,
+   "adaptive": 0.927,
+   "counter": 0.811,
+   "mixed": 0.85
+  },
+  "goals": {
+   "TRAIN": 0.34,
+   "AMBUSH": 0.32,
+   "PLACE": 0.244,
+   "INTEL": 0.059,
+   "EVENT": 0.024,
+   "SUPPLY": 0.011,
+   "PASS": 0.001,
+   "CONTACT": 0.0
+  },
+  "ops": {
+   "L:TRAIN": 0.237,
+   "O:AMBUSH+RAID": 0.146,
+   "L:CONTACT": 0.141,
+   "O:AMBUSH+GATHER": 0.138,
+   "O:TRAIN+SUPPLY": 0.087,
+   "O:CONTACT+GATHER": 0.079,
+   "L:AMBUSH": 0.043,
+   "O:AMBUSH": 0.035,
+   "O:CONTACT+SUPPLY": 0.026,
+   "O:TRAIN+RAID": 0.026,
+   "E:EVENT": 0.024,
+   "O:SABOTAGE+GATHER": 0.012,
+   "O:CONTACT+RAID": 0.004,
+   "O:TRAIN": 0.002
+  }
+ }
+}

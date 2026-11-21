@@ -1,4 +1,4 @@
-# Force 136 v1.0 — playtest guide
+# Force 136 v1.1 — playtest guide
 
 The simulations say the bot is competitive against computer Japan policies. Only real games can say whether it is fun, fast and hard to exploit for a person. This page lists what to record so a few games give useful answers.
 
@@ -16,6 +16,7 @@ The simulations say the bot is competitive against computer Japan policies. Only
 | Any turn where you had to read a rule twice, or two readings seemed possible | Wording problems; give the section number |
 | Time for five normal bot turns once you know the rules, and how many times you opened the full rules | The target is under a minute a turn; the 2.2 goal checks a turn is a simulation count, not a measured time |
 | How long INTEL tests and Raid choices take | They are the longest lookups: INTEL previews up to three Operations, Raid compares destinations and sources |
+| Turns where the bot played J4 or J25 (step 2), and whether you saw it coming | New in v1.1; about 1 turn in 40. Shows whether the Event step reads naturally and whether Japan plays around it |
 | Turns where the bot Passed | Should be very rare (about 1 turn in 1,000) |
 | After each Propaganda: where you left your Kempeitai, and what the bot did next | The simulation's Japan was corrected here in v1.0.3; real choices will show whether it is now realistic |
 | Moments the bot did something a good British player never would | Candidate rule improvements |

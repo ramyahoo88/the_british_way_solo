@@ -1,0 +1,2 @@
+clean run exit 0 | injected scoring error exit 1 | uncaught mutant exit 1
+exit status checks passed

@@ -394,7 +394,23 @@ class F136Game(FastGame):
         d=FastGame.die(self,tag,space)
         if tag=='Ambush' and self.P.get('amb_bonus') and not self.preview:d+=self.P['amb_bonus']
         return d
-    def event_ok(self,free):return False
+    EVENTS=(4,25)
+    def j4_gain(self):return sum(1 for v in self.board.values() if v['force136'] and v['camp'])
+    def event_ok(self,free):
+        """v1.1: J4 and J25, only when Japan has already acted on the card."""
+        if 'J' not in self.chosen or self.event not in self.EVENTS:return False
+        if self.event==4:return self.j4_gain()>0 and self.resistance<20
+        p=self.clone();moved=bool(p.contact())
+        return moved or any(self.sa_does(p,x) for x in ('SUPPLY','GATHER','RAID'))
+    def british_event(self,j):
+        sa=None
+        if j==4:self.resistance=clamp(self.resistance+self.j4_gain())
+        else:
+            self.contact()
+            for x in ('SUPPLY','GATHER','RAID'):
+                if self.sa_does(self,x):self.special(x);sa=x;break
+        self.cleanup()
+        return sa
     def window_open(self):
         block=(self.draw-1)//7;pos=(self.draw-1)%7+1
         return pos>=5 and self.campaign==block+1
@@ -436,7 +452,7 @@ class F136Game(FastGame):
                 if p:plan=dict(p,box='Limited',goal=goal);break
         if not plan:plan=dict(op='PASS',box=min(free,key=BOXES.index))
         self.chosen['B']=plan['box']
-        if plan['op']=='EVENT':self.execute_event(self.event,'U')
+        if plan['op']=='EVENT':plan['sa']=self.british_event(self.event)
         elif plan['op']=='PASS':self.contact()
         else:self.execute(plan)
         self.inc('b_'+plan['op']+('+'+plan['sa'] if plan.get('sa') else ''))
