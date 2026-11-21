@@ -134,7 +134,7 @@ class F136Game(FastGame):
                     self.add_camp(d);self.cleanup();return [(src,d)]
         return []
     # ------------------------------------------------------ TRAIN
-    TRAIN_MODE='donor'
+    TRAIN_MODE='last'          # v1.0.1: donors first, then refresh in the Train space
     def train_color(self,s):
         v=self.board[s];r=red(v);bl=blue(v);red_ok=v['camp'] or v['cache']
         if r and bl:c='red' if r>=bl else 'blue'
@@ -151,12 +151,14 @@ class F136Game(FastGame):
         if mode in('refresh','both') and v[c+'_a']:
             v[c+'_a']-=1;v[c+'_u']+=1;return True
         if self.P.get('nodonor'):return False
-        if mode in('donor','both'):
+        if mode in('donor','both','last'):
             donors=[x for x in MAPO if x!=s and not self.board[x]['force136'] and (self.board[x][c+'_a'] or self.board[x][c+'_u'])
                     and self.donor_ok(x)]
             if donors:
                 x=min(donors,key=lambda x:(not self.board[x][c+'_a'],-cubes(self.board[x]),self.mo(x)))
                 f=c+('_a' if self.board[x][c+'_a'] else '_u');self.board[x][f]-=1;v[c+'_u']+=1;return True
+        if mode=='last' and v[c+'_a']:
+            v[c+'_a']-=1;v[c+'_u']+=1;return True
         return False
     def train(self,locations=None,reserve_cache_donors=False):
         n=0;used={}
@@ -257,6 +259,13 @@ class F136Game(FastGame):
         if stack or not self.P.get('simple_rail'):return FastGame.rail_choice(self,s,region,stack,eligible)
         c=[r for r in self.RAIL_LIST if s in self.rail_adj(r) and not self.sabotage[r] and (eligible is None or r in eligible)]
         return c[0] if c else None
+    def rail(self,region='C',locations=None,color=None,extra=True):
+        if locations is not None:return FastGame.rail(self,region,locations,color,extra)
+        b=self.board;sites=self.f136_spaces()
+        if extra and self.cap.get(27)=='U':
+            more=[s for s in MAPO if not b[s]['force136'] and ug(b[s]) and self.rail_choice(s)]
+            if more:sites=sorted(sites+more[:1],key=self.mo)
+        return FastGame.rail(self,region,sites,color,False)
     def gather_n(self):
         p=self.clone();return len(p.gather())
     def useful_ambush(self):
@@ -291,8 +300,8 @@ class F136Game(FastGame):
             for op in ('STRIKE','RAIL','CONTACT'):
                 p=self.clone()
                 if op=='STRIKE' and not self.useful_ambush():continue
-                if op=='RAIL' and not p.rail('C'):continue
-                if op=='STRIKE':p.strike()
+                if op=='RAIL' and not p.rail('C',extra=False):continue
+                if op=='STRIKE':p.strike(extra=False)
                 if op=='CONTACT' and not p.contact():continue
                 if len(p.clone().gather())>=self.P.get('intel_min',2):return dict(op=op,sa='GATHER')
             return None

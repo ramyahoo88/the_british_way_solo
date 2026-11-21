@@ -198,3 +198,15 @@ VARIANTS={'intel_nosab':IntelNoSab,'supply_ug1':SupplyGuard(1),'supply_ug2':Supp
  'deck_IAT_A':DeckVar(['INTEL','AMBUSH','TRAIN'],'AMBUSH'),'deck_ASIT_T':DeckVar(['AMBUSH','SUPPLY','INTEL','TRAIN'],'TRAIN'),
  'deck_TAI_T':DeckVar(['TRAIN','AMBUSH','INTEL'],'TRAIN'),'guardfirst':GuardFirst,'keepcacheug':KeepCacheUG,'supplysafe':SupplySafe2,'raidkeep2':RaidKeep2,'limshot':LimShot,'biggather':BigGatherFirst,'gather_notroops':GatherSafe('notroops'),'gather_keepug':GatherSafe('keepug'),'final_supply0':FinalSupply(0),'final_supply12':FinalSupply(12),'final_supply15':FinalSupply(15),'redeploy_idle':RedeployIdle,'redeploy_thin':RedeployUG,'shot_le2':Shot2(2),'shot_le4':Shot2(4),'kempjungle':KempJungle,'kemptroop':KempTroopFirst,'base':B,'gatherfirst':GatherFirst,'mobnoblue':MobNoBlue,'kempfirst':KempFirst,'shot2':Shot(2),'shot4':Shot(4),
           'place_mountain':PlaceTerrain('mountain'),'place_jungle':PlaceTerrain('jungle')}
+def Refresh(order):
+    """Train may take an Active guerrilla of the colour from the Train space itself (rule 1.4.1 example)."""
+    class R(B):
+        def place_one(self,s,c):
+            v=self.board[s]
+            if self.available(c):v[c+'_u']+=1;return True
+            if order=='first' and v[c+'_a']:v[c+'_a']-=1;v[c+'_u']+=1;return True
+            if B.place_one(self,s,c):return True
+            if order=='last' and v[c+'_a']:v[c+'_a']-=1;v[c+'_u']+=1;return True
+            return False
+    return R
+VARIANTS.update(refresh_first=Refresh('first'),refresh_last=Refresh('last'))

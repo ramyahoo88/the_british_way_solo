@@ -7,6 +7,11 @@ Conventions
 - Nothing here reads a concealed chit value for a decision. The only line that touches
   self.secret is _reveal(), which is the physical act of turning a chit face up during Gather.
 - Readings of ambiguous text are marked "READING:" in the comments.
+
+Changes after GPT's review of commit 615c870 (made by the primary author, not the clean-room agent):
+British J22 (Gather does not activate) and British J27 (one extra Ambush or Sabotage space, the first
+in map order; never counted when testing whether a goal qualifies), from the revised section 7; and the
+v1.0.1 Train fallback (re-place an Active guerrilla of the colour from the Train space itself, section 6.2).
 """
 from clean_base import CleanBase
 from expert import FastGame
@@ -99,16 +104,17 @@ class CleanForce136(CleanBase):
         self.record('British turn', plan)
 
     @staticmethod
-    def _do_op(g, op):
-        """Carry out an Operation on game g (the real game or a preview) and return its effect."""
+    def _do_op(g, op, extra=True):
+        """Carry out an Operation on game g (the real game or a preview) and return its effect.
+        Tests pass extra=False: the British J27 extra space never makes a goal qualify (section 9)."""
         if op == 'CONTACT':
             return g.contact()
         if op == 'TRAIN':
             return g.train()
         if op == 'AMBUSH':
-            return g.strike()
+            return g.strike(extra=extra)
         if op == 'SABOTAGE':
-            return g.sabotage_op()
+            return g.sabotage_op(extra=extra)
         raise ValueError(op)
 
     # ------------------------------------------------------------------ section 5 goals
@@ -117,7 +123,7 @@ class CleanForce136(CleanBase):
         if goal == 'PLACE':                                     # a marker is Available
             return 'CONTACT' if self.available('force136') > 0 else None
         if goal == 'AMBUSH':                                    # useful in at least one F136 space
-            return 'AMBUSH' if self.clone().strike() else None
+            return 'AMBUSH' if self.clone().strike(extra=False) else None
         if goal == 'INTEL':
             return self._intel_op() if box == 'Op & SA' else None
         if goal == 'SUPPLY':                                    # Train places 1+, then Supply converts a Camp
@@ -136,7 +142,7 @@ class CleanForce136(CleanBase):
         qualify with the first after which Gather would reveal 2 or more chits."""
         for op in ('AMBUSH', 'SABOTAGE', 'CONTACT'):
             p = self.clone()
-            if not self._do_op(p, op):
+            if not self._do_op(p, op, extra=False):
                 continue
             if len(p.gather()) >= 2:
                 return op
@@ -242,11 +248,15 @@ class CleanForce136(CleanBase):
                     v[colour + '_u'] += 1
                 else:
                     src = self._train_donor(s, colour, reserve_cache_donors)
-                    if src is None:                             # no source: stop training this space
+                    if src is not None:
+                        field = colour + ('_a' if b[src][colour + '_a'] else '_u')
+                        b[src][field] -= 1
+                        v[colour + '_u'] += 1                   # READING: arrives Underground (placed)
+                    elif v[colour + '_a']:                      # v1.0.1: re-place an Active one from here
+                        v[colour + '_a'] -= 1
+                        v[colour + '_u'] += 1
+                    else:                                       # no source: stop training this space
                         break
-                    field = colour + ('_a' if b[src][colour + '_a'] else '_u')
-                    b[src][field] -= 1
-                    v[colour + '_u'] += 1                       # READING: arrives Underground (placed)
                 placed += 1
         self.cleanup()
         return placed
@@ -287,11 +297,16 @@ class CleanForce136(CleanBase):
 
     def strike(self, locations=None, color=None, bose=False, extra=True):
         """6.3 Ambush in every F136 space where it is useful (or in `locations`), map order.
-        `extra` (British side of J27) is not covered by the v1 rules and is ignored."""
+        British side of J27 (an optional benefit, section 9): with `extra`, one space without
+        Force 136 where Ambush is useful is added: the first in map order."""
         if bose:
             return FastGame.strike(self, locations, color, bose, False)
         b = self.board
         sites = [s for s in ORDER if b[s]['force136']] if locations is None else sorted(locations, key=ix)
+        if locations is None and extra and self.cap.get(27) == 'U':
+            more = [s for s in ORDER if not b[s]['force136'] and self.strike_option(s, color)]
+            if more:
+                sites = sorted(sites + more[:1], key=ix)
         hits = []
         for s in sites:
             opt = self.strike_option(s, color)
@@ -327,12 +342,18 @@ class CleanForce136(CleanBase):
         self.sabotage[r] += 1
         return r
 
-    def sabotage_op(self):
+    def sabotage_op(self, extra=True):
         """6.4: F136 spaces in map order; each with an Underground guerrilla and an adjacent clear
         railway activates one (red first) and sabotages the first such railway on the list."""
+        b = self.board
+        sites = [s for s in ORDER if b[s]['force136']]
+        if extra and self.cap.get(27) == 'U':                   # British J27: one more space, map order
+            more = [s for s in ORDER if not b[s]['force136'] and ug(b[s]) and self.rail_choice(s)]
+            if more:
+                sites = sorted(sites + more[:1], key=ix)
         hit = []
-        for s in ORDER:
-            if self.board[s]['force136'] and ug(self.board[s]) and self.rail_choice(s):
+        for s in sites:
+            if ug(b[s]) and self.rail_choice(s):
                 hit.append(self._sabotage_at(s))
         self.inc('sabotages', len(hit))
         return hit
@@ -357,7 +378,8 @@ class CleanForce136(CleanBase):
                 break
             chosen.append(best[0])
             for t in best[1]:
-                self.activate(t)                                # red before blue
+                if self.cap.get(22) != 'U':                     # British J22: Gather does not activate
+                    self.activate(t)                            # red before blue
                 self._reveal(t)
                 revealed.append(t)
         self.inc('gather_reveals', len(revealed))

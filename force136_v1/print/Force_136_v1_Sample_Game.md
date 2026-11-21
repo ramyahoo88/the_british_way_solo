@@ -1,4 +1,4 @@
-# Force 136 v1.0 — sample game
+# Force 136 v1.0.1 — sample game
 
 Seed 20005, Agent level, against the simulation's *adaptive* Japan policy. The game was generated with `python3 sample_game.py 20005 adaptive` and `python3 sample_md.py 20005 adaptive <file>`. The Japanese moves come from one computer policy and are not advice. For each turn the log lists the bot's Directive card, the goal that qualified and the board changes. MPAJA icons are applied before the first entry of each card and are not listed.
 
@@ -38,20 +38,20 @@ Standard setup. Resistance 2, Zipper at Delay, Japanese Resources 0. Force 136 i
 - **Card 9 (J27) · Force 136 · Directive 1 Jungle ambush · AMBUSH → Op & SA: Ambush** · R 12→13 — Kedah: blue Underground 1→0, Active 1→2; Troops 1→0 | Kuala Lumpur: Troops 4→5
 - *Card 9 (J27) · Japan · Limited* · R 13→13 — Kelantan: Police 0→1; Kempeitai 0→1 | Pahang: Kempeitai 0→1 | Kuala Lumpur: Kempeitai 1→0 | Northern EC: Kempeitai 1→0
 - *Card 10 (J29) · Japan · Event* · R 13→13 — Kedah: Kempeitai 0→1 | Selangor: Intel concealed | Kuala Lumpur: Intel concealed | Negri Sembilan: Kempeitai 1→0
-- **Card 10 (J29) · Force 136 · Directive 4 Arm the cells · TRAIN → Op & SA: Train** · R 13→13 — Kedah: blue Underground 0→1 | Pahang: red Underground 0→2 | Kuala Lumpur: red Active 1→0
-- *Card 11 (J25) · Japan · Op & SA* · R 13→11 — Kelantan: blue Active 1→0; −Force 136; −Cache | Pahang: −Force 136 | Negri Sembilan: −Cache
+- **Card 10 (J29) · Force 136 · Directive 4 Arm the cells · TRAIN → Op & SA: Train** · R 13→13 — Kedah: blue Underground 0→1 | Kelantan: blue Underground 0→1, Active 1→0 | Pahang: red Underground 0→2 | Kuala Lumpur: red Active 1→0
+- *Card 11 (J25) · Japan · Op & SA* · R 13→11 — Kelantan: −Force 136 | Pahang: red Active 1→0; −Force 136 | Negri Sembilan: −Cache
 - **Card 11 (J25) · Force 136 · Directive 2 Hit the convoy · PLACE → Limited: Contact** · R 11→11 — Selangor: +Force 136; +Camp
 - **Card 12 (J31) · Force 136 · Directive 7 Count the trains · PLACE → Op & SA: Contact + Supply** · R 11→11 — Trengganu: +Force 136; +Cache | Selangor: −Camp; +Cache
 - *Card 12 (J31) · Japan · Event* · R 11→11 — no board change
 
-**Propaganda.** Intel +1, Caches +3, majorities +4, Resources −1, Neutral Population −1, Police −1: net +5. Resistance 11 → 16.
+**Propaganda.** Intel +1, Caches +4, majorities +4, Resources −1, Neutral Population −1, Police −1: net +6. Resistance 11 → 17.
 
-- **Card 14 (J6) · Force 136 · Directive 8 Radio from the ridge · INTEL → Op & SA: Sabotage + Gather** · R 16→16 — Kedah: red Underground 2→0, Active 0→2; Intel revealed (1) | Perak: red Underground 1→0, Active 0→1; Intel revealed (1) | Pahang: red Underground 2→1, Active 0→1; Intel revealed (1) | Selangor: red Underground 1→0, Active 0→1; Intel revealed (0)
-- *Card 14 (J6) · Japan · Limited* · R 16→16 — Perak: Police 0→1
-- *Card 15 (J28) · Japan · Op & SA* · R 16→16 — Kedah: red Active 2→3; Troops 0→1 | Perak: red Active 1→0; Troops 1→2; +Terror | Kelantan: Troops 2→0 | Selangor: red Active 1→0; Troops 0→2; +Terror | Kuala Lumpur: red Active 0→1; Troops 6→4
-- **Card 15 (J28) · Force 136 · Directive 5 Recruit and strike · TRAIN → Limited: Train** · R 16→16 — Kedah: red Underground 0→2 | Trengganu: blue Underground 0→1 | Selangor: blue Underground 0→1
+- **Card 14 (J6) · Force 136 · Directive 8 Radio from the ridge · INTEL → Op & SA: Sabotage + Gather** · R 17→17 — Kedah: blue Underground 2→0, Active 0→2; Intel revealed (1) | Perak: red Underground 1→0, Active 0→1; Intel revealed (1) | Pahang: red Underground 4→3, Active 0→1; Intel revealed (1) | Selangor: red Underground 1→0, Active 0→1; Intel revealed (0)
+- *Card 14 (J6) · Japan · Limited* · R 17→17 — Perak: Police 0→1
+- *Card 15 (J28) · Japan · Op & SA* · R 17→17 — Kelantan: Police 2→3
+- **Card 15 (J28) · Force 136 · Directive 5 Recruit and strike · TRAIN → Limited: Train** · R 17→17 — Kedah: blue Underground 0→1 | Trengganu: blue Underground 0→1 | Pahang: blue Underground 1→0 | Selangor: red Underground 0→2
 
-**Final Propaganda.** Intel +3, Caches +2, majorities +2, Resources −0, Neutral Population −1, Police −1: net +5. Resistance 16 → 20.
+**Final Propaganda.** Intel +3, Caches +2, majorities +4, Resources −1, Neutral Population −1, Police −1: net +6. Resistance 17 → 20.
 
 
 **Result:** Force 136 wins at Resistance 20.

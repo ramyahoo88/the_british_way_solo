@@ -416,6 +416,7 @@
    ],
    "changes": [
     "Kedah: blue_u 0->1",
+    "Kelantan: blue_u 0->1, blue_a 1->0",
     "Pahang: red_u 0->2",
     "Kuala Lumpur: red_a 1->0"
    ],
@@ -433,8 +434,8 @@
     11
    ],
    "changes": [
-    "Kelantan: blue_a 1->0, force136 1->0, cache True->False",
-    "Pahang: force136 1->0",
+    "Kelantan: force136 1->0",
+    "Pahang: red_a 1->0, force136 1->0",
     "Negri Sembilan: cache True->False"
    ],
    "res": 0
@@ -507,16 +508,16 @@
    "final": false,
    "R": [
     11,
-    16
+    17
    ],
    "terms": {
     "intel": 1,
-    "caches": 3,
+    "caches": 4,
     "majorities": 4,
     "resource_penalty": 1,
     "neutral_penalty": 1,
     "police_penalty": 1,
-    "net_change": 5
+    "net_change": 6
    }
   },
   {
@@ -533,13 +534,13 @@
    "op": "SABOTAGE",
    "sa": "GATHER",
    "R": [
-    16,
-    16
+    17,
+    17
    ],
    "changes": [
-    "Kedah: red_u 2->0, red_a 0->2, intel None->1",
+    "Kedah: blue_u 2->0, blue_a 0->2, intel None->1",
     "Perak: red_u 1->0, red_a 0->1, intel None->1",
-    "Pahang: red_u 2->1, red_a 0->1, intel None->1",
+    "Pahang: red_u 4->3, red_a 0->1, intel None->1",
     "Selangor: red_u 1->0, red_a 0->1, intel None->0"
    ],
    "sab": [
@@ -553,8 +554,8 @@
    "who": "Japan",
    "box": "Limited",
    "R": [
-    16,
-    16
+    17,
+    17
    ],
    "changes": [
     "Perak: police 0->1"
@@ -567,17 +568,13 @@
    "who": "Japan",
    "box": "Op & SA",
    "R": [
-    16,
-    16
+    17,
+    17
    ],
    "changes": [
-    "Kedah: troops 0->1, red_a 2->3",
-    "Perak: troops 1->2, red_a 1->0, terror 0->1",
-    "Kelantan: troops 2->0",
-    "Selangor: troops 0->2, red_a 1->0, terror 0->1",
-    "Kuala Lumpur: troops 6->4, red_a 0->1"
+    "Kelantan: police 2->3"
    ],
-   "res": 0
+   "res": 6
   },
   {
    "draw": 15,
@@ -593,13 +590,14 @@
    "op": "TRAIN",
    "sa": null,
    "R": [
-    16,
-    16
+    17,
+    17
    ],
    "changes": [
-    "Kedah: red_u 0->2",
+    "Kedah: blue_u 0->1",
     "Trengganu: blue_u 0->1",
-    "Selangor: blue_u 0->1"
+    "Pahang: blue_u 1->0",
+    "Selangor: red_u 0->2"
    ],
    "sab": [
     "Thailand-Kedah *",
@@ -611,17 +609,17 @@
    "prop": true,
    "final": true,
    "R": [
-    16,
+    17,
     20
    ],
    "terms": {
     "intel": 3,
     "caches": 2,
-    "majorities": 2,
-    "resource_penalty": 0,
+    "majorities": 4,
+    "resource_penalty": 1,
     "neutral_penalty": 1,
     "police_penalty": 1,
-    "net_change": 5
+    "net_change": 6
    }
   }
  ],

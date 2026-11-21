@@ -1,0 +1,5 @@
+lookc K=16 S=4 recruit 128 win 0.094 R 9.41 103
+lookc K=16 S=4 agent 128 win 0.148 R 10.6 103
+lookc K=16 S=4 veteran 128 win 0.219 R 12.21 103
+lookc K=16 S=4 legend 128 win 0.258 R 13.8 103
+lookc K=16 S=4 mastermind 128 win 0.508 R 16.56 103

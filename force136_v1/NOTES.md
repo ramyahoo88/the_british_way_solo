@@ -17,7 +17,7 @@ Brief (user, 22:00 CST, 20 Nov 2026): do for The British Way solo what was done 
 - 23:00 Score breakdown showed Japan extracting about 8 Resources per Extract. Targeted Sabotage did not help: Japan switches to military Operations.
 - 23:10 Hybrid test: the full-turn choice was the gap. 120-order sweep: PLACE first dominates; then AMBUSH (or INTEL then AMBUSH).
 - 23:20 Event sweep (paired seeds): Events never beat the bot's own Operations. Dropped.
-- 23:30 Clean rules-as-code rewrite lost 15 points. Ablation traced it to Train (taking pieces from elsewhere on the map) and Raid. Both rebuilt with written priorities; same-space "refresh" rejected as not clearly legal.
+- 23:30 Clean rules-as-code rewrite lost 15 points. Ablation traced it to Train (taking pieces from elsewhere on the map) and Raid. Both rebuilt with written priorities; same-space "refresh" left out. (Correction after GPT's review: rule 1.4.1 explicitly allows it; leaving it out is a design choice, not a rules question.)
 - 23:40 Contact placement away from cubes (+3–4). Gather-2+ first (+1–2). Levels measured (no Raid; starting Resistance; Propaganda bonus; Ambush +1 and an early Zipper were too weak).
 - 23:45 Directive deck: nine cards drawn from the strongest orders. South-first tie-breaks rejected (−4.7).
 - 23:50 Printability simplifications costed. `force136_v1.py` written; `equiv.py` shows 0 mismatches against the lab in 768 games.
@@ -42,10 +42,18 @@ Brief (user, 22:00 CST, 20 Nov 2026): do for The British Way solo what was done 
 - 02:45 The wide search against the one-step search player: 21% British wins (8-move version: 29%). Most of its strength is strong Japanese play rather than exploitation of the bot. All-TRAIN and all-AMBUSH Limited decks: within noise; the printed mix stays.
 - 02:55 Last checks: guarded-only Supply (worse everywhere), INTEL without Sabotage (−2 to −3). Design frozen.
 
+### 21 November, morning: GPT's review and v1.0.1
+
+- 07:25 GPT's review of commit 615c870 arrived. Every finding reproduced. Its 1,152 fresh Agent games (53.6%) reproduce exactly.
+- 07:40 Five 1,000-seed blocks of v1.0 Agent (30,000 games): 59.5%, 58.2–60.5% per block. GPT's windows were unusually low; the holdout's 61% was about 1.5 points high.
+- 07:45 New checker `verify_v1.py`: full public state after every turn and reset, final results, a scoring oracle from the rulebook, and forced-capability games. Clean-room bot given British J22 and J27. J27's extra space now follows a written rule (first in map order; never qualifies a goal; not with Raid). All 12 planted errors caught.
+- 08:05 Train refresh retested now that it is known to be legal. Refresh first: −0.9. Refresh as the last source: +6.5 and +7.1 on two development sets, +4.8 (3.8–5.8) on 6,000 fresh paired games. Adopted as v1.0.1.
+- 08:30 v1.0.1 reruns: equivalence (0 mismatches), checker (2,496 games, 0 failures), 13 mutants caught, fresh levels 41 / 64 / 74 / 82 / 91%, lookahead and exploit opponents.
+
 ## Decisions worth remembering
 
-- The bot never takes Events. 27 of 28 Events taken as first player lowered results; none taken as second player gained more than 0.12 Resistance.
+- The bot never takes Events. 27 of 28 Events taken as first player lowered results; none taken as second player gained more than 0.12 Resistance. (Tested on v1.0, before the Train refresh.)
 - PLACE is not printed on the cards as a choice: it is always first.
-- Every card has the same four goals; only their order and the Limited preference differ.
+- Cards 1–8 carry the same three goals (AMBUSH, INTEL, TRAIN); card 9 adds SUPPLY. Only the order and the Limited preference differ.
 - No zero-effect Operations: SUPPLY needs a Train that places a guerrilla, INTEL needs a real accompanying Operation, and Contact must place or move.
-- Training when none of a colour is Available takes a guerrilla from another space without Force 136, keeping that space's Cache guard and majority (rule 1.4 exception).
+- Training when none of a colour is Available takes a guerrilla from another space without Force 136, keeping that space's Cache guard and majority (rule 1.4.1). If no space can give one, it re-places an Active guerrilla in the Train space itself (v1.0.1).

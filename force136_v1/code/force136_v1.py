@@ -95,9 +95,12 @@ class Force136(FastGame):
         if self.available(c):v[c+'_u']+=1;return True
         donors=[x for x in MAP_ORDER if x!=s and not self.board[x]['force136'] and (self.board[x][c+'_a'] or self.board[x][c+'_u'])
                 and self.donor_ok(x)]
-        if not donors:return False
-        x=min(donors,key=lambda x:(not self.board[x][c+'_a'],-cubes(self.board[x]),mo(x)))
-        f=c+('_a' if self.board[x][c+'_a'] else '_u');self.board[x][f]-=1;v[c+'_u']+=1;return True
+        if donors:
+            x=min(donors,key=lambda x:(not self.board[x][c+'_a'],-cubes(self.board[x]),mo(x)))
+            f=c+('_a' if self.board[x][c+'_a'] else '_u');self.board[x][f]-=1;v[c+'_u']+=1;return True
+        if v[c+'_a']:                       # v1.0.1: re-place an Active one from this space (rule 1.4.1)
+            v[c+'_a']-=1;v[c+'_u']+=1;return True
+        return False
     def train(self,locations=None,reserve_cache_donors=False):
         n=0
         for s in (locations or [s for s in self.f136_spaces() if POP[s]]):
@@ -147,6 +150,15 @@ class Force136(FastGame):
         if stack:return FastGame.rail_choice(self,s,region,stack,eligible)
         c=[r for r in RAIL_LIST if s in self.rail_adj(r) and not self.sabotage[r] and (eligible is None or r in eligible)]
         return c[0] if c else None
+    def rail(self,region='C',locations=None,color=None,extra=True):
+        """§6.4 Sabotage in the F136 spaces, map order. British side of J27 (§9): add the first
+        space without Force 136, in map order, where Sabotage would work."""
+        if locations is not None:return FastGame.rail(self,region,locations,color,extra)
+        b=self.board;sites=self.f136_spaces()
+        if extra and self.cap.get(27)=='U':
+            more=[s for s in MAP_ORDER if not b[s]['force136'] and ug(b[s]) and self.rail_choice(s)]
+            if more:sites=sorted(sites+more[:1],key=mo)
+        return FastGame.rail(self,region,sites,color,False)
     # ----------------------------------------------------------------- §6.5 Gather
     def gather(self):
         selected=[];revealed=[]
@@ -244,11 +256,11 @@ class Force136(FastGame):
             if not full:return None
             for op in ('AMBUSH','SABOTAGE','CONTACT'):
                 p=self.clone()
-                if op=='AMBUSH':
+                if op=='AMBUSH':                     # tests never count the British J27 extra space (§9)
                     if not self.useful_ambush():continue
-                    p.strike()
+                    p.strike(extra=False)
                 elif op=='SABOTAGE':
-                    if not p.rail('C'):continue
+                    if not p.rail('C',extra=False):continue
                 elif not p.contact():continue
                 if len(p.clone().gather())>=2:return dict(op=op,sa='GATHER')
             return None

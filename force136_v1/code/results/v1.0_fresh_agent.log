@@ -1,0 +1,7 @@
+0 1000 6000 0.597 {'extraction': 0.656, 'hunting': 0.724, 'repair': 0.701, 'adaptive': 0.636, 'counter': 0.384, 'mixed': 0.479}
+30000 1000 6000 0.605 {'extraction': 0.656, 'hunting': 0.752, 'repair': 0.701, 'adaptive': 0.639, 'counter': 0.357, 'mixed': 0.526}
+90000 1000 6000 0.593 {'extraction': 0.653, 'hunting': 0.728, 'repair': 0.704, 'adaptive': 0.617, 'counter': 0.355, 'mixed': 0.5}
+all 18000 0.598
+192-seed consecutive blocks [0.613, 0.576, 0.612, 0.553, 0.626, 0.589, 0.608, 0.585, 0.624, 0.602, 0.619, 0.637, 0.548, 0.585, 0.593]
+random 192-seed subsets: 2.5% 0.558 50% 0.599 97.5% 0.64 P(<=0.536) 0.001
+bootstrap 95% 0.588 0.609

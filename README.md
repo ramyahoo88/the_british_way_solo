@@ -8,9 +8,9 @@ remains the published independent actor.
 The physical base game, expansion, Event cards and player aids are required.
 The bot runs at the table without an application.
 
-## Force 136 v1.0 (new design, branch `claude-force136`)
+## Force 136 v1.0.1 (new design, branch `claude-force136`)
 
-A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Holdout simulations against six computer Japan policies: Recruit 36%, Agent 61%, Veteran 71%, Legend 79%, Mastermind 89% Force 136 wins (v0.2: 0%). Not yet playtested at the table.
+A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Version 1.0.1, simulated on fresh seeds against six computer Japan policies: Recruit 41%, Agent 64%, Veteran 74%, Legend 82%, Mastermind 91% Force 136 wins (v0.2: 0%). Not yet playtested at the table.
 
 ## v0.2 print package (GPT draft)
 
@@ -59,8 +59,8 @@ The historical documents are preserved as originally delivered.
 
 ## Verification and sources
 
-[SHA-256 file manifest](FILE_MANIFEST_SHA256.json) identifies the uploaded
-artifacts. The ZIP packages contain the source and their reproduction commands.
+[SHA-256 file manifest](FILE_MANIFEST_SHA256.json) lists every file on this
+branch except the manifest itself; `force136_v1/code/make_manifest.py` regenerates it. The ZIP packages contain the source and their reproduction commands.
 
 The underlying rules are GMT Games' [Japanese Occupation rulebook](https://gmtwebsiteassets.s3.us-west-2.amazonaws.com/TheBritishWay_EnemyofMyEnemy/EomE_JapOcc_Rules.pdf).
 This is an independent fan variant, not a GMT publication. Publisher rulebooks,

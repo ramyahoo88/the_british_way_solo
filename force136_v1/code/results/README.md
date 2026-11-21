@@ -1,6 +1,33 @@
 # Results
 
-Final runs (printed rules `force136_v1.py`, final engine):
+## v1.0.1 (after GPT's review)
+
+| File | What |
+|---|---|
+| v101_fresh.log, results_fresh_v101.csv.gz, fresh_v101_summary.json | all five levels on fresh seeds 0–999 (6,000 games per level), with goal and action shares |
+| v101_equiv.log | tuning lab vs printed rules, 960 games: 0 mismatches |
+| v101_verify.log, v101_verify_results.json | `verify_v1.py 32`: 2,496 games (normal and forced-capability), 0 cross-check and 0 oracle failures, coverage counts |
+| v101_mutants.log, v101_mutants.json | `verify_v1.py --mutants 16`: all 13 planted errors caught |
+| v101_fixtures.log | `review_fixtures.py`: GPT's reproductions as tests, 8 passed |
+| results_holdout1_v101.json | Agent on the first holdout (seeds 20000–20127) |
+| v101_look.log, v101_lookc.log, v101_lookdeep.log | lookahead Japan, all five levels, 128 holdout seeds |
+| v101_exploits.log, results_exploits_v101.json | scripted exploit policies |
+| v101_corner.log | alternative railway-corner adjacency |
+| sample_20005_adaptive.json | the sample game (regenerated for v1.0.1) |
+
+v1.0 checks made in response to the review:
+
+| File | What |
+|---|---|
+| results_v1.0_gpt_window_50000.json, results_v1.0_gpt_window_60000.json | GPT's fresh windows rerun: identical to GPT's rows (51.0% and 54.9%) |
+| v1.0_fresh_agent.log, results_fresh_v1.0.csv.gz | v1.0 on fresh seeds: Agent on five 1,000-seed blocks (0, 30000, 50000, 60000, 90000) and the other levels on seeds 0–999 |
+| v1.0_refresh_variants.log | Train refresh variants on development seeds (refresh last: +6.5 and +7.1; refresh first: −0.9) |
+
+The 6,000 paired games for the refresh decision are the Agent rows for seeds 0–999 in `results_fresh_v101.csv.gz` and `results_fresh_v1.0.csv.gz`.
+
+## v1.0
+
+Final runs (printed rules `force136_v1.py` at v1.0, final engine):
 
 | File | What |
 |---|---|
@@ -14,6 +41,5 @@ Final runs (printed rules `force136_v1.py`, final engine):
 | final_refs.log, refs_final.json | v0.2 bot, v0.2 best variant, one-step search player |
 | final_events.log, final_events_summary.log, ev_test_v1.json | per-Event paired tests |
 | ev_confirm.log | 1,152-game follow-ups for the best Event candidates |
-| sample_20005_adaptive.json | the sample game |
 
 Development-era logs: `sweep_full.log` (120 full-turn orders, early rule bot), `sweep2.log` (24 orders × 2 Limited preferences), `ev_test.log` (first Event sweep, early rule bot).
