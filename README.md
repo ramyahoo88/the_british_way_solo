@@ -8,9 +8,9 @@ remains the published independent actor.
 The physical base game, expansion, Event cards and player aids are required.
 The bot runs at the table without an application.
 
-## Force 136 v1.0.1 (new design, branch `claude-force136`)
+## Force 136 v1.0.2 (new design, branch `claude-force136`)
 
-A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Version 1.0.1, simulated on fresh seeds against six computer Japan policies: Recruit 41%, Agent 64%, Veteran 74%, Legend 82%, Mastermind 91% Force 136 wins (v0.2: 0%). Not yet playtested at the table.
+A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Version 1.0.2, simulated on fresh seeds against six computer Japan policies: Recruit 41%, Agent 64%, Veteran 74%, Legend 82%, Mastermind 91% Force 136 wins (v0.2: 0%). v1.0.2 fixes the five issues in the latest audit below. Not yet playtested at the table.
 
 ## Reviews of Claude's redesign
 
@@ -22,12 +22,16 @@ Each report is tied to the exact commit shown below.
 |---|---|---|---|
 | [v1.0, `615c870`](https://github.com/ramyahoo88/the_british_way_solo/commit/615c870cf018a5122b3991b00dfbbd4224d04e42) | [Review PDF](audits/v1.0/Force_136_v1_Claude_Review.pdf) | [Markdown](audits/v1.0/Force_136_v1_Claude_Review.md) | [Evidence ZIP](audits/v1.0/Force_136_v1_Claude_Review_Evidence.zip) |
 | [v1.0.1, `fe57c0f`](https://github.com/ramyahoo88/the_british_way_solo/commit/fe57c0faea60bc913e1f7c859963059d92d9aa7e) | [Re-audit PDF](audits/v1.0.1/Force_136_v1.0.1_Reaudit.pdf) | [Markdown](audits/v1.0.1/Force_136_v1.0.1_Reaudit.md) | [Evidence ZIP](audits/v1.0.1/Force_136_v1.0.1_Evidence.zip) |
+| [v1.0.1, `33745a6`](https://github.com/ramyahoo88/the_british_way_solo/commit/33745a6cad5d89f81b3118806b14eec291bec72a) | [Comprehensive audit PDF](audits/v1.0.1/Force_136_v1.0.1_Comprehensive_Audit_33745a6.pdf) | [Markdown](audits/v1.0.1/Force_136_v1.0.1_Comprehensive_Audit_33745a6.md) | [Evidence ZIP](audits/v1.0.1/Force_136_v1.0.1_Audit_33745a6_Evidence.zip) |
 
-The v1.0.1 re-audit confirms the earlier fixes and independently supports the
-last-resort Train refresh. It recommends retaining v1.0.1 for tabletop testing,
-with two reporting and checker-command corrections before publishing that
-package. The reports include exact reproductions, source references, checks,
-simulation limits and release verdicts.
+The latest comprehensive audit examines commit `33745a6`, after the earlier
+reporting and checker-command corrections. It identifies five remaining issues:
+stacked-marker Redeploy, the printed J27 condition, two mislabeled exploit
+policies, the exploit sample-size caption, and conflicting Pass wording. It
+includes 4,736 fresh strategy games and recommends those corrections before
+release. The earlier re-audit independently supports the last-resort Train
+refresh. Each report includes reproductions, source references, checks,
+simulation limits and a release verdict.
 
 ## v0.2 print package (GPT draft)
 

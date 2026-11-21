@@ -50,6 +50,7 @@ Brief (user, 22:00 CST, 20 Nov 2026): do for The British Way solo what was done 
 - 08:05 Train refresh retested now that it is known to be legal. Refresh first: −0.9. Refresh as the last source: +6.5 and +7.1 on two development sets, +4.8 (3.8–5.8) on 6,000 fresh paired games. Adopted as v1.0.1.
 - 08:30 v1.0.1 reruns: equivalence (0 mismatches), checker (2,496 games, 0 failures), 13 mutants caught, fresh levels 41 / 64 / 74 / 82 / 91%, lookahead and exploit opponents.
 - 09:35 GPT's re-audit of v1.0.1: passed for tabletop testing. Fixed its two follow-ups: the report's per-policy table (still v1.0 numbers) and checker exit codes. Added its optional Zipper check to the oracle. New `report_check.py` ties every printed win rate to the stored results.
+- 10:40 GPT's audit of commit 33745a6: five findings, all reproduced. v1.0.2 fixes them. Redeploy now moves every marker in a stack of exposed markers. The rerun of all 30,000 fresh games is identical, row for row. Also fixed: J27 "with Opposition" on the reference; "never executes an Event" (a Pass may use the Event box); strict stress-policy filters, rerun at 256 games per policy. GPT's saved positions are now fixtures.
 
 ## Decisions worth remembering
 

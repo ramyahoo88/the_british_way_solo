@@ -1,8 +1,8 @@
-# Force 136 v1.0.1
+# Force 136 v1.0.2
 
 **A card-driven British opponent for *The British Way: Japanese Occupation 1942–1945***
 
-Unofficial fan variant · version 1.0.1 · 21 November 2026
+Unofficial fan variant · version 1.0.2 · 21 November 2026
 
 ## 1. Overview
 
@@ -37,12 +37,12 @@ Force 136 runs on nine Directive cards and the procedures in this booklet. It ad
 When each Event card is revealed, its MPAJA icon and then any Mandatory Event are resolved once, before either player acts (rules 2.3 and 5.4). Where they need a British choice, use section 7. Then, whenever Force 136 is to act on that card:
 
 1. **Draw** the top Directive card. When the Directive deck is empty, shuffle the discards to make a new one. Discard the card at the end of the turn.
-2. **No Events.** Force 136 never chooses the Event box. Japan may still take it.
+2. **No Events.** Force 136 never executes an Event. Japan may still take it. (Force 136 may Pass in the Event box: step 5.)
 3. **If the Op & Special Activity box is free,** choose it. Go down this list and carry out the first goal that qualifies (section 5):
     **PLACE → the goals on the card, top to bottom → CONTACT.**
 
 4. **Otherwise choose Limited Operation.** Go down: **PLACE → the card's Limited choice (AMBUSH or TRAIN), then the other → CONTACT.** A Limited Operation never adds a Special Activity. (A British Limited Train or Ambush may still use every F136 space.)
-5. **If nothing qualifies,** Pass in the leftmost free box. Force 136 takes no Contact with the Pass: CONTACT has already failed.
+5. **If nothing qualifies,** Pass in the leftmost free box, even if that is the Event box (passing is not executing the Event; rule 2.4.3). Force 136 takes no Contact with the Pass: CONTACT has already failed.
 
 Japan takes at most one box, so Force 136 always has the Op & SA box or the Limited box free. Eligibility then follows the normal cylinder rules.
 
@@ -133,7 +133,7 @@ A 2-guerrilla Majority comes from one source. The guerrilla sent is activated wh
 
 - *Resources:* for each sabotaged railway, in Railway-list order, set one adjacent Province or Kuala Lumpur without Terror or Opposition to Opposition: highest Population, then map order.
 - *Support:* Supply (6.6).
-- *Redeploy:* move each exposed Force 136 marker, in map order, to a Camp Province without Force 136 or Kempeitai: most guerrillas, then map order. A marker moves at most once. Other markers stay.
+- *Redeploy:* move each exposed Force 136 marker, in map order, to a Camp Province without Force 136 or Kempeitai: most guerrillas, then map order. In a stack, every exposed marker moves, one at a time, each choosing again. A marker moves at most once. Other markers stay.
 - *A Force 136 marker returning from J25:* goes to a Camp Province, preferring no Kempeitai; then no Force 136; then most guerrillas; then map order.
 
 **Zipper.** If the Zipper falls past a Cache box and no Cache is Available, remove the Cache with fewest guerrillas, then most Troops, then reverse map order.

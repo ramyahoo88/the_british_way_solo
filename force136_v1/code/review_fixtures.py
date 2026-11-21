@@ -1,4 +1,4 @@
-"""GPT review fixtures (review of commit 615c870), rewritten as tests of the revised code.
+"""GPT review fixtures (reviews of commits 615c870 and 33745a6), rewritten as tests of the revised code.
 
 Each fixture reproduces a setup from GPT's evidence package (probe_findings.py, regression_checks.py)
 and asserts the behaviour v1.0 (revised) must now have. Run from this folder: python3 review_fixtures.py
@@ -95,4 +95,70 @@ for seed in range(20000,20016):
         changed+=1;assert o['cross'] and o['oracle'];caught+=1
 assert changed>0
 passed(f'GPT +1 final-scoring mutant: {caught} of {changed} changed games caught by both checks; 16 unchanged pairs agree')
+
+# ---------------------------------------------------------------- GPT audit of commit 33745a6
+# Positions from GPT's evidence package (fixtures/audit_33745a6/*.json), loaded with its restore() recipe.
+import json
+from copy import deepcopy
+from pathlib import Path
+FX=Path(HERE)/'fixtures'/'audit_33745a6'
+def restore(name,cls=F.Force136):
+    d=json.loads((FX/(name+'.json')).read_text());g=cls(d['seed'],level=d['level'])
+    for k,v in d.items():setattr(g,k,({int(a):b for a,b in v.items()} if k=='cap' else set(v) if k=='removed_intel' else v))
+    g.invariants();return g
+pos=lambda x:{s:v['force136'] for s,v in x.board.items() if v['force136']}
+
+# F1: a stack of exposed markers redeploys every marker, one at a time.
+g=restore('F1_stacked_redeploy');c=restore('F1_stacked_redeploy',C.CleanForce136)
+g.propaganda();c.propaganda();g.invariants()
+assert pos(g)=={'Kedah':1,'Kelantan':1,'Trengganu':1}==pos(c) and g.board==c.board
+g=restore('F1_stacked_redeploy');g.board['Perak']['force136']=1;g.board['Johore']['force136']=0
+c=restore('F1_stacked_redeploy',C.CleanForce136);c.board=deepcopy(g.board)
+g.propaganda();c.propaganda();assert g.board==c.board
+g=restore('F1_stacked_redeploy');c=restore('F1_stacked_redeploy',C.CleanForce136)
+for x in (g,c):
+    for v in x.board.values():v['camp']=False
+    x.propaganda()
+assert g.board==c.board and pos(g)=={'Perak':2,'Johore':1}
+passed('F1 Redeploy: stacked exposed markers all move (Kedah, Kelantan, Trengganu); single-marker and no-destination controls agree')
+
+# F2: Japanese J27 removes Opposition from the chosen Province WITH Opposition; reference says so.
+g=restore('F2_J27_reference');assert g.supply()==2 and not g.board['Negri Sembilan']['opposition']
+for opposed,want in ((['Trengganu','Negri Sembilan'],'Trengganu'),([],None)):
+    g=restore('F2_J27_reference');sel=['Trengganu','Negri Sembilan']
+    for s_ in sel:g.board[s_]['opposition']=s_ in opposed
+    before={s_:g.board[s_]['opposition'] for s_ in sel};g.supply()
+    assert [s_ for s_ in sel if before[s_] and not g.board[s_]['opposition']]==([want] if want else [])
+PR=Path(HERE).parent/'print'
+src=(PR/'build.py').read_text()
+assert 'Japanese J27: remove Opposition from the chosen Province <em>with Opposition</em>' in src
+passed('F2 J27: Negri Sembilan loses Opposition (not Neutral Trengganu); both/none controls; reference text has "with Opposition"')
+
+# F3: the stress policies keep their contracts.
+g=restore('F3_eventhog_before_japan');g.policy='eventhog';g.japan_turn(['Limited','Event'])
+assert g.chosen['J']=='Event'
+g=restore('F3_tempo_before_japan');g.policy='tempo';g.japan_turn(['Limited','Event'])
+assert g.chosen['J']=='Limited'
+viol={};offered={}
+for pol,box in (('eventhog','Event'),('tempo','Limited')):
+    viol[pol]=offered[pol]=0
+    for seed in range(20000,20004):
+        class Watch(F.Force136):
+            def japan_turn(self,free):
+                ok=box in free and not (box=='Event' and self.event in (6,9))
+                F.Force136.japan_turn(self,free)
+                if ok:
+                    offered[pol]+=1
+                    if self.chosen['J']!=box:viol[pol]+=1
+        w=Watch(seed);w.policy=pol;w.run()
+assert all(offered[p]>0 and viol[p]==0 for p in viol),(offered,viol)
+passed(f'F3 stress policies: fixtures choose Event and Limited; over 8 games {offered} offers, 0 violations')
+
+# F5: a Pass may use the Event box (legal, rule 2.4.3) and the printed text says so.
+g=restore('F5_event_box_pass');g.directive=F.DECK[0]
+plan=g.choose(['Event','Op & SA']);assert plan['op']=='PASS' and plan['box']=='Event'
+rules=(PR/'Force_136_v1_Rules.md').read_text()
+assert 'never executes an Event' in rules and 'even if that is the Event box' in rules and 'never chooses the Event box' not in rules
+assert 'Never</span> execute an Event' in src and 'Never execute the Event.' in src
+passed('F5 Pass: Event-box Pass is legal and the rules, reference and cards no longer forbid it')
 print(len(ok),'fixtures passed')

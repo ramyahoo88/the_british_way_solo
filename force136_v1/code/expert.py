@@ -12,10 +12,13 @@ TASK_FOR_CONTACT=['SUPPLY','INTEL','RAIL','STRIKE','TRAIN','RAID']
 
 class FastGame(Game):
     quiet=True
-    EXPLOIT={'brute':lambda p:p['op']=='EVENT' or p.get('sa')=='ELIMINATE' or p['op'] in('ASSAULT','SWEEP') and p['box']=='Limited',
-             'tempo':lambda p:p['box']=='Limited' or p['op']=='EVENT',
-             'econ':lambda p:p['op'] in('DEPLOY','CONSTRUCT') or p['op']=='EVENT',
-             'eventhog':lambda p:p['op']=='EVENT' or p['box']!='Event'}
+    # Scripted stress policies (v1.0.2: strict contracts; v1.0 and v1.0.1 let Events through every filter,
+    # and the eventhog filter accepted every plan). Each takes the best plan that meets its contract,
+    # by the adaptive values; only if no plan meets it does it fall back to all plans.
+    EXPLOIT={'brute':lambda p:p.get('sa')=='ELIMINATE' or p['op'] in('ASSAULT','SWEEP') and p['box']=='Limited',
+             'tempo':lambda p:p['box']=='Limited',
+             'econ':lambda p:p['op'] in('DEPLOY','CONSTRUCT'),
+             'eventhog':lambda p:p['op']=='EVENT'}
     def japan_turn(self,free):
         pol=self.policy
         if pol not in self.EXPLOIT:return Game.japan_turn(self,free)

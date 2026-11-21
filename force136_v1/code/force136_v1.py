@@ -343,12 +343,13 @@ class Force136(FastGame):
         self.construct()                                          # Japanese Construct
         self.supply()                                             # Support phase, British Supply
         self.reprisal()                                           # Japanese Reprisal
-        moved=set()                                               # Redeploy, British
-        for src in MAP_ORDER:
-            if not b[src]['force136'] or src in moved or not self.exposed(src):continue
-            dests=[s for s in PROV if b[s]['camp'] and not b[s]['force136'] and not b[s]['kempeitai']]
-            if dests:
-                d=min(dests,key=lambda s:(-gs(b[s]),mo(s)));b[src]['force136']-=1;b[d]['force136']+=1;moved.add(d)
+        # Redeploy, British: each exposed marker (all markers of a stack), map order, moves at most once.
+        movers=[(src,b[src]['force136']) for src in MAP_ORDER if b[src]['force136'] and self.exposed(src)]
+        for src,n in movers:                                      # fixed before any move (v1.0.2)
+            for _ in range(n):
+                dests=[s for s in PROV if b[s]['camp'] and not b[s]['force136'] and not b[s]['kempeitai']]
+                if not dests:break
+                d=min(dests,key=lambda s:(-gs(b[s]),mo(s)));b[src]['force136']-=1;b[d]['force136']+=1
         sites=[s for s in ORDER if b[s]['troops']>gs(b[s])]       # Redeploy, Japanese (engine policy)
         if sites:
             movable=0

@@ -346,15 +346,14 @@ class F136Game(FastGame):
             self.cleanup();return
         return FastGame.icon(self,j)
     def redeploy_f136(self):
-        b=self.board;moved=set()
-        for src in MAPO:
-            v=b[src]
-            if not v['force136'] or src in moved:continue
-            exposed=v['kempeitai'] and (not v['camp'] or self.cap.get(22)=='S')
-            if not exposed:continue
-            dests=[s for s in PROV if b[s]['camp'] and not b[s]['force136'] and not b[s]['kempeitai']]
-            if dests:
-                d=min(dests,key=lambda s:(-gs(b[s]),self.mo(s)));v['force136']-=1;b[d]['force136']+=1;moved.add(d)
+        b=self.board
+        movers=[(src,b[src]['force136']) for src in MAPO if b[src]['force136'] and b[src]['kempeitai']
+                and (not b[src]['camp'] or self.cap.get(22)=='S')]
+        for src,n in movers:
+            for _ in range(n):
+                dests=[s for s in PROV if b[s]['camp'] and not b[s]['force136'] and not b[s]['kempeitai']]
+                if not dests:break
+                d=min(dests,key=lambda s:(-gs(b[s]),self.mo(s)));b[src]['force136']-=1;b[d]['force136']+=1
     def propaganda(self,final=False):
         result=self.score_only(final);self.record('Final scoring' if final else 'Nonfinal scoring',result)
         if final:return result

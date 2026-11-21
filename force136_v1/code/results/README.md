@@ -1,5 +1,14 @@
 # Results
 
+## v1.0.2 (after GPT's audit of commit 33745a6)
+
+| File | What |
+|---|---|
+| v102_fresh_identity.log | all 30,000 fresh games rerun on v1.0.2: identical, row for row, to `results_fresh_v101.csv.gz` (which `report_check.py` reads) |
+| v102_holdout1.log, v102_lookdeep.log, v102_equiv.log | first holdout, wide-search Japan (Agent, Mastermind) and equivalence, rerun on v1.0.2 |
+| v102_exploits.log, results_exploits_v102.json | strict stress policies, 256 games per policy (seeds 20000–20255) |
+| v102_verify.log, v102_verify_results.json, v102_mutants.log, v102_mutants.json, v102_exit_status.log, v102_fixtures.log | checker, mutants, exit status and the 12 review fixtures on v1.0.2 |
+
 ## v1.0.1 (after GPT's review)
 
 | File | What |
@@ -7,7 +16,7 @@
 | v101_fresh.log, results_fresh_v101.csv.gz, fresh_v101_summary.json | all five levels on fresh seeds 0–999 (6,000 games per level), with goal and action shares |
 | v101_equiv.log | tuning lab vs printed rules, 960 games: 0 mismatches |
 | v101_verify.log, v101_verify_results.json | `verify_v1.py 32`: 2,496 games (normal and forced-capability), 0 cross-check and 0 oracle failures, coverage counts |
-| v101_mutants.log, v101_mutants.json | `verify_v1.py --mutants 16`: all 13 planted errors caught |
+| v101_mutants.log, v101_mutants.json | `verify_v1.py --mutants 16`: all 15 planted errors caught |
 | v101_fixtures.log | `review_fixtures.py`: GPT's reproductions as tests, 8 passed |
 | results_holdout1_v101.json | Agent on the first holdout (seeds 20000–20127) |
 | v101_look.log, v101_lookc.log, v101_lookdeep.log | lookahead Japan, all five levels, 128 holdout seeds |

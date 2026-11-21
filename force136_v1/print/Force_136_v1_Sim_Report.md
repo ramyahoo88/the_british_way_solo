@@ -1,20 +1,22 @@
-# Force 136 v1.0.1 — simulation report
+# Force 136 v1.0.2 — simulation report
 
-21 November 2026, revised the same day after GPT's review (v1.0.1) · Human Japan vs the Force 136 bot · standard standalone Japanese Occupation
+21 November 2026, revised the same day after GPT's reviews (v1.0.1, then v1.0.2) · Human Japan vs the Force 136 bot · standard standalone Japanese Occupation
 
 ## Summary
 
-Force 136 is a new card-driven British bot. It replaces the v0.2 draft rather than revising it. On 6,000 simulated games per level on fresh seeds (0–999, never used for tuning or for any earlier check), against six computer Japan policies, v1.0.1 wins:
+Force 136 is a new card-driven British bot. It replaces the v0.2 draft rather than revising it. On 6,000 simulated games per level on fresh seeds (0–999, never used for tuning or for any earlier check), against six computer Japan policies, v1.0.2 wins (exactly as v1.0.1: v1.0.2's Redeploy fix changes none of these 30,000 games):
 
 | Level | Change | Force 136 wins | 95% interval | Mean final Resistance | MPAJA wins |
 |---|---|---:|---:|---:|---:|
-| Recruit | never Raids | 41.3% | 40–43% | 15.5 | 5.5% |
-| **Agent** | standard | **64.4%** | 63–66% | 17.6 | 4.1% |
-| Veteran | Resistance starts at 4 | 74.0% | 72–76% | 18.4 | 3.8% |
-| Legend | starts at 4; +1 Resistance after each nonfinal Propaganda | 81.6% | 80–83% | 18.9 | 3.2% |
-| Mastermind | starts at 6; +2 Resistance after each nonfinal Propaganda | 91.3% | 90–92% | 19.6 | 2.3% |
+| Recruit | never Raids | 41.3% | 39.4–43.1% | 15.5 | 5.5% |
+| **Agent** | standard | **64.4%** | 62.7–66.2% | 17.6 | 4.1% |
+| Veteran | Resistance starts at 4 | 74.0% | 72.4–75.6% | 18.4 | 3.8% |
+| Legend | starts at 4; +1 Resistance after each nonfinal Propaganda | 81.6% | 80.2–82.9% | 18.9 | 3.2% |
+| Mastermind | starts at 6; +2 Resistance after each nonfinal Propaganda | 91.3% | 90.3–92.2% | 19.6 | 2.3% |
 
-The rules print the rounded figures 41%, 64%, 74%, 82% and 91%.
+The rules print the rounded figures 41%, 64%, 74%, 82% and 91%. Intervals: whole-seed bootstrap, 10,000 resamples, `random.Random(33745)` for each level (`report_check.py` recomputes them).
+
+**What changed in v1.0.2.** GPT's audit of commit 33745a6 found five problems; all are fixed. One was in the bot: at Redeploy, a stack of exposed Force 136 markers moved only one marker. Now every exposed marker moves, as the rules say. Rerunning all 30,000 fresh games gave identical results, row for row. The position is legal but rare. Two were printed-text problems. The reference's J27 line had lost "with Opposition". And "never choose the Event box" contradicted Passing in the leftmost free box, which can be the Event box: Force 136 never *executes* an Event, but may Pass there. The last two were in the stress-policy evidence below: policies that did not do what their labels said, and an overstated sample size.
 
 **What changed in v1.0.1.** GPT reviewed v1.0 (see `REVIEW_RESPONSE.md`). Two things moved the numbers:
 
@@ -51,7 +53,7 @@ These are computer-model results, not tabletop win rates. A strong human Japan p
 - **Information.** Policies see only public information. Concealed Intel values stay hidden from both sides' decisions. Dice and Intel draws are keyed to the seed, so matched games share Event deals.
 - **Protocol.** Rules were tuned only on development seeds (6000–7300 and 10000–10327). The first results used the untouched holdout seeds 20000–20383. After GPT's review, every level was rerun on fresh seeds 0–999 (6,000 games per level), and Agent on four more 1,000-seed blocks. Games on the same seed share Event deals across policies and levels. The intervals resample whole seeds.
 
-## Results by Japan policy (v1.0.1, fresh seeds 0–999)
+## Results by Japan policy (v1.0.1 and v1.0.2, fresh seeds 0–999)
 
 | Japan policy | Recruit | Agent | Veteran | Legend | Mastermind | Search player (v1.0 holdout 1) |
 |---|---:|---:|---:|---:|---:|---:|
@@ -89,16 +91,16 @@ How much of this is exploiting the bot? The same lookahead was run against the o
 
 The search player loses almost as badly, so most of the wide search's edge looks like strong Japanese play. The remaining 6–8-point gap is an observed difference between two different British players, not a measured cost of predictability. A deck with TRAIN first on every Limited turn, or AMBUSH first on every card, stayed within noise of the printed mix against both this opponent and the regular policies (v1.0).
 
-**Exploit attempts** (Agent v1.0.1, 256 games each; v1.0 in brackets):
+**Scripted stress policies** (Agent v1.0.2, seeds 20000–20255: 256 games per policy, 1,024 in all). Each takes the best plan, by the adaptive values, that keeps its rule; only when no plan does may it play anything else.
 
 | Japan always… | Force 136 wins |
 |---|---:|
-| Eliminates, or makes Limited Assaults and Sweeps | 94% (94) |
-| takes the Limited box to keep the initiative | 98% (98) |
-| plays economically (Deploy, Extract, Construct) | 70% (69) |
-| grabs the Event whenever possible | 70% (72) |
+| Eliminates, or makes a Limited Assault or Sweep | 256 / 256 (100%) |
+| takes the Limited box | 256 / 256 (100%) |
+| Deploys or Constructs | 241 / 256 (94%) |
+| takes the Event | 254 / 256 (99%) |
 
-None of these beats the regular policies.
+Committing to one kind of move is a poor way to beat the bot: none of these comes close to the regular policies. *Correction (GPT's audit of commit 33745a6):* v1.0 and v1.0.1 printed this table as "256 games each", but it held 64 per policy, and their filters did not match the labels. Every filter let Events through, and the Event filter accepted every plan. Those rows (94%, 98%, 70%, 70%) described mixed policies. The filters are now strict, and `report_check.py` checks this table's counts.
 
 **Map reading.** With GPT's alternative northern railway-corner adjacency, v1.0.1's Agent wins 64.1% instead of 64.7% (holdout 1).
 
@@ -183,12 +185,12 @@ So Force 136 never takes Events. That also removes the bot's longest lookup. (Th
 - **Mutation tests.** `verify_v1.py --mutants` plants 15 deliberate errors, and the checker must flag each one. They are: the level bonus at final scoring; an Agent bonus; 18–19 ties given to Britain; the Train refresh left out; British J22 ignored; British J27 ignored for Ambush or for Sabotage, or ranked by railway order; GPT's +1 Resistance before final scoring in the clean-room bot; a skipped clean-room turn; three engine scoring errors (Neutral Population counted per 4, no Police penalty, Caches counted double); and two engine Zipper errors (frozen at Propaganda, one box low). All 15 are caught. Only the oracle sees the five engine errors.
 - **Exit status.** `verify_v1.py` exits with status 1 if any game fails, and `--mutants` exits with status 1 if any mutant is missed, so an automated check cannot pass on a failure. `check_exit_status.py` tests this with an injected engine error and an uncatchable mutant (GPT's re-audit found the earlier version always exited 0).
 - **Printed numbers.** `report_check.py` recomputes every win-rate cell in this report's summary and per-policy tables, the rules' level table and the README from the stored results, and fails on any mismatch. (GPT's re-audit found the per-policy table still showing v1.0 values.)
-- **Review fixtures.** `review_fixtures.py` turns GPT's reproductions into tests: British J22 and J27 in both bots, the J27 extra space never qualifying a goal, the J8 limit, the exhausted-pool position (all nine Directives now Train), and the comparator rejecting score and length differences.
-- **Limits.** The engine is GPT's research executor. Only its Propaganda scoring and Zipper placement are checked independently. Its Operations, Events and Japan policies are not reimplemented. The British capability coverage comes from forced setups; combinations of capabilities with particular Events are not exhaustively covered.
+- **Review fixtures.** `review_fixtures.py` turns GPT's reproductions into 12 tests, using GPT's saved positions where it supplied them (`fixtures/audit_33745a6/`). They cover the stacked-marker Redeploy, the J27 target, the stress-policy contracts and the Event-box Pass, plus British J22 and J27 in both bots, the J27 extra space never qualifying a goal, the J8 limit, the exhausted-pool position (all nine Directives now Train), and the comparator rejecting score and length differences.
+- **Limits.** The engine is GPT's research executor. Only its Propaganda scoring and Zipper placement are checked independently. Its Operations, Events and Japan policies are not reimplemented. The British capability coverage comes from forced setups; combinations of capabilities with particular Events are not exhaustively covered. Positions the policies rarely reach, such as a stack of exposed markers at Redeploy, are covered by fixtures rather than by the random games: the cross-check never met one, which is how the v1.0.1 Redeploy error went unseen.
 
 ## Bot behaviour (Agent, fresh seeds 0–999)
 
-A game gives Force 136 about 16 turns. Most turns need one to three goal checks (2.3 on average, measured on v1.0).
+A game gives Force 136 about 16 turns. Most turns need one to three goal checks: 2.2 on average in GPT's count on v1.0.1, plus 0.8 Special Activity checks.
 
 | Goal used | Share of turns |
 |---|---:|
@@ -224,13 +226,15 @@ The Train refresh replaced most Passes and fallback Contacts: once the pools run
 
 - **Engine readings that remain uncertain:**
 
-    - J10's rounding.
+    - J10's rounding: half the Resources lost, rounded down (7 becomes 4).
+    - J13's British side: the engine runs two single-space Limited Operations; the card might allow two multi-space ones. It affects only the British-Event study (run on v1.0), since the bot never executes Events and the Japan policies play J13's Japanese side.
+    - The northern railway corner: which spaces touch the Thailand railways. The alternative reading moves Agent by under 1 point (above; GPT's audit: −0.5).
     - Japanese choices inside Events are made by engine heuristics. One (J20) favoured Britain and was corrected.
     - Sabotage placed on an already sabotaged railway by J2 or J23.
     - The Japanese Redeploy policy.
     - Japan never Passes.
 
-    None involves a bot decision.
+    None involves a bot decision. No official clarification for J10, J13 or the railway corner was found (GPT's audit searched too).
 
 - **Untested:** no physical playtest has been run, and turn time has not been measured. The Japan policies are heuristics, not people. The win rates are conditional on this executor and these opponents.
 
@@ -240,7 +244,7 @@ From the `code/` folder, with Python 3.11+ and only the standard library:
 
 ```text
 python3 equiv.py 32 recruit,agent,veteran,legend,mastermind   # printed rules == tuning lab (960 games, 0 mismatches)
-python3 fresh_v101.py 0 1000 fresh_v101                # v1.0.1 level results, fresh seeds 0-999 (6,000 games per level)
+python3 fresh_v101.py 0 1000 fresh_v102                # level results, fresh seeds 0-999 (6,000 games per level); identical to fresh_v101
 python3 verify_v1.py 32                                # checker: cross-check, scoring oracle, forced capabilities
 python3 verify_v1.py --mutants 16                      # the checker must catch 15 planted errors
 python3 review_fixtures.py                             # GPT's reproductions as tests
@@ -251,7 +255,7 @@ python3 look_run.py 20000 128 recruit,agent,veteran,legend,mastermind look
 python3 look_run.py 20000 128 recruit,agent,veteran,legend,mastermind lookc
 python3 look_deep.py 20000 128 recruit,agent,veteran,legend,mastermind lookc 16 4
 python3 look_expert.py 20000 128 16 1                # the same search against the one-step search player
-POLS=brute,tempo,econ,eventhog python3 holdout_v1.py 20000 64 exploits_v101 agent
+POLS=brute,tempo,econ,eventhog python3 holdout_v1.py 20000 256 exploits_v102 agent
 python3 corner_run.py
 python3 sample_game.py 20005 adaptive
 ```
