@@ -8,7 +8,11 @@ remains the published independent actor.
 The physical base game, expansion, Event cards and player aids are required.
 The bot runs at the table without an application.
 
-## Current print package: v0.2
+## Force 136 v1.0 (new design, branch `claude-force136`)
+
+A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Holdout simulations against six computer Japan policies: Recruit 34%, Agent 58%, Veteran 67%, Legend 73% Force 136 wins (v0.2: 0%). Not yet playtested at the table.
+
+## v0.2 print package (GPT draft)
 
 | File | Contents |
 |---|---|

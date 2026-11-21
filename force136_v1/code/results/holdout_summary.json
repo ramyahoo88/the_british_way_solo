@@ -1,0 +1,206 @@
+{
+ "recruit": {
+  "win": 0.344,
+  "ci": [
+   0.293,
+   0.398
+  ],
+  "R": 14.4,
+  "mpaja": 0.04,
+  "per": {
+   "extraction": 0.281,
+   "hunting": 0.555,
+   "repair": 0.328,
+   "adaptive": 0.398,
+   "counter": 0.172,
+   "mixed": 0.328
+  },
+  "perR": {
+   "extraction": 13.7,
+   "hunting": 17.0,
+   "repair": 14.3,
+   "adaptive": 15.4,
+   "counter": 11.9,
+   "mixed": 14.1
+  },
+  "turns_per_game": 16.2,
+  "goals": {
+   "AMBUSH": 0.37,
+   "TRAIN": 0.291,
+   "PLACE": 0.191,
+   "SUPPLY": 0.055,
+   "INTEL": 0.05,
+   "PASS": 0.028,
+   "CONTACT": 0.014
+  },
+  "ops": {
+   "L:TRAIN": 0.246,
+   "O:AMBUSH+GATHER": 0.183,
+   "O:AMBUSH": 0.151,
+   "L:CONTACT": 0.11,
+   "O:TRAIN+SUPPLY": 0.082,
+   "O:CONTACT+GATHER": 0.075,
+   "L:AMBUSH": 0.07,
+   "L:PASS": 0.027,
+   "O:CONTACT+SUPPLY": 0.02,
+   "O:TRAIN": 0.019,
+   "O:SABOTAGE+GATHER": 0.011,
+   "O:CONTACT": 0.004,
+   "E:PASS": 0.0,
+   "O:PASS": 0.0
+  }
+ },
+ "agent": {
+  "win": 0.583,
+  "ci": [
+   0.529,
+   0.638
+  ],
+  "R": 16.76,
+  "mpaja": 0.038,
+  "per": {
+   "extraction": 0.648,
+   "hunting": 0.688,
+   "repair": 0.664,
+   "adaptive": 0.641,
+   "counter": 0.305,
+   "mixed": 0.555
+  },
+  "perR": {
+   "extraction": 17.3,
+   "hunting": 18.2,
+   "repair": 17.5,
+   "adaptive": 17.5,
+   "counter": 13.8,
+   "mixed": 16.3
+  },
+  "turns_per_game": 16.2,
+  "goals": {
+   "AMBUSH": 0.336,
+   "TRAIN": 0.295,
+   "PLACE": 0.228,
+   "SUPPLY": 0.061,
+   "INTEL": 0.052,
+   "PASS": 0.015,
+   "CONTACT": 0.012
+  },
+  "ops": {
+   "L:TRAIN": 0.248,
+   "O:AMBUSH+RAID": 0.151,
+   "L:CONTACT": 0.138,
+   "O:AMBUSH+GATHER": 0.128,
+   "O:TRAIN+SUPPLY": 0.09,
+   "O:CONTACT+GATHER": 0.076,
+   "L:AMBUSH": 0.049,
+   "O:AMBUSH": 0.041,
+   "O:CONTACT+SUPPLY": 0.026,
+   "O:TRAIN+RAID": 0.016,
+   "L:PASS": 0.015,
+   "O:SABOTAGE+GATHER": 0.014,
+   "O:CONTACT+RAID": 0.004,
+   "O:TRAIN": 0.002
+  }
+ },
+ "veteran": {
+  "win": 0.669,
+  "ci": [
+   0.618,
+   0.719
+  ],
+  "R": 17.63,
+  "mpaja": 0.039,
+  "per": {
+   "extraction": 0.727,
+   "hunting": 0.742,
+   "repair": 0.766,
+   "adaptive": 0.734,
+   "counter": 0.438,
+   "mixed": 0.609
+  },
+  "perR": {
+   "extraction": 18.2,
+   "hunting": 18.5,
+   "repair": 18.2,
+   "adaptive": 18.3,
+   "counter": 15.2,
+   "mixed": 17.4
+  },
+  "turns_per_game": 16.2,
+  "goals": {
+   "AMBUSH": 0.334,
+   "TRAIN": 0.294,
+   "PLACE": 0.233,
+   "SUPPLY": 0.062,
+   "INTEL": 0.052,
+   "PASS": 0.015,
+   "CONTACT": 0.012
+  },
+  "ops": {
+   "L:TRAIN": 0.247,
+   "O:AMBUSH+RAID": 0.152,
+   "L:CONTACT": 0.141,
+   "O:AMBUSH+GATHER": 0.127,
+   "O:TRAIN+SUPPLY": 0.091,
+   "O:CONTACT+GATHER": 0.077,
+   "L:AMBUSH": 0.048,
+   "O:AMBUSH": 0.04,
+   "O:CONTACT+SUPPLY": 0.027,
+   "O:TRAIN+RAID": 0.016,
+   "L:PASS": 0.014,
+   "O:SABOTAGE+GATHER": 0.014,
+   "O:CONTACT+RAID": 0.004,
+   "O:TRAIN": 0.002
+  }
+ },
+ "legend": {
+  "win": 0.728,
+  "ci": [
+   0.68,
+   0.773
+  ],
+  "R": 18.33,
+  "mpaja": 0.04,
+  "per": {
+   "extraction": 0.781,
+   "hunting": 0.773,
+   "repair": 0.812,
+   "adaptive": 0.812,
+   "counter": 0.5,
+   "mixed": 0.688
+  },
+  "perR": {
+   "extraction": 18.7,
+   "hunting": 19.0,
+   "repair": 18.7,
+   "adaptive": 18.9,
+   "counter": 16.4,
+   "mixed": 18.1
+  },
+  "turns_per_game": 16.2,
+  "goals": {
+   "AMBUSH": 0.334,
+   "TRAIN": 0.293,
+   "PLACE": 0.234,
+   "SUPPLY": 0.062,
+   "INTEL": 0.052,
+   "PASS": 0.014,
+   "CONTACT": 0.011
+  },
+  "ops": {
+   "L:TRAIN": 0.246,
+   "O:AMBUSH+RAID": 0.152,
+   "L:CONTACT": 0.142,
+   "O:AMBUSH+GATHER": 0.128,
+   "O:TRAIN+SUPPLY": 0.09,
+   "O:CONTACT+GATHER": 0.077,
+   "L:AMBUSH": 0.047,
+   "O:AMBUSH": 0.04,
+   "O:CONTACT+SUPPLY": 0.027,
+   "O:TRAIN+RAID": 0.016,
+   "L:PASS": 0.014,
+   "O:SABOTAGE+GATHER": 0.014,
+   "O:CONTACT+RAID": 0.004,
+   "O:TRAIN": 0.002
+  }
+ }
+}

@@ -1,0 +1,630 @@
+{
+ "seed": 20005,
+ "policy": "adaptive",
+ "start": [
+  "Kedah: blue 1u/0a",
+  "Perak: 3T, 1P, 1K, red 2u/0a, F136, Camp, Cache, Opp",
+  "Kelantan: blue 1u/0a",
+  "Pahang: red 1u/0a",
+  "Kuala Lumpur: 3T, 1P, 1K",
+  "Negri Sembilan: red 1u/0a, F136, Camp",
+  "Johore: 3T, 1P, 1K, red 2u/0a, Camp, Opp",
+  "Northern EC: 3T",
+  "Southern EC: 3T"
+ ],
+ "narr": [
+  {
+   "draw": 1,
+   "event": 22,
+   "campaign": 1,
+   "free": [
+    "Limited",
+    "Event",
+    "Op & SA"
+   ],
+   "card": "8 Radio from the ridge: INTEL > AMBUSH > TRAIN > SUPPLY; Limited TRAIN first",
+   "goal": "PLACE",
+   "box": "Op & SA",
+   "op": "CONTACT",
+   "sa": "GATHER",
+   "R": [
+    2,
+    2
+   ],
+   "changes": [
+    "Kedah: blue_u 1->0, blue_a 0->1, force136 0->1, camp False->True, intel None->1",
+    "Perak: red_u 2->1, red_a 0->1, intel None->2",
+    "Kelantan: blue_u 1->0, blue_a 0->1, intel None->0",
+    "Pahang: red_u 1->0, red_a 0->1, intel None->2",
+    "Negri Sembilan: red_u 1->0, red_a 0->1, intel None->0",
+    "Johore: red_u 2->1, red_a 0->1, intel None->2"
+   ],
+   "sab": []
+  },
+  {
+   "draw": 1,
+   "event": 22,
+   "who": "Japan",
+   "box": "Event",
+   "R": [
+    2,
+    2
+   ],
+   "changes": [],
+   "res": 0
+  },
+  {
+   "draw": 2,
+   "event": 19,
+   "who": "Japan",
+   "box": "Op & SA",
+   "R": [
+    2,
+    2
+   ],
+   "changes": [
+    "Kedah: troops 0->2",
+    "Perak: troops 3->1, red_u 1->0, red_a 1->2, intel 2->None",
+    "Johore: red_u 1->0, red_a 1->2, intel 2->None"
+   ],
+   "res": 0
+  },
+  {
+   "draw": 2,
+   "event": 19,
+   "campaign": 1,
+   "free": [
+    "Limited",
+    "Event"
+   ],
+   "card": "5 Recruit and strike: AMBUSH > INTEL > TRAIN > SUPPLY; Limited TRAIN first",
+   "goal": "TRAIN",
+   "box": "Limited",
+   "op": "TRAIN",
+   "sa": null,
+   "R": [
+    2,
+    2
+   ],
+   "changes": [
+    "Kedah: blue_u 0->1",
+    "Perak: red_u 0->2",
+    "Negri Sembilan: red_u 0->1"
+   ],
+   "sab": []
+  },
+  {
+   "draw": 3,
+   "event": 5,
+   "campaign": 1,
+   "free": [
+    "Limited",
+    "Event",
+    "Op & SA"
+   ],
+   "card": "7 Count the trains: INTEL > AMBUSH > SUPPLY > TRAIN; Limited AMBUSH first",
+   "goal": "AMBUSH",
+   "box": "Op & SA",
+   "op": "AMBUSH",
+   "sa": "RAID",
+   "R": [
+    2,
+    4
+   ],
+   "changes": [
+    "Kedah: troops 2->1, blue_u 1->0, blue_a 1->2",
+    "Perak: red_u 2->0, kempeitai 1->0",
+    "Pahang: red_a 0->1",
+    "Selangor: red_a 0->1",
+    "Kuala Lumpur: troops 3->4, kempeitai 1->2"
+   ],
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 3,
+   "event": 5,
+   "who": "Japan",
+   "box": "Limited",
+   "R": [
+    4,
+    4
+   ],
+   "changes": [
+    "Kedah: police 0->1, kempeitai 0->1",
+    "Perak: kempeitai 0->1",
+    "Kuala Lumpur: kempeitai 2->1",
+    "Johore: kempeitai 1->0"
+   ],
+   "res": 0
+  },
+  {
+   "draw": 4,
+   "event": 16,
+   "who": "Japan",
+   "box": "Op & SA",
+   "R": [
+    4,
+    2
+   ],
+   "changes": [
+    "Kedah: troops 1->2, force136 1->0",
+    "Perak: force136 1->0",
+    "Negri Sembilan: troops 0->2, red_u 1->0, red_a 0->1",
+    "Northern EC: troops 3->2",
+    "Southern EC: troops 3->1"
+   ],
+   "res": 0
+  },
+  {
+   "draw": 4,
+   "event": 16,
+   "campaign": 1,
+   "free": [
+    "Limited",
+    "Event"
+   ],
+   "card": "2 Hit the convoy: AMBUSH > INTEL > SUPPLY > TRAIN; Limited AMBUSH first",
+   "goal": "PLACE",
+   "box": "Limited",
+   "op": "CONTACT",
+   "sa": null,
+   "R": [
+    2,
+    2
+   ],
+   "changes": [
+    "Perak: camp True->False",
+    "Kelantan: force136 0->1, camp False->True"
+   ],
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 5,
+   "event": 4,
+   "campaign": 1,
+   "free": [
+    "Limited",
+    "Event",
+    "Op & SA"
+   ],
+   "card": "9 Stockpile: AMBUSH > SUPPLY > INTEL > TRAIN; Limited TRAIN first",
+   "goal": "PLACE",
+   "box": "Op & SA",
+   "op": "CONTACT",
+   "sa": "SUPPLY",
+   "R": [
+    2,
+    2
+   ],
+   "changes": [
+    "Kelantan: camp True->False, cache False->True",
+    "Pahang: force136 0->1, camp False->True",
+    "Negri Sembilan: camp True->False, cache False->True",
+    "Johore: camp True->False"
+   ],
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 5,
+   "event": 4,
+   "who": "Japan",
+   "box": "Limited",
+   "R": [
+    2,
+    2
+   ],
+   "changes": [
+    "Kedah: kempeitai 1->0",
+    "Perak: kempeitai 1->0",
+    "Negri Sembilan: police 0->1, kempeitai 0->1",
+    "Northern EC: kempeitai 0->1"
+   ],
+   "res": 0
+  },
+  {
+   "draw": 6,
+   "prop": true,
+   "final": false,
+   "R": [
+    2,
+    10
+   ],
+   "terms": {
+    "intel": 3,
+    "caches": 3,
+    "majorities": 4,
+    "resource_penalty": 0,
+    "neutral_penalty": 1,
+    "police_penalty": 1,
+    "net_change": 8
+   }
+  },
+  {
+   "draw": 7,
+   "event": 13,
+   "campaign": 2,
+   "free": [
+    "Limited",
+    "Event",
+    "Op & SA"
+   ],
+   "card": "6 Ears in the kampongs: INTEL > AMBUSH > SUPPLY > TRAIN; Limited AMBUSH first",
+   "goal": "INTEL",
+   "box": "Op & SA",
+   "op": "AMBUSH",
+   "sa": "GATHER",
+   "R": [
+    10,
+    11
+   ],
+   "changes": [
+    "Kedah: troops 2->1, red_u 2->0, red_a 0->2, intel None->2",
+    "Perak: red_u 2->1, red_a 0->1, intel None->0",
+    "Kelantan: blue_u 1->0, blue_a 0->1, intel None->1",
+    "Pahang: red_u 1->0, red_a 0->1, intel None->0",
+    "Selangor: red_u 1->0, red_a 0->1, intel None->2",
+    "Kuala Lumpur: troops 4->5, red_u 1->0, red_a 0->1, intel None->2",
+    "Johore: red_u 3->2, red_a 0->1, intel None->0"
+   ],
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 7,
+   "event": 13,
+   "who": "Japan",
+   "box": "Limited",
+   "R": [
+    11,
+    11
+   ],
+   "changes": [
+    "Kedah: kempeitai 0->1",
+    "Perak: police 0->1",
+    "Southern EC: kempeitai 1->0"
+   ],
+   "res": 0
+  },
+  {
+   "draw": 8,
+   "event": 10,
+   "who": "Japan",
+   "box": "Op & SA",
+   "R": [
+    11,
+    11
+   ],
+   "changes": [
+    "Kedah: intel 2->None",
+    "Perak: red_u 1->0, red_a 1->2",
+    "Kelantan: troops 0->2",
+    "Pahang: troops 0->2",
+    "Kuala Lumpur: troops 5->4",
+    "Northern EC: troops 2->0",
+    "Southern EC: troops 1->0"
+   ],
+   "res": 0
+  },
+  {
+   "draw": 8,
+   "event": 10,
+   "campaign": 2,
+   "free": [
+    "Limited",
+    "Event"
+   ],
+   "card": "3 Strike from the hills: AMBUSH > INTEL > SUPPLY > TRAIN; Limited AMBUSH first",
+   "goal": "AMBUSH",
+   "box": "Limited",
+   "op": "AMBUSH",
+   "sa": null,
+   "R": [
+    11,
+    12
+   ],
+   "changes": [
+    "Kedah: blue_u 2->1, blue_a 0->1, kempeitai 1->0",
+    "Kuala Lumpur: kempeitai 0->1"
+   ],
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 9,
+   "event": 27,
+   "campaign": 2,
+   "free": [
+    "Limited",
+    "Event",
+    "Op & SA"
+   ],
+   "card": "1 Jungle ambush: AMBUSH > INTEL > SUPPLY > TRAIN; Limited AMBUSH first",
+   "goal": "AMBUSH",
+   "box": "Op & SA",
+   "op": "AMBUSH",
+   "sa": null,
+   "R": [
+    12,
+    13
+   ],
+   "changes": [
+    "Kedah: troops 1->0, blue_u 1->0, blue_a 1->2",
+    "Kuala Lumpur: troops 4->5"
+   ],
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 9,
+   "event": 27,
+   "who": "Japan",
+   "box": "Limited",
+   "R": [
+    13,
+    13
+   ],
+   "changes": [
+    "Kelantan: police 0->1, kempeitai 0->1",
+    "Pahang: kempeitai 0->1",
+    "Kuala Lumpur: kempeitai 1->0",
+    "Northern EC: kempeitai 1->0"
+   ],
+   "res": 0
+  },
+  {
+   "draw": 10,
+   "event": 29,
+   "who": "Japan",
+   "box": "Event",
+   "R": [
+    13,
+    13
+   ],
+   "changes": [
+    "Kedah: kempeitai 0->1",
+    "Selangor: intel 2->None",
+    "Kuala Lumpur: intel 2->None",
+    "Negri Sembilan: kempeitai 1->0"
+   ],
+   "res": 0
+  },
+  {
+   "draw": 10,
+   "event": 29,
+   "campaign": 2,
+   "free": [
+    "Limited",
+    "Op & SA"
+   ],
+   "card": "4 Arm the cells: AMBUSH > INTEL > TRAIN > SUPPLY; Limited TRAIN first",
+   "goal": "TRAIN",
+   "box": "Op & SA",
+   "op": "TRAIN",
+   "sa": null,
+   "R": [
+    13,
+    13
+   ],
+   "changes": [
+    "Kedah: blue_u 0->1",
+    "Pahang: red_u 0->2",
+    "Kuala Lumpur: red_a 1->0"
+   ],
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 11,
+   "event": 25,
+   "who": "Japan",
+   "box": "Op & SA",
+   "R": [
+    13,
+    11
+   ],
+   "changes": [
+    "Kelantan: blue_a 1->0, force136 1->0, cache True->False",
+    "Pahang: force136 1->0",
+    "Negri Sembilan: cache True->False"
+   ],
+   "res": 0
+  },
+  {
+   "draw": 11,
+   "event": 25,
+   "campaign": 2,
+   "free": [
+    "Limited",
+    "Event"
+   ],
+   "card": "2 Hit the convoy: AMBUSH > INTEL > SUPPLY > TRAIN; Limited AMBUSH first",
+   "goal": "PLACE",
+   "box": "Limited",
+   "op": "CONTACT",
+   "sa": null,
+   "R": [
+    11,
+    11
+   ],
+   "changes": [
+    "Selangor: force136 0->1, camp False->True"
+   ],
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 12,
+   "event": 31,
+   "campaign": 2,
+   "free": [
+    "Limited",
+    "Event",
+    "Op & SA"
+   ],
+   "card": "7 Count the trains: INTEL > AMBUSH > SUPPLY > TRAIN; Limited AMBUSH first",
+   "goal": "PLACE",
+   "box": "Op & SA",
+   "op": "CONTACT",
+   "sa": "SUPPLY",
+   "R": [
+    11,
+    11
+   ],
+   "changes": [
+    "Trengganu: force136 0->1, cache False->True",
+    "Selangor: camp True->False, cache False->True"
+   ],
+   "sab": [
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 12,
+   "event": 31,
+   "who": "Japan",
+   "box": "Event",
+   "R": [
+    11,
+    11
+   ],
+   "changes": [],
+   "res": 6
+  },
+  {
+   "draw": 13,
+   "prop": true,
+   "final": false,
+   "R": [
+    11,
+    16
+   ],
+   "terms": {
+    "intel": 1,
+    "caches": 3,
+    "majorities": 4,
+    "resource_penalty": 1,
+    "neutral_penalty": 1,
+    "police_penalty": 1,
+    "net_change": 5
+   }
+  },
+  {
+   "draw": 14,
+   "event": 6,
+   "campaign": 3,
+   "free": [
+    "Limited",
+    "Op & SA"
+   ],
+   "card": "8 Radio from the ridge: INTEL > AMBUSH > TRAIN > SUPPLY; Limited TRAIN first",
+   "goal": "INTEL",
+   "box": "Op & SA",
+   "op": "SABOTAGE",
+   "sa": "GATHER",
+   "R": [
+    16,
+    16
+   ],
+   "changes": [
+    "Kedah: red_u 2->0, red_a 0->2, intel None->1",
+    "Perak: red_u 1->0, red_a 0->1, intel None->1",
+    "Pahang: red_u 2->1, red_a 0->1, intel None->1",
+    "Selangor: red_u 1->0, red_a 0->1, intel None->0"
+   ],
+   "sab": [
+    "Thailand-Kedah *",
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 14,
+   "event": 6,
+   "who": "Japan",
+   "box": "Limited",
+   "R": [
+    16,
+    16
+   ],
+   "changes": [
+    "Perak: police 0->1"
+   ],
+   "res": 0
+  },
+  {
+   "draw": 15,
+   "event": 28,
+   "who": "Japan",
+   "box": "Op & SA",
+   "R": [
+    16,
+    16
+   ],
+   "changes": [
+    "Kedah: troops 0->1, red_a 2->3",
+    "Perak: troops 1->2, red_a 1->0, terror 0->1",
+    "Kelantan: troops 2->0",
+    "Selangor: troops 0->2, red_a 1->0, terror 0->1",
+    "Kuala Lumpur: troops 6->4, red_a 0->1"
+   ],
+   "res": 0
+  },
+  {
+   "draw": 15,
+   "event": 28,
+   "campaign": 3,
+   "free": [
+    "Limited",
+    "Event"
+   ],
+   "card": "5 Recruit and strike: AMBUSH > INTEL > TRAIN > SUPPLY; Limited TRAIN first",
+   "goal": "TRAIN",
+   "box": "Limited",
+   "op": "TRAIN",
+   "sa": null,
+   "R": [
+    16,
+    16
+   ],
+   "changes": [
+    "Kedah: red_u 0->2",
+    "Trengganu: blue_u 0->1",
+    "Selangor: blue_u 0->1"
+   ],
+   "sab": [
+    "Thailand-Kedah *",
+    "Perak-Pahang-Selangor"
+   ]
+  },
+  {
+   "draw": 16,
+   "prop": true,
+   "final": true,
+   "R": [
+    16,
+    20
+   ],
+   "terms": {
+    "intel": 3,
+    "caches": 2,
+    "majorities": 2,
+    "resource_penalty": 0,
+    "neutral_penalty": 1,
+    "police_penalty": 1,
+    "net_change": 5
+   }
+  }
+ ],
+ "winner": "Force 136",
+ "R": 20
+}
