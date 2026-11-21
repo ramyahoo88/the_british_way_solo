@@ -98,6 +98,7 @@ def build_rules():
     # drop the markdown title block; render our own cover
     body_md=md.split('## 1. Overview',1)[1]
     body=markdown.markdown('## 1. Overview'+body_md,extensions=['tables'])
+    body=body.replace('src="turn_flow.svg"','src="'+(HERE/'turn_flow.svg').as_uri()+'" style="width:100%;margin:4pt 0 6pt"')
     cover=(f"<div class='cover'><h1>Force 136</h1><div class='sub'>A card-driven British opponent for "
            f"<em>The British Way: Japanese Occupation 1942–1945</em></div>"
            f"<div class='meta'>Unofficial fan variant · version {VERSION} · {DATE}</div></div>")

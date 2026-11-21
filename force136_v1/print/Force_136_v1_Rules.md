@@ -46,6 +46,8 @@ When each Event card is revealed, its MPAJA icon and then any Mandatory Event ar
 
 Japan takes at most one box, so Force 136 always has the Op & SA box or the Limited box free. Eligibility then follows the normal cylinder rules.
 
+![Force 136 turn flow](turn_flow.svg)
+
 ## 5. Goals
 
 Each goal says when it qualifies and what Force 136 does. Resolve the Operation first, including its rolls; then choose the Special Activity on the board as it now stands. Where a goal lists several Special Activities, take the first that would do something.
