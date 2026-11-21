@@ -1,5 +1,5 @@
 {
-  "README.md": "c675a252f0d80b0712e76f9dbe558d34191d673846f12e9aef51d470d3ee9789",
+  "README.md": "8a4e87f5f04df3610b963009807e4cf32fea9822488992ac4b4a667a9679e1cc",
   "archive/v0.1/Force_136_Print_and_Play_v0.1.zip": "eebbc7d481cf1203d5a898f6177c918d04941a07abf633164c9ad56bc2008707",
   "archive/v0.1/Force_136_Solo_v0.1.pdf": "9cd803e6bd0aa611a0fa9a8c4604e8e23a0dbb21b612cb9076541fca321ebf2b",
   "audits/v0.1/Force_136_v0.1_Audit_Evidence.zip": "204730c2ff504fa314c6267a43f341c0de5296e910ce44f9b83828ff4d7dc3f0",
@@ -11,6 +11,9 @@
   "audits/v1.0.1/Force_136_v1.0.1_Evidence.zip": "7095c4a3c874f80c9ff0a2d2c13225511e70518af19f2386cc04f42b144845c0",
   "audits/v1.0.1/Force_136_v1.0.1_Reaudit.md": "b2daca9edd2900426f8f7b5fc9c4a4bedb80521908691da37d5c8757fd492d1e",
   "audits/v1.0.1/Force_136_v1.0.1_Reaudit.pdf": "f0df8cc1e9be0da6577d87244323972652fd459b3cc21e011e791cd4d1b7ae02",
+  "audits/v1.0.3/Force_136_v1.0.3_Audit_595f409_Evidence.zip": "196bda66805b22265da9bd05ee800f0ca4c8d4a1a8f1d77c5fb1881420555824",
+  "audits/v1.0.3/Force_136_v1.0.3_Independent_Audit_595f409.md": "5d07ffc0da4256d3258501052255cfb0dd87ef390a51a185a47f15bcfd0cecaa",
+  "audits/v1.0.3/Force_136_v1.0.3_Independent_Audit_595f409.pdf": "ac988c981378ad79c28306fe59d138cd8e45b476b0dd8c5af712f2f84745979c",
   "audits/v1.0/Force_136_v1_Claude_Review.md": "1dfc4dfb4d3198e63a95ab54d43e57a055a233ecb7984973e09ade60b72c3d20",
   "audits/v1.0/Force_136_v1_Claude_Review.pdf": "9db108f344e6f25db50086bfb32141ba4813c3e1f805e07856979222e96f2d83",
   "audits/v1.0/Force_136_v1_Claude_Review_Evidence.zip": "06c23c60f3a30a986576e4b239ae4f8d4516b7037f92da62e0c64a2f6c7847cb",

@@ -19,15 +19,16 @@ Each report is tied to the exact commit shown below.
 | [v1.0, `615c870`](https://github.com/ramyahoo88/the_british_way_solo/commit/615c870cf018a5122b3991b00dfbbd4224d04e42) | [Review PDF](audits/v1.0/Force_136_v1_Claude_Review.pdf) | [Markdown](audits/v1.0/Force_136_v1_Claude_Review.md) | [Evidence ZIP](audits/v1.0/Force_136_v1_Claude_Review_Evidence.zip) |
 | [v1.0.1, `fe57c0f`](https://github.com/ramyahoo88/the_british_way_solo/commit/fe57c0faea60bc913e1f7c859963059d92d9aa7e) | [Re-audit PDF](audits/v1.0.1/Force_136_v1.0.1_Reaudit.pdf) | [Markdown](audits/v1.0.1/Force_136_v1.0.1_Reaudit.md) | [Evidence ZIP](audits/v1.0.1/Force_136_v1.0.1_Evidence.zip) |
 | [v1.0.1, `33745a6`](https://github.com/ramyahoo88/the_british_way_solo/commit/33745a6cad5d89f81b3118806b14eec291bec72a) | [Comprehensive audit PDF](audits/v1.0.1/Force_136_v1.0.1_Comprehensive_Audit_33745a6.pdf) | [Markdown](audits/v1.0.1/Force_136_v1.0.1_Comprehensive_Audit_33745a6.md) | [Evidence ZIP](audits/v1.0.1/Force_136_v1.0.1_Audit_33745a6_Evidence.zip) |
+| [v1.0.3, `595f409`](https://github.com/ramyahoo88/the_british_way_solo/commit/595f409ccae43f795f7fbdc38878f07f7967682a) | [Independent audit PDF](audits/v1.0.3/Force_136_v1.0.3_Independent_Audit_595f409.pdf) | [Markdown](audits/v1.0.3/Force_136_v1.0.3_Independent_Audit_595f409.md) | [Evidence ZIP](audits/v1.0.3/Force_136_v1.0.3_Audit_595f409_Evidence.zip) |
 
-The latest comprehensive audit examines commit `33745a6`, after the earlier
-reporting and checker-command corrections. It identifies five remaining issues:
-stacked-marker Redeploy, the printed J27 condition, two mislabeled exploit
-policies, the exploit sample-size caption, and conflicting Pass wording. It
-includes 4,736 fresh strategy games and recommends those corrections before
-release. The earlier re-audit independently supports the last-resort Train
-refresh. Each report includes reproductions, source references, checks,
-simulation limits and a release verdict.
+The latest review examines v1.0.3 at `595f409`. No new normal-play bot legality
+or scoring defect was confirmed. It identifies a stale Pass instruction in the
+flowchart, two verification gaps, and one lookahead-description error. The
+evidence includes 6,272 fresh simulation runs, 12,000 additional positions with
+expanded state comparison, and all 537 Raids in the published 240-game sample
+validated from actual steps. Verdict: pass for playing the bot; a small print
+and verification patch is recommended before calling the package final.
+The older reports remain available above with their exact source commits.
 
 ## Current print package: v0.2
 
