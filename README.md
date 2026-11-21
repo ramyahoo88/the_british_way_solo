@@ -20,14 +20,17 @@ Each report is tied to the exact commit shown below.
 | [v1.0.1, `fe57c0f`](https://github.com/ramyahoo88/the_british_way_solo/commit/fe57c0faea60bc913e1f7c859963059d92d9aa7e) | [Re-audit PDF](audits/v1.0.1/Force_136_v1.0.1_Reaudit.pdf) | [Markdown](audits/v1.0.1/Force_136_v1.0.1_Reaudit.md) | [Evidence ZIP](audits/v1.0.1/Force_136_v1.0.1_Evidence.zip) |
 | [v1.0.1, `33745a6`](https://github.com/ramyahoo88/the_british_way_solo/commit/33745a6cad5d89f81b3118806b14eec291bec72a) | [Comprehensive audit PDF](audits/v1.0.1/Force_136_v1.0.1_Comprehensive_Audit_33745a6.pdf) | [Markdown](audits/v1.0.1/Force_136_v1.0.1_Comprehensive_Audit_33745a6.md) | [Evidence ZIP](audits/v1.0.1/Force_136_v1.0.1_Audit_33745a6_Evidence.zip) |
 | [v1.0.3, `595f409`](https://github.com/ramyahoo88/the_british_way_solo/commit/595f409ccae43f795f7fbdc38878f07f7967682a) | [Independent audit PDF](audits/v1.0.3/Force_136_v1.0.3_Independent_Audit_595f409.pdf) | [Markdown](audits/v1.0.3/Force_136_v1.0.3_Independent_Audit_595f409.md) | [Evidence ZIP](audits/v1.0.3/Force_136_v1.0.3_Audit_595f409_Evidence.zip) |
+| [v1.0.4, `5efd44f`](https://github.com/ramyahoo88/the_british_way_solo/commit/5efd44f34a64625f4b627c832d038a2d85566780) | [Re-audit PDF](audits/v1.0.4/Force_136_v1.0.4_Reaudit_5efd44f.pdf) | [Markdown](audits/v1.0.4/Force_136_v1.0.4_Reaudit_5efd44f.md) | [Evidence ZIP](audits/v1.0.4/Force_136_v1.0.4_Audit_5efd44f_Evidence.zip) |
 
-The latest review examines v1.0.3 at `595f409`. No new normal-play bot legality
-or scoring defect was confirmed. It identifies a stale Pass instruction in the
-flowchart, two verification gaps, and one lookahead-description error. The
-evidence includes 6,272 fresh simulation runs, 12,000 additional positions with
-expanded state comparison, and all 537 Raids in the published 240-game sample
-validated from actual steps. Verdict: pass for playing the bot; a small print
-and verification patch is recommended before calling the package final.
+The latest review examines v1.0.4 at `5efd44f`. All four findings from the
+v1.0.3 audit are resolved; no new material defect was confirmed. The evidence
+includes 24,000 fresh positions with 264,000 action comparisons, the reproduced
+960-game and 12,000-position legality runs (12,207 confirmed Raids; none
+undecided), and 256 old/new wide-lookahead pairs with identical complete results.
+The corrected 11-page print package and expanded sample were verified.
+Verdict: pass v1.0.4 for release as a simulation-tested paper fan bot. Physical
+playtesting remains outstanding. The reviewed release files are on
+`claude-force136`; this audit update does not merge that branch.
 The older reports remain available above with their exact source commits.
 
 ## Current print package: v0.2
