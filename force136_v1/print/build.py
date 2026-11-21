@@ -9,7 +9,7 @@ import markdown
 from pypdf import PdfWriter,PdfReader
 
 HERE=Path(__file__).resolve().parent
-OUT=Path(sys.argv[1]) if len(sys.argv)>1 else HERE/'out'
+OUT=(Path(sys.argv[1]) if len(sys.argv)>1 else HERE/'out').resolve()
 OUT.mkdir(parents=True,exist_ok=True)
 CARDS=json.loads((HERE/'cards.json').read_text())
 VERSION='1.0';DATE='21 November 2026'
