@@ -100,7 +100,7 @@ class F136Game(FastGame):
             elif self.die('Ambush',s)+self.cache_bonus(s)>cubes(self.board[s]):
                 f='kempeitai' if t=='Kempeitai' else 'troops'
                 self.board[s][f]-=1;self.board['Kuala Lumpur'][f]+=1;self.resistance=clamp(self.resistance+1)
-        self.inc('ambush_attempts',len(hits));return hits
+        self.cleanup();self.inc('ambush_attempts',len(hits));return hits
     # ------------------------------------------------------ CONTACT
     def place_rank(self,s):
         b=self.board[s];pp=self.P.get('place_pref','default')
@@ -182,20 +182,24 @@ class F136Game(FastGame):
         self.inc('gather_reveals',len(revealed));return revealed
     # ------------------------------------------------------ SUPPLY
     def supply(self):
-        n=0;selected=[];remote=False
-        for _ in range(3 if self.zipper>=12 else 2):
-            if not self.available('cache'):break
+        """Choose Provinces first (limit, and no more than Caches Available), then convert/roll."""
+        limit=min(3 if self.zipper>=12 else 2,self.available('cache'))
+        selected=[];remote=False
+        while len(selected)<limit:
             sites=[s for s in PROV if self.board[s]['camp'] and not self.board[s]['cache'] and s not in selected
                    and (self.board[s]['force136'] or self.cap.get(8)=='U' and not remote)]
             if not sites:break
             s=min(sites,key=lambda s:(not self.board[s]['force136'],bool(self.board[s]['kempeitai']),-gs(self.board[s]),-POP[s],self.mo(s)))
             selected.append(s)
             if not self.board[s]['force136']:remote=True
+        n=0
+        for s in selected:
             if self.cap.get(8)=='S' and self.die('Supply',s)<=2:continue
             self.board[s]['camp']=False;self.board[s]['cache']=True;n+=1
         if self.cap.get(27)=='S' and selected:
             el=[s for s in selected if self.board[s]['opposition']]
             if el:self.board[min(el,key=lambda s:(POP[s],self.mo(s)))]['opposition']=False
+        self.cleanup()
         self.inc('caches_built',n);return n
     # ------------------------------------------------------ RAID
     RAID_ORDER=('SABOTAGE','AMBUSH','MAJORITY')
@@ -276,18 +280,11 @@ class F136Game(FastGame):
         if goal=='PLACE':
             if not self.available('force136'):return None
             if not full:return dict(op='CONTACT')
-            p=self.clone();p.contact()
-            sa=None
-            for x in self.P.get('place_sa',('SUPPLY','GATHER','RAID')):
-                if self.sa_does(p,x):sa=x.replace('2','');break
-            return dict(op='CONTACT',sa=sa)
+            return dict(op='CONTACT',sa_list=self.P.get('place_sa',('SUPPLY','GATHER','RAID')))
         if goal=='STRIKE':
             if not self.useful_ambush():return None
             if not full:return dict(op='STRIKE')
-            p=self.clone();p.strike()
-            for x in self.P.get('strike_sa',('GATHER','RAID')):
-                if self.sa_does(p,x):return dict(op='STRIKE',sa=x.replace('2',''))
-            return dict(op='STRIKE',sa=None)
+            return dict(op='STRIKE',sa_list=self.P.get('strike_sa',('GATHER','RAID')))
         if goal=='INTEL':
             if not full:return None
             for op in ('STRIKE','RAIL','CONTACT'):
@@ -308,16 +305,12 @@ class F136Game(FastGame):
             p=self.clone()
             if not p.train():return None
             if not full:return dict(op='TRAIN')
-            for x in self.P.get('train_sa',('SUPPLY','RAID')):
-                if p.clone().special(x):return dict(op='TRAIN',sa=x)
-            return dict(op='TRAIN',sa=None)
+            return dict(op='TRAIN',sa_list=self.P.get('train_sa',('SUPPLY','RAID')))
         if goal=='CONTACT':
             p=self.clone()
             if not p.contact():return None
             if not full:return dict(op='CONTACT')
-            for x in ('SUPPLY','GATHER','RAID'):
-                if self.sa_does(p,x):return dict(op='CONTACT',sa=x)
-            return dict(op='CONTACT',sa=None)
+            return dict(op='CONTACT',sa_list=('SUPPLY','GATHER','RAID'))
         raise ValueError(goal)
     def draw_directive(self):
         if not self.dqueue:
@@ -409,6 +402,10 @@ class F136Game(FastGame):
         elif op=='TRAIN':self.train()
         elif op=='STRIKE':self.strike()
         elif op=='RAIL':self.rail('C')
+        if plan.get('sa_list'):
+            plan['sa']=None
+            for x in plan['sa_list']:
+                if self.sa_does(self,x):plan['sa']=x.replace('2','');break
         if plan.get('sa'):self.special(plan['sa'])
     def bot_turn(self,free):
         self.card={'id':'D','rail_order':'C','primary':'SUPPLY','other_special':'SUPPLY > GATHER > RAID','preparation':'TRAIN','b_events':'NO'}

@@ -516,7 +516,10 @@ class Game:
         elif j==20:
             sites=[s for s in ORDER if b[s]['force136']]
             if sites:
-                s=min(sites,key=lambda s:(bool(self.primary_site_value(s,self.card['primary'] if self.card else 'INTEL')),not bool(b[s]['kempeitai']),gs(b[s]),-ix(s)))
+                if S:  # Japan chooses (it executes the card): the most dangerous marker
+                    s=min(sites,key=lambda s:(-len(self.gather_targets(s)),-gs(b[s]),ix(s)))
+                else:
+                    s=min(sites,key=lambda s:(bool(self.primary_site_value(s,self.card['primary'] if self.card else 'INTEL')),not bool(b[s]['kempeitai']),gs(b[s]),-ix(s)))
                 b[s]['force136']-=1
             if S:
                 hidden=[s for s in ORDER[:9] if b[s]['intel'] is None and s not in self.removed_intel]

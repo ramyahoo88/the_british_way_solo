@@ -140,7 +140,7 @@ class Force136(FastGame):
             elif self.die('Ambush',s)+self.cache_bonus(s)>cubes(self.board[s]):
                 f='kempeitai' if t=='Kempeitai' else 'troops'
                 self.board[s][f]-=1;self.board['Kuala Lumpur'][f]+=1;self.resistance=clamp(self.resistance+1)
-        return hits
+        self.cleanup();return hits
     # ----------------------------------------------------------------- §6.4 Sabotage
     def rail_choice(self,s,region='C',stack=False,eligible=None):
         if stack:return FastGame.rail_choice(self,s,region,stack,eligible)
@@ -162,20 +162,24 @@ class Force136(FastGame):
         return revealed
     # ----------------------------------------------------------------- §6.6 Supply
     def supply(self):
-        n=0;selected=[];remote=False
-        for _ in range(3 if self.zipper>=12 else 2):
-            if not self.available('cache'):break
+        """Choose Provinces first (limit, and no more than Caches Available), then convert/roll."""
+        limit=min(3 if self.zipper>=12 else 2,self.available('cache'))
+        selected=[];remote=False
+        while len(selected)<limit:
             sites=[s for s in PROV if self.board[s]['camp'] and not self.board[s]['cache'] and s not in selected
                    and (self.board[s]['force136'] or self.cap.get(8)=='U' and not remote)]
             if not sites:break
             s=min(sites,key=lambda s:(not self.board[s]['force136'],bool(self.board[s]['kempeitai']),-gs(self.board[s]),-POP[s],mo(s)))
             selected.append(s)
             if not self.board[s]['force136']:remote=True
+        n=0
+        for s in selected:
             if self.cap.get(8)=='S' and self.die('Supply',s)<=2:continue
             self.board[s]['camp']=False;self.board[s]['cache']=True;n+=1
         if self.cap.get(27)=='S' and selected:
             el=[s for s in selected if self.board[s]['opposition']]
             if el:self.board[min(el,key=lambda s:(POP[s],mo(s)))]['opposition']=False
+        self.cleanup()
         return n
     # ----------------------------------------------------------------- §6.7 Raid
     RAID_KINDS=('SABOTAGE','AMBUSH','MAJORITY')
@@ -230,13 +234,11 @@ class Force136(FastGame):
         if name=='PLACE':
             if not self.available('force136'):return None
             if not full:return dict(op='CONTACT')
-            p=self.clone();p.contact()
-            return dict(op='CONTACT',sa=self.first_sa(p,('GATHER2','SUPPLY','RAID','GATHER')))
+            return dict(op='CONTACT',sa_list=('GATHER2','SUPPLY','RAID','GATHER'))
         if name=='AMBUSH':
             if not self.useful_ambush():return None
             if not full:return dict(op='AMBUSH')
-            p=self.clone();p.strike()
-            return dict(op='AMBUSH',sa=self.first_sa(p,('GATHER2','RAID','GATHER')))
+            return dict(op='AMBUSH',sa_list=('GATHER2','RAID','GATHER'))
         if name=='INTEL':
             if not full:return None
             for op in ('AMBUSH','SABOTAGE','CONTACT'):
@@ -258,12 +260,12 @@ class Force136(FastGame):
             p=self.clone()
             if not p.train():return None
             if not full:return dict(op='TRAIN')
-            return dict(op='TRAIN',sa=self.first_sa(p,('SUPPLY','RAID')))
+            return dict(op='TRAIN',sa_list=('SUPPLY','RAID'))
         if name=='CONTACT':
             p=self.clone()
             if not p.contact():return None
             if not full:return dict(op='CONTACT')
-            return dict(op='CONTACT',sa=self.first_sa(p,('SUPPLY','GATHER','RAID')))
+            return dict(op='CONTACT',sa_list=('SUPPLY','GATHER','RAID'))
         raise ValueError(name)
     # ----------------------------------------------------------------- §4 the turn
     def draw_directive(self):
@@ -290,6 +292,7 @@ class Force136(FastGame):
         elif op=='TRAIN':self.train()
         elif op=='AMBUSH':self.strike()
         elif op=='SABOTAGE':self.rail('C')
+        if plan.get('sa_list'):plan['sa']=self.first_sa(self,plan['sa_list'])   # chosen after the Operation is resolved
         if plan.get('sa'):self.special(plan['sa'])
     def bot_turn(self,free):
         self.card=None

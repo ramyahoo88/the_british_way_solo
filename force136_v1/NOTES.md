@@ -30,6 +30,12 @@ Brief (user, 22:00 CST, 20 Nov 2026): do for The British Way solo what was done 
 - 00:30 Review returned 21 findings. One code error (Japanese J27 choice). Twenty text fixes, each matched to the code. Cards 1–8 lose a redundant SUPPLY goal, with identical play (0 mismatches). The reference sheet becomes two-sided.
 - 00:45 Final holdout: Recruit 36.7%, Agent 59.0%, Veteran 68.5%, Legend 77.0%. Lookahead-counter Japan: Agent 33%, Legend 53%.
 - 00:50 Clean-room reimplementation from the printed rules started by a separate agent, to test whether the text alone determines the moves.
+- 01:00 The clean-room bot reproduced the worked example and diverged from mine in 15 of 192 games, always on board details, never on choices. Two code fixes followed: New Village removal is now immediate, and J8 Supply chooses its Provinces before rolling, as the text says. The engine's Japanese J20 choice, which favoured Britain, was also fixed. The text gained the clean-room agent's clarifications.
+- 01:05 Full rerun: equivalence, holdout, lookahead, exploits, corner reading, clean-room comparison (768 games), Event tests.
+- 01:15 The 768-game clean-room comparison found 8 more divergences. All came from choosing the Special Activity before the Ambush roll rather than after it. The code now resolves the Operation first, as the text reads; section 5 says so. Rerun everything again. Card backs added.
+- 01:35 Final results: 0 clean-room divergences in 768 games; lab = printed rules in 768 games. Holdout: Recruit 37.6%, Agent 59.9%, Veteran 67.7%, Legend 77.2%. Search player 56.9%; v0.2 0%.
+- 01:50 Event retest on the final bot, then 1,152-game follow-ups for the best candidates (J23, J10, J24): none worth a point of wins. "No Events" stays.
+- 02:00 Second holdout (1,536 games per level): 35.9 / 61.8 / 71.9 / 79.5%. The printed level table uses both holdouts pooled.
 
 ## Decisions worth remembering
 

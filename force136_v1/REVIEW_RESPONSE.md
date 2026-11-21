@@ -27,3 +27,31 @@ An independent reviewer read only the printed rules, reference sheet and cards (
 | 21 | Recruit note pointed to Special Activities "on the card" | Text: skip Raid wherever it appears in a section 5 list. |
 
 The reviewer also confirmed that every Operation and Special Activity pairing is legal, that tie-breaks always end in map order, the Railway list or colour, and that every "would" test can be decided from public information (now including J8).
+
+## Clean-room reimplementation
+
+A second independent agent wrote the bot from the printed rules alone (`code/cleanroom/cleanroom.py`), without seeing any of the bot code. It reproduced the worked example in section 10 exactly. `code/cleancmp.py` then plays both versions on the same games and compares every Force 136 decision and the board after every Force 136 turn.
+
+The first comparison (192 games) found 15 games that diverged. In every one, both versions chose the same goal, box, Operation and Special Activity; the differences were in board details. There were two causes, both in my code, not in the text:
+
+- **New Village removal timing.** When an Ambush moved the last Japanese cube out of a space with a New Village, my code removed the Village only at the end of the card. The rules remove it at once (1.15), as the clean-room version did. Fixed.
+- **Supply under the Japanese side of J8.** After a failed roll my code chose another Province and rolled again. The printed text, and the clean-room version, choose all the Provinces first (no more than the Caches Available) and then roll. The code was changed to match the text.
+
+A larger comparison (768 games) then found 8 more games that diverged, all on the Special Activity after an Ambush. My code chose the Special Activity before rolling, assuming the roll succeeded. The clean-room version resolved the Ambush first and chose on the actual board, which is how the text reads at the table. The code now does the same, and section 5 says so explicitly.
+
+After these fixes the two implementations agree on every decision and every board in 768 games across all four levels (`results/final_cleancmp.log`).
+
+The agent's list of readings it had to choose led to these clarifications in the text:
+
+- "would" tests assume later rolls succeed;
+- a British Limited Train or Ambush still uses every F136 space;
+- each INTEL Operation is tested on its own;
+- the game's Ambush success rule and +1 Resistance;
+- the British side of J22 in Gather;
+- "Zipper 12 or more";
+- the J8 roll;
+- a 2-guerrilla Majority comes from one source, and a sent guerrilla activates when it acts;
+- Opposition goes to Provinces or Kuala Lumpur;
+- British capability sides that Japan might play.
+
+It also found one Japanese choice that the engine made in Britain's favour. Under the Japanese side of J20, the engine removed the least useful Force 136 marker. Japan executes the card, so the choice is Japan's: the engine now removes the marker that threatens the most Intel, then the one with most guerrillas. All results were rerun with this fix.

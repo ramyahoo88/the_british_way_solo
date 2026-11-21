@@ -1,0 +1,93 @@
+[
+ {
+  "id": 1,
+  "name": "Jungle ambush",
+  "goals": [
+   "AMBUSH",
+   "INTEL",
+   "TRAIN"
+  ],
+  "limited_first": "AMBUSH"
+ },
+ {
+  "id": 2,
+  "name": "Hit the convoy",
+  "goals": [
+   "AMBUSH",
+   "INTEL",
+   "TRAIN"
+  ],
+  "limited_first": "AMBUSH"
+ },
+ {
+  "id": 3,
+  "name": "Strike from the hills",
+  "goals": [
+   "AMBUSH",
+   "INTEL",
+   "TRAIN"
+  ],
+  "limited_first": "AMBUSH"
+ },
+ {
+  "id": 4,
+  "name": "Arm the cells",
+  "goals": [
+   "AMBUSH",
+   "INTEL",
+   "TRAIN"
+  ],
+  "limited_first": "TRAIN"
+ },
+ {
+  "id": 5,
+  "name": "Recruit and strike",
+  "goals": [
+   "AMBUSH",
+   "INTEL",
+   "TRAIN"
+  ],
+  "limited_first": "TRAIN"
+ },
+ {
+  "id": 6,
+  "name": "Ears in the kampongs",
+  "goals": [
+   "INTEL",
+   "AMBUSH",
+   "TRAIN"
+  ],
+  "limited_first": "AMBUSH"
+ },
+ {
+  "id": 7,
+  "name": "Count the trains",
+  "goals": [
+   "INTEL",
+   "AMBUSH",
+   "TRAIN"
+  ],
+  "limited_first": "AMBUSH"
+ },
+ {
+  "id": 8,
+  "name": "Radio from the ridge",
+  "goals": [
+   "INTEL",
+   "AMBUSH",
+   "TRAIN"
+  ],
+  "limited_first": "TRAIN"
+ },
+ {
+  "id": 9,
+  "name": "Stockpile",
+  "goals": [
+   "AMBUSH",
+   "SUPPLY",
+   "INTEL",
+   "TRAIN"
+  ],
+  "limited_first": "TRAIN"
+ }
+]

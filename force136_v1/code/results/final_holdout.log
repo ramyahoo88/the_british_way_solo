@@ -1,4 +1,4 @@
-recruit 768 win 0.367 mpaja 0.052 R 14.8 {'extraction': 0.328, 'hunting': 0.578, 'repair': 0.367, 'adaptive': 0.414, 'counter': 0.188, 'mixed': 0.328}
-agent 768 win 0.59 mpaja 0.046 R 17.09 {'extraction': 0.594, 'hunting': 0.727, 'repair': 0.68, 'adaptive': 0.633, 'counter': 0.375, 'mixed': 0.531}
-veteran 768 win 0.685 mpaja 0.038 R 17.98 {'extraction': 0.742, 'hunting': 0.773, 'repair': 0.781, 'adaptive': 0.672, 'counter': 0.508, 'mixed': 0.633}
-legend 768 win 0.77 mpaja 0.034 R 18.64 {'extraction': 0.828, 'hunting': 0.82, 'repair': 0.836, 'adaptive': 0.789, 'counter': 0.602, 'mixed': 0.742}
+recruit 768 win 0.376 mpaja 0.049 R 14.8 {'extraction': 0.32, 'hunting': 0.586, 'repair': 0.383, 'adaptive': 0.43, 'counter': 0.203, 'mixed': 0.336}
+agent 768 win 0.599 mpaja 0.031 R 17.04 {'extraction': 0.633, 'hunting': 0.727, 'repair': 0.68, 'adaptive': 0.633, 'counter': 0.383, 'mixed': 0.539}
+veteran 768 win 0.677 mpaja 0.046 R 17.92 {'extraction': 0.719, 'hunting': 0.781, 'repair': 0.766, 'adaptive': 0.695, 'counter': 0.477, 'mixed': 0.625}
+legend 768 win 0.772 mpaja 0.03 R 18.58 {'extraction': 0.836, 'hunting': 0.82, 'repair': 0.844, 'adaptive': 0.797, 'counter': 0.594, 'mixed': 0.742}

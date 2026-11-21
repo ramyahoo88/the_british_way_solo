@@ -29,7 +29,7 @@ Force 136 runs on nine Directive cards and the procedures in this booklet. It ad
 - **Clear railway:** a railway without Sabotage.
 - **Map order:** Kedah, Perak, Kelantan, Trengganu, Pahang, Selangor, Kuala Lumpur, Negri Sembilan, Johore, northern Economic Center, southern Economic Center. It breaks every tie that is left. Thailand is not a space: never a destination, source or target.
 - **Railway list** (all eight railways): Perak–Pahang–Selangor, Negri Sembilan–Pahang, Perak–Kelantan, Thailand–Perak, Thailand–Kelantan★, Negri Sembilan–Johore★, Pahang–Johore★, Thailand–Kedah★.
-- **"Would":** test the option on the visible board before doing it. A concealed Intel chit counts as a chit; never look at it. Rolls made afterwards (Ambush, J8) don't count: assume no roll is needed.
+- **"Would":** test the option on the visible board before doing it. A concealed Intel chit counts as a chit; never look at it. Rolls made afterwards (Ambush, J8) don't count: assume they succeed.
 - **"Gather would reveal 2 or more"** always means the total over all the spaces Gather selects (6.5).
 
 ## 4. Force 136's turn
@@ -41,14 +41,14 @@ When each Event card is revealed, its MPAJA icon and then any Mandatory Event ar
 3. **If the Op & Special Activity box is free,** choose it. Go down this list and carry out the first goal that qualifies (section 5):
     **PLACE → the goals on the card, top to bottom → CONTACT.**
 
-4. **Otherwise choose Limited Operation.** Go down: **PLACE → the card's Limited choice (AMBUSH or TRAIN), then the other → CONTACT.** A Limited Operation never adds a Special Activity.
+4. **Otherwise choose Limited Operation.** Go down: **PLACE → the card's Limited choice (AMBUSH or TRAIN), then the other → CONTACT.** A Limited Operation never adds a Special Activity. (A British Limited Train or Ambush may still use every F136 space.)
 5. **If nothing qualifies,** Pass in the leftmost free box. Force 136 takes no Contact with the Pass: CONTACT has already failed.
 
 Japan takes at most one box, so Force 136 always has the Op & SA box or the Limited box free. Eligibility then follows the normal cylinder rules.
 
 ## 5. Goals
 
-Each goal says when it qualifies and what Force 136 does. The Special Activity comes after the Operation. Where a goal lists several Special Activities, take the first that would do something.
+Each goal says when it qualifies and what Force 136 does. Resolve the Operation first, including its rolls; then choose the Special Activity on the board as it now stands. Where a goal lists several Special Activities, take the first that would do something.
 
 **PLACE** — qualifies if a Force 136 marker is Available.
 Contact: place it (6.1). *Op & SA:* then Gather if it would reveal 2 or more chits; else Supply; else Raid; else Gather.
@@ -56,7 +56,7 @@ Contact: place it (6.1). *Op & SA:* then Gather if it would reveal 2 or more chi
 **AMBUSH** — qualifies if Ambush would be useful in at least one F136 space (6.3).
 Ambush in every F136 space where it is useful. *Op & SA:* then Gather if it would reveal 2 or more chits; else Raid; else Gather.
 
-**INTEL** (Op & SA only). Try these Operations in order: Ambush (in every F136 space where it is useful); Sabotage (6.4); Contact (6.1). Skip any that would do nothing. INTEL qualifies with the first one after which Gather would reveal 2 or more chits. Do that Operation, then Gather. If none of them gets Gather to 2, INTEL does not qualify.
+**INTEL** (Op & SA only). Try these Operations in order, each tested on its own from the current board: Ambush (in every F136 space where it is useful); Sabotage (6.4); Contact (6.1). Skip any that would do nothing. INTEL qualifies with the first one after which Gather would reveal 2 or more chits. Do that Operation, then Gather. If none of them gets Gather to 2, INTEL does not qualify.
 
 **SUPPLY** (Op & SA only; only on Directive 9) — qualifies if Train would place at least one guerrilla and Supply would then convert a Jungle Camp.
 Train, then Supply.
@@ -91,7 +91,7 @@ Ambush is useful in a space with an Underground guerrilla: a F136 space for an A
 1. a good shot and Kempeitai or Troops: roll to move the Kempeitai (or, if there is none, one Troop) to Kuala Lumpur; otherwise
 2. Police: remove one Police (no roll).
 
-In Kuala Lumpur only Police removal is useful. Activate red before blue. Work through the spaces in map order.
+In Kuala Lumpur only Police removal is useful. Activate red before blue. Work through the spaces in map order. (Game rules: the roll succeeds if the die plus the Caches in and adjacent to the space is higher than the cubes there; each success adds 1 Resistance.)
 
 ### 6.4 Sabotage
 
@@ -99,14 +99,14 @@ Work through the F136 spaces in map order. At each, if it still has an Undergrou
 
 ### 6.5 Gather
 
-Choose the F136 space whose Gather would reveal the most chits; break ties by map order. A chit counts if it is concealed and an Underground guerrilla is in its own space, which must be the chosen space or adjacent to it. Reveal all of them, activating red before blue. Then choose the next F136 space the same way, up to the printed limit: 2 spaces, or 3 with the British side of J19. With the Japanese side of J19, only the first chosen space may use adjacent spaces; later spaces reveal only their own chit.
+Choose the F136 space whose Gather would reveal the most chits; break ties by map order. A chit counts if it is concealed and an Underground guerrilla is in its own space, which must be the chosen space or adjacent to it. Reveal all of them, activating red before blue. Then choose the next F136 space the same way, up to the printed limit: 2 spaces, or 3 with the British side of J19. With the Japanese side of J19, only the first chosen space may use adjacent spaces; later spaces reveal only their own chit. With the British side of J22, Gather does not activate.
 
 ### 6.6 Supply
 
-Convert Camps in Provinces that have Force 136 and a Camp but no Cache, up to the printed limit (2, or 3 at Zipper 12) and no more than the Caches Available. Supply would do nothing if no Cache is Available or no such Province exists. Prefer, in order: no Kempeitai; most guerrillas; highest Population; map order.
+Choose Provinces that have Force 136 and a Camp but no Cache, up to the printed limit (2, or 3 at Zipper 12 or more) and no more than the Caches Available; then convert their Camps. Supply would do nothing if no Cache is Available or no such Province exists. Prefer, in order: no Kempeitai; most guerrillas; highest Population; map order.
 
 - **British side of J8:** one Province without Force 136 may be chosen after all the F136 Provinces.
-- **Japanese side of J8:** roll for each chosen Province as the card says.
+- **Japanese side of J8:** after choosing, roll for each chosen Province; on 1–2 that Camp is not converted.
 - **Japanese side of J27:** remove Opposition from the chosen Province with Opposition that has the lowest Population, then map order.
 
 ### 6.7 Raid
@@ -117,7 +117,7 @@ Choose up to 2 different destinations (3 at Zipper 20), one at a time. A destina
 2. **Ambush:** send 1 Underground guerrilla to a space where Ambush would then be useful for it (6.3). It ambushes there.
 3. **Majority:** send the fewest guerrillas, 1 or 2 and Underground first, that give a space without a majority more guerrillas than cubes.
 
-A Sabotage destination anywhere beats any Ambush, and an Ambush beats any Majority. Ties: destination in map order; the source with most guerrillas, then map order; red before blue.
+A 2-guerrilla Majority comes from one source. The guerrilla sent is activated when it sabotages or ambushes. A Sabotage destination anywhere beats any Ambush, and an Ambush beats any Majority. Ties: destination in map order; the source with most guerrillas, then map order; red before blue.
 
 ## 7. Between turns
 
@@ -129,14 +129,14 @@ A Sabotage destination anywhere beats any Ambush, and an Ambush beats any Majori
 
 **Nonfinal Propaganda.**
 
-- *Resources:* for each sabotaged railway, in Railway-list order, set one adjacent space without Terror or Opposition to Opposition: highest Population, then map order.
+- *Resources:* for each sabotaged railway, in Railway-list order, set one adjacent Province or Kuala Lumpur without Terror or Opposition to Opposition: highest Population, then map order.
 - *Support:* Supply (6.6).
 - *Redeploy:* move each exposed Force 136 marker, in map order, to a Camp Province without Force 136 or Kempeitai: most guerrillas, then map order. A marker moves at most once. Other markers stay.
 - *A Force 136 marker returning from J25:* goes to a Camp Province, preferring no Kempeitai; then no Force 136; then most guerrillas; then map order.
 
 **Zipper.** If the Zipper falls past a Cache box and no Cache is Available, remove the Cache with fewest guerrillas, then most Troops, then reverse map order.
 
-**Events Japan plays** follow the card text. Where a choice falls to Britain, use the matching procedure above.
+**Events Japan plays** follow the card text. Where a choice falls to Britain, use the matching procedure above. Japan normally plays its own side of the capability cards; if a British side is in play, Force 136 takes every optional benefit it offers, choosing by the matching procedure above, else in map order.
 
 ## 8. Winning
 
@@ -146,12 +146,12 @@ Victory follows the normal rules, checked only at the final Propaganda. Force 13
 
 | Level | Change | Force 136 win rate* |
 |---|---|---|
-| Recruit | Force 136 never Raids | 37% |
-| Agent | Standard rules | 59% |
-| Veteran | Resistance starts at 4 | 69% |
-| Legend | Resistance starts at 4, and +1 Resistance after each nonfinal Propaganda | 77% |
+| Recruit | Force 136 never Raids | 36% |
+| Agent | Standard rules | 61% |
+| Veteran | Resistance starts at 4 | 71% |
+| Legend | Resistance starts at 4, and +1 Resistance after each nonfinal Propaganda | 79% |
 
-\*Against six computer Japan policies in 768 simulated games per level that were not used for tuning. A strong human Japan player should do better than these policies. Start at Agent; move up after two wins in a row.
+\*Against six computer Japan policies in 2,304 simulated games per level that were not used for tuning. A strong human Japan player should do better than these policies. Start at Agent; move up after two wins in a row.
 
 At Recruit, skip Raid wherever it appears in a Special Activity list (section 5) and go on to the next choice. The Legend bonus comes after the Resistance phase and the Zipper placement; it does not move the Zipper and never applies at the final Propaganda.
 
@@ -179,14 +179,15 @@ Gather still could not reveal 2 chits, so the Special Activity is Raid. Perak's 
 ## 11. Design notes
 
 - **Why no Events?** Each Event was tested in paired simulations (288 games per Event and choice).
-    - Taken as first player, in place of an Operation with a Special Activity, 27 of the 28 Events tested lowered final Resistance, by up to 1.2.
-    - Taken as second player, in place of a Limited Operation, none gained more than 0.12 Resistance per game.
+
+    - Taken as first player, in place of an Operation with a Special Activity, 24 of the 28 Events tested lowered final Resistance, by up to 0.9; the other four gained at most 0.2.
+    - Taken as second player, in place of a Limited Operation, the best candidates were retested on 1,152 fresh games each, and none added a full point of wins.
 
     Dropping Events also removes the bot's longest lookup.
 
 - **Why PLACE first?** Getting the Available Force 136 marker onto the map is worth more than anything else the bot can do. In early tests, putting it first on Limited turns raised wins from 8% to 34%.
 - **Why AMBUSH and INTEL early?** A revealed chit scores at the next Propaganda. A successful Ambush roll sends a unit to Kuala Lumpur for +1 Resistance; rolling at a good shot before removing Police was worth about 5 points. Decks led by AMBUSH, or by INTEL then AMBUSH, won 54–56%. Decks led by INTEL without AMBUSH next won 30–39%, and decks led by SUPPLY or TRAIN won 8–28%.
-- **Why does Raid matter?** Raid turns caches into attacks and majorities. Removing it (Recruit) drops the bot by about 22 points.
+- **Why does Raid matter?** Raid turns caches into attacks and majorities. Removing it (Recruit) drops the bot by about 25 points.
 - **What the cards change:**
     - The Limited first choice: AMBUSH on Directives 1–3, 6 and 7; TRAIN on 4, 5, 8 and 9.
     - Whether INTEL is tried before AMBUSH (6–8). This matters when an Ambush is useful but leaves Gather short and a Sabotage or Contact would not.

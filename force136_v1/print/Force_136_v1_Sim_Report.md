@@ -8,20 +8,22 @@ Force 136 v1.0 is a new card-driven British bot. It replaces the v0.2 draft rath
 
 | Level | Change | Force 136 wins | 95% interval | Mean final Resistance | MPAJA wins |
 |---|---|---:|---:|---:|---:|
-| Recruit | never Raids | 36.7% | 32–42% | 14.8 | 5.2% |
-| **Agent** | standard | **59.0%** | 54–64% | 17.1 | 4.6% |
-| Veteran | Resistance starts at 4 | 68.5% | 64–73% | 18.0 | 3.8% |
-| Legend | starts at 4; +1 Resistance after each nonfinal Propaganda | 77.0% | 73–81% | 18.6 | 3.4% |
+| Recruit | never Raids | 37.6% | 32–43% | 14.8 | 4.9% |
+| **Agent** | standard | **59.9%** | 55–65% | 17.0 | 3.1% |
+| Veteran | Resistance starts at 4 | 67.7% | 63–73% | 17.9 | 4.6% |
+| Legend | starts at 4; +1 Resistance after each nonfinal Propaganda | 77.2% | 73–81% | 18.6 | 3.0% |
 
 On the same games:
 
-- GPT's v0.2 paper bot, run in the same executor, won 0.0% (mean Resistance 1.2).
-- v0.2's best experimental variant ("primary + recovery/guard") won 2.0% (mean Resistance 5.3).
-- A one-step search player that tries every legal British action and scores it with a hand-written evaluation won 56.5% (mean Resistance 16.6).
+- GPT's v0.2 paper bot, run in the same executor, won 0.0% (mean Resistance 1.3).
+- v0.2's best experimental variant ("primary + recovery/guard") won 2.0% (mean Resistance 5.4).
+- A one-step search player that tries every legal British action and scores it with a hand-written evaluation won 56.9% (mean Resistance 16.8).
 
 The printed Agent bot plays at least as well as that search player.
 
-These are computer-model results, not tabletop win rates. A strong human Japan player is expected to beat the computer policies more often. The hardest computer opponent, which looks one move ahead at the bot's reply, holds Agent to 33% and Legend to 53% (below).
+A second holdout on 256 more seeds (1,536 games per level, seeds 20128–20383) confirms the levels: Recruit 35.9%, Agent 61.8%, Veteran 71.9%, Legend 79.5%. Pooled over both holdouts (2,304 games per level) the rates are 36%, 61%, 71% and 79%; those are the figures printed in the rules.
+
+These are computer-model results, not tabletop win rates. A strong human Japan player is expected to beat the computer policies more often. The hardest computer opponent, which looks one move ahead at the bot's reply, holds Agent to 34% and Legend to 54% (below).
 
 ## The model
 
@@ -47,32 +49,32 @@ These are computer-model results, not tabletop win rates. A strong human Japan p
 
 | Japan policy | Recruit | Agent | Veteran | Legend | Search player |
 |---|---:|---:|---:|---:|---:|
-| extraction | 33% | 59% | 74% | 83% | 68% |
-| hunting | 58% | 73% | 77% | 82% | 64% |
-| repair | 37% | 68% | 78% | 84% | 66% |
-| adaptive | 41% | 63% | 67% | 79% | 63% |
-| counter | 19% | 38% | 51% | 60% | 35% |
-| mixed | 33% | 53% | 63% | 74% | 43% |
+| extraction | 32% | 63% | 72% | 84% | 66% |
+| hunting | 59% | 73% | 78% | 82% | 63% |
+| repair | 38% | 68% | 77% | 84% | 67% |
+| adaptive | 43% | 63% | 70% | 80% | 64% |
+| counter | 20% | 38% | 48% | 59% | 36% |
+| mixed | 34% | 54% | 63% | 74% | 46% |
 
 **Lookahead Japan** (128 holdout seeds per cell):
 
 | Opponent | Recruit | Agent | Veteran | Legend |
 |---|---:|---:|---:|---:|
-| look: adaptive values plus the bot's simulated reply | 36% | 51% | 59% | 68% |
-| lookc: counter values plus the bot's simulated reply | 16% | 33% | 45% | 53% |
+| look: adaptive values plus the bot's simulated reply | 38% | 52% | 61% | 71% |
+| lookc: counter values plus the bot's simulated reply | 16% | 34% | 45% | 54% |
 
 **Exploit attempts** (Agent, 256 games):
 
 | Japan always… | Force 136 wins |
 |---|---:|
-| Eliminates, or makes Limited Assaults and Sweeps | 92% |
+| Eliminates, or makes Limited Assaults and Sweeps | 94% |
 | takes the Limited box to keep the initiative | 98% |
-| plays economically (Deploy, Extract, Construct) | 66% |
-| grabs the Event whenever possible | 69% |
+| plays economically (Deploy, Extract, Construct) | 69% |
+| grabs the Event whenever possible | 72% |
 
 None of these beats the regular policies.
 
-**Map reading.** With GPT's alternative northern railway-corner adjacency, Agent wins 59.1% instead of 59.0%.
+**Map reading.** With GPT's alternative northern railway-corner adjacency, Agent wins 59.2% instead of 59.9%.
 
 ## How the design was found
 
@@ -119,8 +121,19 @@ Each step was measured on development seeds with matched games (all six policies
 
 Each Event was tested on the final bot with paired games (48 seeds × 6 policies = 288 games per Event and mode), taking the British side whenever a sensible condition held:
 
-- **Taken as first player,** replacing an Operation with a Special Activity: EVENT_ALWAYS.
-- **Taken as second player,** replacing a Limited Operation: EVENT_SECOND.
+- **Taken as first player,** replacing an Operation with a Special Activity: 24 of 28 Events lowered final Resistance, by up to 0.9. The other four gained at most 0.2: J24 +0.19, J10 +0.08, J31 +0.07, J21 +0.02.
+- **Taken as second player,** replacing a Limited Operation: the best gains were J23 (+0.24 Resistance), J24 (+0.13) and J10 (+0.07).
+
+A follow-up on 1,152 fresh games per case (seeds 32000–32191) tested the most promising of these:
+
+| Case | Change in wins | Change in final Resistance |
+|---|---:|---:|
+| J23 as second player | +0.6 points (±0.7) | +0.11 (±0.05) |
+| J10 as second player | +0.8 points (±0.4) | +0.07 (±0.03) |
+| J24 as second player | −0.8 points | −0.09 |
+| J24 as first player | −2.6 points | −0.26 |
+
+None is worth a printed exception and an extra lookup.
 
 So Force 136 never takes Events. That also removes the bot's longest lookup.
 
@@ -128,21 +141,26 @@ So Force 136 never takes Events. That also removes the bot's longest lookup.
 
 - **Rules as code.** `force136_v1.py` follows the printed rules section by section. The tuning lab (`force136.py`) and the printed-rules module play move for move the same in 768 games across all four levels (`equiv.py`: 0 mismatches). This includes the nine cards as printed, where cards 1–8 omit a SUPPLY goal that would only repeat TRAIN.
 - **Independent rules review.** A reviewer who saw only the printed rules, reference sheet and cards reported 21 findings. Twenty were text problems: ambiguities, omissions and reference-sheet gaps. They were fixed by making the text say what the simulation does. One was a real code error: the British choice under the Japanese side of J27 removed Opposition from the highest-Population space instead of the lowest. It was fixed and all results rerun. See `REVIEW_RESPONSE.md`.
-- **Clean-room check.** CLEANROOM_RESULT
+- **Clean-room check.** A second agent implemented the bot from the printed rules alone, without seeing any bot code. It reproduced the worked example exactly. `cleancmp.py` plays both versions on the same games and compares every Force 136 decision and the board after every Force 136 turn. Early runs found three places where my code did not do what the text says, all fixed:
+    - New Village removal was delayed;
+    - J8 Supply re-chose a Province after a failed roll;
+    - the Special Activity was chosen before the Ambush roll instead of after it.
+
+    It also found an engine choice made in Britain's favour (Japanese side of J20), now Japan's. After the fixes the two versions agree on every decision and every board in 768 games across the four levels.
 
 ## Bot behaviour (Agent, holdout)
 
-A game gives Force 136 about 16 turns. Most turns need one to three goal checks (CHECKS on average).
+A game gives Force 136 about 16 turns. Most turns need one to three goal checks (2.3 on average).
 
 | Goal used | Share of turns |
 |---|---:|
-| TRAIN | 34% |
+| TRAIN | 35% |
 | AMBUSH | 33% |
 | PLACE | 24% |
 | INTEL | 5% |
 | Pass | 1.7% |
 | CONTACT | 1.1% |
-| SUPPLY (Directive 9) | 0.9% |
+| SUPPLY (Directive 9) | 0.8% |
 
 | Most common actions | Share of turns |
 |---|---:|
@@ -162,10 +180,12 @@ A game gives Force 136 about 16 turns. Most turns need one to three goal checks 
     - A Contact must place or move a marker.
     - Ambush in Kuala Lumpur can only remove Police.
     - Under the Japanese side of J19, only the first Gather space may use adjacent spaces.
+    - The Special Activity is chosen after the Operation, and its rolls, are resolved.
 
 - **Engine readings that remain uncertain:**
 
     - J10's rounding.
+    - Japanese choices inside Events are made by engine heuristics. One (J20) favoured Britain and was corrected.
     - Sabotage placed on an already sabotaged railway by J2 or J23.
     - The Japanese Redeploy policy.
     - Japan never Passes.
@@ -186,6 +206,9 @@ python3 look_run.py 20000 128 recruit,agent,veteran,legend lookc
 POLS=brute,tempo,econ,eventhog python3 holdout_v1.py 20000 64 exploits agent
 python3 corner_run.py
 python3 ev_test_v1.py 48 31000
+python3 ev_confirm.py 32000 192 23:second,24:second,10:second,24:always
+python3 holdout_v1.py 20128 256 confirm
+python3 cleancmp.py 32 recruit,agent,veteran,legend   # clean-room comparison (768 games)
 python3 sample_game.py 20005 adaptive
 ```
 
