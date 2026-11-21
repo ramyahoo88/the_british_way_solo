@@ -42,23 +42,23 @@ em{color:#3c4130}
 """
 
 REF_CSS=BASE_CSS+"""
-@page{size:Letter;margin:0.38in 0.45in}
-body{font-size:7.95pt;line-height:1.25}
+@page{size:Letter;margin:0.45in 0.5in}
+body{font-size:9.2pt;line-height:1.32}
 .hdr{display:flex;justify-content:space-between;align-items:baseline;border-bottom:3px solid #2f3a22;padding-bottom:3pt;margin-bottom:6pt}
 .hdr h1{font-size:17pt}
 .hdr .tag{font-size:7.5pt;text-transform:uppercase;letter-spacing:1pt;color:#7a2618}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:6pt}
 .box{border:1.2px solid #2f3a22;border-radius:3pt;padding:5pt 6pt;break-inside:avoid}
-.box h2{font-size:9.5pt;text-transform:uppercase;letter-spacing:.8pt;margin-bottom:3pt;color:#7a2618}
+.box h2{font-size:10.5pt;text-transform:uppercase;letter-spacing:.8pt;margin-bottom:3pt;color:#7a2618}
 .turn ol{margin:0;padding-left:13pt}
 .turn li{margin-bottom:2pt}
-table{border-collapse:collapse;width:100%;font-size:7.9pt}
+table{border-collapse:collapse;width:100%;font-size:9pt}
 th,td{border:1px solid #b9b49a;padding:2pt 3pt;text-align:left;vertical-align:top}
 th{background:#e9e5d3}
 .full{grid-column:1 / span 2}
-p{margin:0 0 3pt}
+p{margin:0 0 5pt}
 .k{font-weight:700;color:#14170f}
-.chip{display:inline-block;padding:0 3pt;border-radius:2pt;font-weight:700;font-size:7.4pt;color:#fff}
+.chip{display:inline-block;padding:0 3pt;border-radius:2pt;font-weight:700;font-size:8.2pt;color:#fff}
 """
 
 CARD_CSS=BASE_CSS+"""
@@ -106,51 +106,55 @@ def build_rules():
 def chip(g):return f"<span class='chip' style='background:{GOAL_COL[g]}'>{g}</span>"
 
 def build_reference():
+    pre="""<p class='muted' style='margin:0 0 4pt'>Each card's MPAJA icon, then any Mandatory Event, is resolved once when the card is revealed, before either player acts; British choices use <span class='k'>Between turns</span>.</p>"""
     turn="""<div class='box turn'><h2>Force 136's turn</h2><ol>
-<li>Resolve the MPAJA icon and any Mandatory Event first.</li>
-<li><span class='k'>Draw</span> a Directive card (reshuffle discards when empty); discard it after the turn.</li>
+<li><span class='k'>Draw</span> a Directive card (reshuffle the discards when empty); discard it after the turn.</li>
 <li><span class='k'>Never</span> choose the Event box.</li>
-<li><span class='k'>Op &amp; SA box free:</span> take it. First goal that qualifies: """+chip('PLACE')+""" → the card's four goals → """+chip('CONTACT')+""".</li>
+<li><span class='k'>Op &amp; SA box free:</span> take it. First goal that qualifies: """+chip('PLACE')+""" → the goals on the card → """+chip('CONTACT')+""".</li>
 <li><span class='k'>Otherwise Limited Operation:</span> """+chip('PLACE')+""" → the card's Limited choice → the other of AMBUSH/TRAIN → """+chip('CONTACT')+""". No Special Activity.</li>
-<li><span class='k'>Nothing qualifies:</span> Pass in the leftmost free box; Contact if it would place or move a marker.</li>
-</ol><p class='muted'>"Would" = test on the visible board first. Concealed chits count; never look at them.</p></div>"""
+<li><span class='k'>Nothing qualifies:</span> Pass in the leftmost free box (no Contact).</li>
+</ol><p class='muted'>"Would" = test on the visible board first. Concealed chits count; never look at them. Later rolls don't count. "Gather 2+" = 2 or more chits in total.</p></div>"""
     goals="""<div class='box full'><h2>Goals</h2><table>
 <tr><th>Goal</th><th>Qualifies if</th><th>Do</th><th>Then (Op &amp; SA only)</th></tr>
 <tr><td>"""+chip('PLACE')+"""</td><td>a F136 marker is Available</td><td>Contact: place it</td><td>Gather 2+ › Supply › Raid › Gather</td></tr>
 <tr><td>"""+chip('AMBUSH')+"""</td><td>Ambush useful in a F136 space</td><td>Ambush in every useful F136 space</td><td>Gather 2+ › Raid › Gather</td></tr>
-<tr><td>"""+chip('INTEL')+"""</td><td>Op &amp; SA only; Gather would reveal 2+ after the Op</td><td>Ambush if useful › Sabotage › Contact</td><td>Gather</td></tr>
-<tr><td>"""+chip('SUPPLY')+"""</td><td>Op &amp; SA only; Cache Available; Train places 1+; Supply converts a Camp</td><td>Train</td><td>Supply</td></tr>
+<tr><td>"""+chip('INTEL')+"""</td><td>Op &amp; SA only: the first of Ambush (every useful space) › Sabotage › Contact that would do something and then let Gather reveal 2+</td><td>that Operation</td><td>Gather</td></tr>
+<tr><td>"""+chip('SUPPLY')+"""</td><td>Op &amp; SA only (Directive 9): Train places 1+ and Supply then converts a Camp</td><td>Train</td><td>Supply</td></tr>
 <tr><td>"""+chip('TRAIN')+"""</td><td>Train would place 1+ guerrilla</td><td>Train</td><td>Supply › Raid</td></tr>
 <tr><td>"""+chip('CONTACT')+"""</td><td>Contact would place or move a marker</td><td>Contact</td><td>Supply › Gather › Raid</td></tr>
-</table><p class='muted'>Gather 2+ = Gather if it would reveal at least 2 chits.</p></div>"""
+</table></div>"""
     procs="""<div class='box full'><h2>Procedures</h2><div class='grid'><div>
 <p><span class='k'>Place F136:</span> a Province without F136. No Kempeitai › no Cache (while a Cache is Available) › no cubes › most guerrillas › highest Population › map order. Add a Camp if none.</p>
-<p><span class='k'>Move F136</span> (none Available): first <em>exposed</em> marker in map order → adjacent Province without F136 or Kempeitai (placement preferences). Takes 1 blue (Underground first) if the destination has no red and another guerrilla stays.</p>
-<p><span class='k'>Camp from the map</span> (none Available): Province without F136 › with a Cache › smallest Population › reverse map order.</p>
-<p><span class='k'>Train:</span> every non-EC F136 space in map order; 1 guerrilla, 2 at a Cache. Colour the space has more of (tie red). Empty: red if Camp/Cache and red Available, else blue. Red needs Camp or Cache, else skip. None of that colour Available: take one from a space without F136 that keeps a guerrilla at its Cache and its majority: Active › most cubes › map order.</p>
-<p><span class='k'>Ambush</span> (F136 space with an Underground guerrilla): Police → remove 1 › Kempeitai with good shot → roll › Troops with good shot → roll. Kuala Lumpur: Police only. Red before blue; spaces in map order.</p>
+<p><span class='k'>Move F136</span> (none Available): the first <em>exposed</em> marker in map order that can reach an adjacent Province without F136 or Kempeitai (placement preferences). Takes 1 blue (Underground first) if the destination has no red and another guerrilla stays.</p>
+<p><span class='k'>Camp from the map</span> (none Available): prefer a Province without F136 › with a Cache › smallest Population › reverse map order.</p>
+<p><span class='k'>Train:</span> every non-EC F136 space in map order; 1 guerrilla, 2 at a Cache. The colour the space has more of (tie red). Empty: red if Camp/Cache and red Available, else blue. Red needs a Camp or Cache, else skip. None of that colour Available: take one from a space without F136 that keeps a guerrilla at its Cache and keeps its majority. Source: has an Active of that colour › most cubes › map order; take an Active one if it can. None qualifies: stop training that space.</p>
+<p><span class='k'>Ambush</span> (F136 space, or Raid destination, with an Underground guerrilla): good shot with Kempeitai or Troops → roll to move the Kempeitai, else a Troop › else Police → remove 1. Kuala Lumpur: Police only. Red before blue; spaces in map order.</p>
 </div><div>
-<p><span class='k'>Good shot:</span> cubes − Caches in and adjacent ≤ 3. <span class='k'>Exposed:</span> F136 with Kempeitai and no Camp (any F136 with Kempeitai under Japanese J22).</p>
-<p><span class='k'>Sabotage:</span> each F136 space with an Underground guerrilla next to a clear railway: activate (red first); first clear railway on the Railway list.</p>
-<p><span class='k'>Gather:</span> the F136 space revealing most chits (each needs an Underground guerrilla in its own space) › map order; reveal all, red first; then the next space (2; 3 with British J19).</p>
-<p><span class='k'>Supply:</span> Provinces with F136 + Camp, no Cache (2; 3 at Zipper 12): no Kempeitai › most guerrillas › highest Population › map order.</p>
-<p><span class='k'>Raid</span> (2; 3 at Zipper 20; never at Recruit): destination next to a Cache source; source keeps 1 guerrilla and its majority; no mixing. ① Sabotage with 1 Underground ② Ambush with 1 Underground ③ Majority with fewest (1–2). Ties: destination map order › source most guerrillas › source map order › red.</p>
+<p><span class='k'>Good shot:</span> cubes − Caches in and adjacent ≤ 3. <span class='k'>Exposed:</span> F136 with Kempeitai and no Camp (any F136 with Kempeitai under Japanese J22). <span class='k'>Majority:</span> more guerrillas than cubes.</p>
+<p><span class='k'>Sabotage:</span> F136 spaces in map order; at each, if it still has an Underground guerrilla next to a clear railway, activate one (red first) and sabotage the first such railway on the Railway list.</p>
+<p><span class='k'>Gather:</span> the F136 space revealing most chits (each needs an Underground guerrilla in its own space) › map order; reveal all, red first; then the next space (2; 3 with British J19; Japanese J19: later spaces reveal only their own chit).</p>
+<p><span class='k'>Supply:</span> Provinces with F136 + Camp, no Cache (2; 3 at Zipper 12; no more than Caches Available): no Kempeitai › most guerrillas › highest Population › map order. British J8: +1 Province without F136. Japanese J27: remove Opposition from the chosen Province with lowest Population.</p>
+<p><span class='k'>Raid</span> (2 different destinations; 3 at Zipper 20; never at Recruit): next to a Cache source; source keeps 1 guerrilla and its majority; one colour, never into the other colour. ① Sabotage with 1 Underground ② Ambush with 1 Underground ③ Majority with the fewest (1–2). Ties: destination map order › source most guerrillas › source map order › red.</p>
 </div></div></div>"""
     between="""<div class='box full'><h2>Between turns</h2>
-<p><span class='k'>Mobilize Population:</span> Camp Province, no Terror or Opposition: highest Population › map order.</p>
-<p><span class='k'>Kill Traitors:</span> space with red and Police: exactly 1 Police › F136 › map order.</p>
-<p><span class='k'>Forced losses:</span> Active › minority colour › blue; a Cache only if no guerrilla can go.</p>
-<p><span class='k'>Propaganda:</span> each sabotaged railway (Railway-list order) → Opposition in an adjacent space without Terror/Opposition, highest Population. Supply. Redeploy only <em>exposed</em> markers → Camp Province without F136/Kempeitai, most guerrillas. Short of red at Mobilize: map order. J25 return: Camp Province, no Kempeitai › no F136 › most guerrillas.</p>
+<p><span class='k'>Mobilize Population:</span> Camp Province, no Terror or Opposition: highest Population › map order. <span class='k'>Kill Traitors:</span> space with red and Police: exactly 1 Police › F136 › map order.</p>
+<p><span class='k'>Forced losses</span> (J6, Clashes): Active › minority colour › blue; in J6 a Cache only if the space has no guerrilla. <span class='k'>Zipper</span> past a Cache box, none Available: remove the Cache with fewest guerrillas › most Troops › reverse map order.</p>
+<p><span class='k'>Every Propaganda:</span> red short at Mobilize → map order. <span class='k'>Nonfinal:</span> each sabotaged railway (Railway-list order) → Opposition in an adjacent space without Terror/Opposition, highest Population › map order. Supply. Redeploy only <em>exposed</em> markers → Camp Province without F136/Kempeitai, most guerrillas. J25 return: Camp Province, no Kempeitai › no F136 › most guerrillas.</p>
+<p><span class='k'>Events Japan plays:</span> card text; British choices use these procedures.</p>
 </div>"""
     orders="""<div class='box'><h2>Orders &amp; levels</h2>
 <p><span class='k'>Map order:</span> Kedah, Perak, Kelantan, Trengganu, Pahang, Selangor, Kuala Lumpur, Negri Sembilan, Johore, N. EC, S. EC.</p>
 <p><span class='k'>Railway list:</span> Perak–Pahang–Selangor, N. Sembilan–Pahang, Perak–Kelantan, Thailand–Perak, Thailand–Kelantan★, N. Sembilan–Johore★, Pahang–Johore★, Thailand–Kedah★.</p>
 <table><tr><th>Level</th><th>Change</th></tr>
 <tr><td>Recruit</td><td>never Raids</td></tr><tr><td>Agent</td><td>standard</td></tr>
-<tr><td>Veteran</td><td>Resistance starts at 4</td></tr><tr><td>Legend</td><td>starts at 4; +1 Resistance after each nonfinal Propaganda</td></tr></table>
+<tr><td>Veteran</td><td>Resistance starts at 4</td></tr><tr><td>Legend</td><td>starts at 4; +1 Resistance after each nonfinal Propaganda's Resistance phase (does not move the Zipper)</td></tr></table>
 </div>"""
     hdr=f"<div class='hdr'><h1>Force 136 · Reference</h1><span class='tag'>v{VERSION} · British bot for Japanese Occupation</span></div>"
-    return page(REF_CSS,hdr+f"<div class='grid'>{turn}{orders}{goals}{procs}{between}</div>",'Force 136 Reference')
+    win="""<div class='box full'><h2>Winning and Propaganda</h2><div class='grid'><div>
+<p><span class='k'>Final Propaganda only.</span> Resistance 20, or 18–19 with fewer Jungle Camps than Force 136 markers → Force 136 wins. 18–19 otherwise → MPAJA wins (both lose). Below 18 → Japan wins.</p></div><div>
+<p><span class='k'>Resistance phase:</span> + revealed Intel, + Supply Caches, + spaces with a majority; − 1 per 4 Japanese Resources, − 1 per 5 Neutral Population, − 1 per 3 spaces with Police.</p></div></div></div>"""
+    hdr2=f"<div class='hdr' style='break-before:page'><h1>Force 136 · Procedures</h1><span class='tag'>v{VERSION} · reverse side</span></div>"
+    return page(REF_CSS,hdr+pre+f"<div class='grid'>{turn}{orders}{goals}{win}</div>"+hdr2+f"<div class='grid'>{procs}{between}</div>",'Force 136 Reference')
 
 def card_html(c):
     goals=[('PLACE',True)]+[(g,False) for g in c['goals']]+[('CONTACT',True)]
@@ -165,7 +169,7 @@ def card_html(c):
             f"<div class='name'>{html.escape(c['name'])}</div>"
             f"<div class='lbl'>Op &amp; Special Activity</div><ol class='goals'>{lis}</ol>"
             f"<div class='lbl'>Limited Operation</div><div class='lim'>{lim}</div>"
-            f"<div class='foot'>Never take the Event. Nothing qualifies: Pass and Contact if useful. Discard after the turn.</div></div></div>")
+            f"<div class='foot'>Never take the Event. Nothing qualifies: Pass. Discard after the turn.</div></div></div>")
 
 def build_cards():
     body="<div class='sheet'>"+''.join(card_html(c) for c in CARDS)+"</div>"

@@ -67,9 +67,10 @@ class F136Game(FastGame):
         if not (v[color+'_u'] if color else ug(v)):return None
         if s=='Kuala Lumpur':
             return 'Police' if v['police'] else None
+        if self.good_shot(s):
+            if v['kempeitai']:return 'Kempeitai'
+            if v['troops']:return 'Troop'
         if v['police']:return 'Police'
-        if v['kempeitai'] and self.good_shot(s):return 'Kempeitai'
-        if v['troops'] and self.good_shot(s):return 'Troop'
         return None
     def strike_option(self,s,force_color=None,bose=False):
         # compatibility for engine callers (J11/J13/J26, Raid probes)
@@ -194,7 +195,7 @@ class F136Game(FastGame):
             self.board[s]['camp']=False;self.board[s]['cache']=True;n+=1
         if self.cap.get(27)=='S' and selected:
             el=[s for s in selected if self.board[s]['opposition']]
-            if el:self.board[min(el,key=lambda s:(-POP[s],self.mo(s)))]['opposition']=False
+            if el:self.board[min(el,key=lambda s:(POP[s],self.mo(s)))]['opposition']=False
         self.inc('caches_built',n);return n
     # ------------------------------------------------------ RAID
     RAID_ORDER=('SABOTAGE','AMBUSH','MAJORITY')

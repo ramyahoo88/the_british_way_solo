@@ -10,7 +10,7 @@ The bot runs at the table without an application.
 
 ## Force 136 v1.0 (new design, branch `claude-force136`)
 
-A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Holdout simulations against six computer Japan policies: Recruit 34%, Agent 58%, Veteran 67%, Legend 73% Force 136 wins (v0.2: 0%). Not yet playtested at the table.
+A new card-driven British bot built from scratch, with its own print-and-play package, rules-as-code and a simulation study: see [force136_v1/](force136_v1/README.md). Holdout simulations against six computer Japan policies: Recruit 37%, Agent 59%, Veteran 69%, Legend 77% Force 136 wins (v0.2: 0%). Not yet playtested at the table.
 
 ## v0.2 print package (GPT draft)
 

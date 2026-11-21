@@ -23,19 +23,20 @@ RAIL_LIST=['Perak-Pahang-Selangor','Negri Sembilan-Pahang','Perak-Kelantan','Tha
            'Thailand-Kelantan *','Negri Sembilan-Johore *','Pahang-Johore *','Thailand-Kedah *']
 def mo(s):return MAP_ORDER.index(s)
 
-# §2 Directive deck. Every card starts with PLACE; the card lists the next four goals
+# §2 Directive deck. Every card starts with PLACE; the card lists the next goals (SUPPLY only on card 9:
+# elsewhere a SUPPLY next to TRAIN would act exactly like TRAIN, whose first Special Activity is Supply)
 # and which of AMBUSH/TRAIN comes first on a Limited Operation.
 def card(i,name,goals,limited_first):
     return dict(id=i,name=name,goals=goals,limited_first=limited_first)
 DECK=[
- card(1,'Jungle ambush',        ['AMBUSH','INTEL','SUPPLY','TRAIN'],'AMBUSH'),
- card(2,'Hit the convoy',       ['AMBUSH','INTEL','SUPPLY','TRAIN'],'AMBUSH'),
- card(3,'Strike from the hills',['AMBUSH','INTEL','SUPPLY','TRAIN'],'AMBUSH'),
- card(4,'Arm the cells',        ['AMBUSH','INTEL','TRAIN','SUPPLY'],'TRAIN'),
- card(5,'Recruit and strike',   ['AMBUSH','INTEL','TRAIN','SUPPLY'],'TRAIN'),
- card(6,'Ears in the kampongs', ['INTEL','AMBUSH','SUPPLY','TRAIN'],'AMBUSH'),
- card(7,'Count the trains',     ['INTEL','AMBUSH','SUPPLY','TRAIN'],'AMBUSH'),
- card(8,'Radio from the ridge', ['INTEL','AMBUSH','TRAIN','SUPPLY'],'TRAIN'),
+ card(1,'Jungle ambush',        ['AMBUSH','INTEL','TRAIN'],'AMBUSH'),
+ card(2,'Hit the convoy',       ['AMBUSH','INTEL','TRAIN'],'AMBUSH'),
+ card(3,'Strike from the hills',['AMBUSH','INTEL','TRAIN'],'AMBUSH'),
+ card(4,'Arm the cells',        ['AMBUSH','INTEL','TRAIN'],'TRAIN'),
+ card(5,'Recruit and strike',   ['AMBUSH','INTEL','TRAIN'],'TRAIN'),
+ card(6,'Ears in the kampongs', ['INTEL','AMBUSH','TRAIN'],'AMBUSH'),
+ card(7,'Count the trains',     ['INTEL','AMBUSH','TRAIN'],'AMBUSH'),
+ card(8,'Radio from the ridge', ['INTEL','AMBUSH','TRAIN'],'TRAIN'),
  card(9,'Stockpile',            ['AMBUSH','SUPPLY','INTEL','TRAIN'],'TRAIN'),
 ]
 # §9 Levels
@@ -108,10 +109,10 @@ class Force136(FastGame):
     def ambush_target(self,s,color=None):
         v=self.board[s]
         if not (v[color+'_u'] if color else ug(v)):return None
+        if s!='Kuala Lumpur' and self.good_shot(s):
+            if v['kempeitai']:return 'Kempeitai'
+            if v['troops']:return 'Troop'
         if v['police']:return 'Police'
-        if s=='Kuala Lumpur':return None
-        if v['kempeitai'] and self.good_shot(s):return 'Kempeitai'
-        if v['troops'] and self.good_shot(s):return 'Troop'
         return None
     def strike_option(self,s,force_color=None,bose=False):
         if bose:
@@ -174,7 +175,7 @@ class Force136(FastGame):
             self.board[s]['camp']=False;self.board[s]['cache']=True;n+=1
         if self.cap.get(27)=='S' and selected:
             el=[s for s in selected if self.board[s]['opposition']]
-            if el:self.board[min(el,key=lambda s:(-POP[s],mo(s)))]['opposition']=False
+            if el:self.board[min(el,key=lambda s:(POP[s],mo(s)))]['opposition']=False
         return n
     # ----------------------------------------------------------------- §6.7 Raid
     RAID_KINDS=('SABOTAGE','AMBUSH','MAJORITY')

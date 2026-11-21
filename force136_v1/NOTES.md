@@ -23,7 +23,13 @@ Brief (user, 22:00 CST, 20 Nov 2026): do for The British Way solo what was done 
 - 23:50 Printability simplifications costed. `force136_v1.py` written; `equiv.py` shows 0 mismatches against the lab in 768 games.
 - 23:55 Holdout: Recruit 34.4%, Agent 58.3%, Veteran 66.9%, Legend 72.8%. Search player 56.5%; v0.2 0%.
 - 00:00 Lookahead and exploit opponents; corner-adjacency sensitivity (no change); guard rules (no gain); Event retest on the final bot.
-- 00:10 Rules, reference sheet, cards, sample game and report written and rendered.
+- 00:10 Rules, reference sheet, cards, sample game and report written and rendered. First push.
+- 00:15 Independent rules review (text only) started. More experiments on the frozen bot:
+    - Ambush rolling at a good shot before removing Police: +4.6 / +4.8 on two seed sets. Adopted.
+    - Gather-before-Ambush, Mobilize avoiding blue, placement terrain, Redeploy of idle markers, last-campaign Supply, Gather avoiding Troops: no gain.
+- 00:30 Review returned 21 findings. One code error (Japanese J27 choice). Twenty text fixes, each matched to the code. Cards 1–8 lose a redundant SUPPLY goal, with identical play (0 mismatches). The reference sheet becomes two-sided.
+- 00:45 Final holdout: Recruit 36.7%, Agent 59.0%, Veteran 68.5%, Legend 77.0%. Lookahead-counter Japan: Agent 33%, Legend 53%.
+- 00:50 Clean-room reimplementation from the printed rules started by a separate agent, to test whether the text alone determines the moves.
 
 ## Decisions worth remembering
 

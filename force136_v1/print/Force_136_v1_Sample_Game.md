@@ -1,6 +1,6 @@
 # Force 136 v1.0 — sample game
 
-Seed 20005, Agent level, against the simulation's *adaptive* Japan policy. The game was generated with `python3 sample_game.py 20005 adaptive`. The Japanese moves come from one computer policy and are not advice. For each turn the log lists the bot's Directive card, the goal that qualified and the board changes.
+Seed 20005, Agent level, against the simulation's *adaptive* Japan policy. The game was generated with `python3 sample_game.py 20005 adaptive` and `python3 sample_md.py 20005 adaptive <file>`. The Japanese moves come from one computer policy and are not advice. For each turn the log lists the bot's Directive card, the goal that qualified and the board changes. MPAJA icons are applied before the first entry of each card and are not listed.
 
 ## Starting position
 
