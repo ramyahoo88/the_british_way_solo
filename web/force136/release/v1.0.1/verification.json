@@ -1,0 +1,28 @@
+{
+  "app_version": "1.0.1",
+  "rules_version": "1.1",
+  "rules_commit": "370ae906270464be64a304d95e6ee7a509c9fc1c",
+  "date": "2026-11-21",
+  "node_tests_passed": 17,
+  "browser_regression_checks_passed": 65,
+  "byte_identical_html_rebuild": true,
+  "v1_0_0_save_compatible": true,
+  "preview_url": "https://bea91c3d.solo-table.pages.dev/games/force136/",
+  "preview_deployment": "bea91c3d-4de2-41b9-96f8-ed9240fe46d5",
+  "preview_manual_checks": {
+    "score_20": "Force 136 wins. Japan loses.",
+    "result_after_edit": "",
+    "mobile_width": 390,
+    "procedure": "Raid",
+    "dialog_scroll_top": 0,
+    "dialog_top": 16,
+    "heading_top": 77.1875,
+    "inline_script_hashes_match": true
+  },
+  "artifacts_sha256": {
+    "dist/index.html": "4b9aed491db196e0cead0765994c822d79f98f4b51347f055bd8c8ad6f544693",
+    "dist/Force_136_Digital_Deck.html": "4b9aed491db196e0cead0765994c822d79f98f4b51347f055bd8c8ad6f544693",
+    "dist/Force_136_Rules.pdf": "de13a6ff38cbdea686d6fc0981d7b1906c500b272f67c7bae8567a6928a28e01",
+    "deployment/pages-worker.mjs": "44d572aeac1d0022ef174e399e02f69dd45e8df3f16e7fd18c927701428f21e3"
+  }
+}

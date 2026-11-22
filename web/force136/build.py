@@ -15,7 +15,9 @@ goals={g[i]:md('**'+g[i]+'**'+g[i+1]) for i in range(1,len(g),2)}
 p=re.split(r'^### 6\.\d+ (.+)$',sections['6']['body'],flags=re.M)
 procedures={p[i].lower():md(p[i+1]) for i in range(1,len(p),2)}
 orders=md('\n'.join(l for l in sections['3']['body'].splitlines() if l.startswith(('- **Map order:','- **Railway list**'))))
-data={'appVersion':'1.0.0','rulesVersion':'1.1','sourceCommit':SOURCE,'cards':json.loads((ROOT/'source_data/cards.json').read_text()),'goals':goals,'procedures':procedures}
+term_lines=[l for l in sections['3']['body'].splitlines() if l.startswith(('- **Majority:**','- **Good shot:**','- **Exposed:**'))]
+assert len(term_lines)==3
+data={'appVersion':'1.0.1','rulesVersion':'1.1','sourceCommit':SOURCE,'cards':json.loads((ROOT/'source_data/cards.json').read_text()),'goals':goals,'procedures':procedures,'terms':md('\n'.join(term_lines))}
 page=(ROOT/'src/template.html').read_text()
 replacements={'CSS':(ROOT/'src/styles.css').read_text(),'ORDERS':orders,'BETWEEN':md(sections['7']['body']),'RULES':rule_html,'DATA':json.dumps(data,ensure_ascii=False).replace('</',r'<\/'),'CORE':(ROOT/'src/core.js').read_text(),'UI':(ROOT/'src/ui.js').read_text()}
 for k,v in replacements.items():page=page.replace('/*__'+k+'__*/',v)

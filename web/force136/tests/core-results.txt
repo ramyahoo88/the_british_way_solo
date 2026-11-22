@@ -1,0 +1,19 @@
+✔ Nine unique Directives per cycle across 1000 seeds and four cycles (494.201368ms)
+✔ Undo then redraw at the shuffle boundary returns the identical card and RNG state (0.65636ms)
+✔ Finishing the turn discards only once; drawing after explicit discard matches implicit discard (0.190151ms)
+✔ Fresh deck has no current card; all levels use the same nine-card draw procedure (0.22368ms)
+✔ Saves round-trip notes and Undo; Undo persists through reload (0.763298ms)
+✔ Damage recovery uses the backup and never rotates a corrupt primary over it (0.331881ms)
+✔ Both damaged saves remain in place; unavailable storage cannot crash a game (0.396716ms)
+✔ Reject damaged or incompatible imports before state replacement (0.860052ms)
+✔ Final victory includes strict Camp comparison and 20 always wins for Force 136 (0.840382ms)
+✔ Long histories remain valid and contain only the latest 200 revealed draws (11.099929ms)
+✔ Maximum Unicode notes, history and Undo can be exported and reimported (35.777608ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 665.378167

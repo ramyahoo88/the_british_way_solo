@@ -5,7 +5,7 @@
   else root.Force136Deck = api;
 })(typeof globalThis === 'object' ? globalThis : this, function () {
   'use strict';
-  const APP_VERSION = '1.0.0', RULES_VERSION = '1.1', MAX_SAVE_BYTES = 4 * 1024 * 1024;
+  const APP_VERSION = '1.0.1', RULES_VERSION = '1.1', MAX_SAVE_BYTES = 4 * 1024 * 1024;
   const LEVELS = ['recruit', 'agent', 'veteran', 'legend', 'mastermind'];
   const KEY = 'force136.deck.v1', BACKUP = 'force136.deck.backup.v1';
   const clone = value => JSON.parse(JSON.stringify(value));
@@ -111,7 +111,7 @@
     } catch (_) {return false;}
   }
   function winner(resistance,camps,markers) {
-    check(integer(resistance,0,20) && integer(camps,0,99) && integer(markers,0,99), 'Enter whole, nonnegative counts and Resistance from 0 to 20.');
+    check(integer(resistance,0,20) && integer(camps,0,4) && integer(markers,0,3), 'Enter whole counts: Resistance 0–20, Jungle Camps 0–4, Force 136 markers 0–3.');
     if(resistance===20 || (resistance>=18 && camps<markers)) return 'Force 136';
     return resistance>=18?'MPAJA':'Japan';
   }

@@ -1,0 +1,29 @@
+{
+  "winnerChangedInputs": {
+    "final": false,
+    "resistance": "0",
+    "result": ""
+  },
+  "damagedSaveReplacement": {
+    "notice": "",
+    "noticeHidden": true,
+    "status": "Saved on this device.",
+    "stored": "{\"primaryIsValidJSON\":true,\"draws\":0,\"level\":\"agent\"}"
+  },
+  "temporaryQuota": {
+    "before": "Autosave is unavailable. Your deck still works here; export a save before closing.",
+    "after": {
+      "notice": "",
+      "noticeHidden": true,
+      "status": "Saved on this device.",
+      "stored": "{\"primaryIsValidJSON\":true,\"draws\":14,\"level\":\"legend\"}"
+    }
+  },
+  "mobileProcedure": {
+    "width": 390,
+    "scrollTop": 0,
+    "headingY": 77.1875,
+    "dialogY": 16,
+    "focused": true
+  }
+}

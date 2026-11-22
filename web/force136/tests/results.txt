@@ -1,23 +1,25 @@
-✔ Nine unique Directives per cycle across 1000 seeds and four cycles (519.093894ms)
-✔ Undo then redraw at the shuffle boundary returns the identical card and RNG state (0.316057ms)
-✔ Finishing the turn discards only once; drawing after explicit discard matches implicit discard (0.164873ms)
-✔ Fresh deck has no current card; all levels use the same nine-card draw procedure (0.193947ms)
-✔ Saves round-trip notes and Undo; Undo persists through reload (0.503654ms)
-✔ Damage recovery uses the backup and never rotates a corrupt primary over it (0.293984ms)
-✔ Both damaged saves remain in place; unavailable storage cannot crash a game (0.24423ms)
-✔ Reject damaged or incompatible imports before state replacement (0.639815ms)
-✔ Final victory includes strict Camp comparison and 20 always wins for Force 136 (0.601377ms)
-✔ Long histories remain valid and contain only the latest 200 revealed draws (9.59182ms)
-✔ Maximum Unicode notes, history and Undo can be exported and reimported (33.74703ms)
-✔ App routes serve the exact reviewed standalone HTML (10.11385ms)
-✔ Catalog retains the old companions and adds Force 136 exactly once (1.067316ms)
-✔ The rules PDF is unchanged; HEAD, 404 and method handling work (68.208901ms)
-✔ Other companions use retained static assets and download headers remain (0.538084ms)
-ℹ tests 15
+✔ Nine unique Directives per cycle across 1000 seeds and four cycles (492.01299ms)
+✔ Undo then redraw at the shuffle boundary returns the identical card and RNG state (0.348324ms)
+✔ Finishing the turn discards only once; drawing after explicit discard matches implicit discard (0.18232ms)
+✔ Fresh deck has no current card; all levels use the same nine-card draw procedure (0.213406ms)
+✔ Saves round-trip notes and Undo; Undo persists through reload (0.586136ms)
+✔ Damage recovery uses the backup and never rotates a corrupt primary over it (0.340623ms)
+✔ Both damaged saves remain in place; unavailable storage cannot crash a game (0.236961ms)
+✔ Reject damaged or incompatible imports before state replacement (0.851999ms)
+✔ Final victory includes strict Camp comparison and 20 always wins for Force 136 (0.814954ms)
+✔ Long histories remain valid and contain only the latest 200 revealed draws (9.755675ms)
+✔ Maximum Unicode notes, history and Undo can be exported and reimported (27.037871ms)
+✔ Final winner helper rejects counts beyond the physical supply (0.689489ms)
+✔ v1.0.0 saves retain their deck and Undo in v1.0.1 (0.286884ms)
+✔ App routes serve the exact reviewed standalone HTML (7.263482ms)
+✔ Catalog retains the old companions and adds Force 136 exactly once (0.687596ms)
+✔ The rules PDF is unchanged; HEAD, 404 and method handling work (61.405391ms)
+✔ Other companions use retained static assets and download headers remain (0.833341ms)
+ℹ tests 17
 ℹ suites 0
-ℹ pass 15
+ℹ pass 17
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 689.026446
+ℹ duration_ms 621.868853

@@ -50,7 +50,7 @@ test('Reject damaged or incompatible imports before state replacement',()=>{
  assert.throws(()=>C.parseSave('<html>'));assert.throws(()=>C.parseSave(' '.repeat(C.MAX_SAVE_BYTES+1)));
 });
 test('Final victory includes strict Camp comparison and 20 always wins for Force 136',()=>{
- for(let r=0;r<=20;r++)for(let camps=0;camps<=8;camps++)for(let markers=0;markers<=3;markers++){
+ for(let r=0;r<=20;r++)for(let camps=0;camps<=4;camps++)for(let markers=0;markers<=3;markers++){
   const expected=r===20?'Force 136':r<18?'Japan':camps<markers?'Force 136':'MPAJA';
   assert.equal(C.winner(r,camps,markers),expected);
  }
@@ -65,4 +65,18 @@ test('Maximum Unicode notes, history and Undo can be exported and reimported',()
  let g=C.newGame('agent',171);for(let i=0;i<240;i++)g=C.draw(g);g.notes='界'.repeat(20000);
  const e=C.envelope(g,Array(30).fill(g)),json=JSON.stringify(e,null,2);
  assert.ok(Buffer.byteLength(json)<C.MAX_SAVE_BYTES);assert.deepEqual(C.parseSave(json),e);
+});
+
+test('Final winner helper rejects counts beyond the physical supply',()=>{
+ for(const r of [0,18,19,20]){
+  for(const camps of [-1,5,99,1.5])assert.throws(()=>C.winner(r,camps,0),/Jungle Camps 0–4/);
+  for(const markers of [-1,4,99,1.5])assert.throws(()=>C.winner(r,0,markers),/Force 136 markers 0–3/);
+ }
+ assert.equal(C.winner(20,4,3),'Force 136');
+});
+test('v1.0.0 saves retain their deck and Undo in v1.0.1',()=>{
+ const before=C.draw(C.newGame('legend',2200001));const game=C.draw(before);
+ const save=C.envelope(game,[before]);save.appVersion='1.0.0';
+ const loaded=C.parseSave(JSON.stringify(save));
+ assert.deepEqual(loaded.game,game);assert.deepEqual(loaded.undo,[before]);assert.equal(loaded.appVersion,'1.0.1');
 });
