@@ -1,0 +1,17 @@
+{
+  "app_version": "1.0.1",
+  "rules_version": "1.1",
+  "date": "2026-11-21",
+  "live_url": "https://solo-table.pages.dev/games/force136/",
+  "offline_url": "https://solo-table.pages.dev/games/force136/Force_136_Digital_Deck.html",
+  "production_deployment": "a0c88a53-42ef-4bc4-901d-8167334df198",
+  "deployment_status": "success",
+  "source_commit": "f78d3c4d6c7e56f4b6c74b9a728a365b4b684761",
+  "live_inline_scripts_match_tested_build": true,
+  "offline_download_bytes": 84080,
+  "offline_download_sha256": "4b9aed491db196e0cead0765994c822d79f98f4b51347f055bd8c8ad6f544693",
+  "offline_download_matches_tested_html": true,
+  "retained_asset_count": 31,
+  "retained_assets_unchanged": true,
+  "existing_v1_0_0_deck_restored": true
+}
