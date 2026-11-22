@@ -1,5 +1,5 @@
 {
-  "passed": 49,
+  "passed": 50,
   "results": [
     "fresh page waits for setup",
     "setup opens",
@@ -15,6 +15,7 @@
     "draw 8 matches applied state",
     "draw 9 matches applied state",
     "all nine Directives appear once",
+    "card retains the Pass fallback",
     "tenth draw reshuffles discards",
     "Undo restores the ninth card and piles",
     "redrawing after Undo preserves the shuffle",

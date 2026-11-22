@@ -1,0 +1,166 @@
+{
+  "oldAssets": [
+    {
+      "path": "/assets/colonial-twilight.webp",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/assets/dm-sans.ttf",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/assets/instrument-serif-italic.ttf",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/assets/instrument-serif-regular.ttf",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/assets/site.css",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/downloads/a-glorious-chance",
+      "status": 200,
+      "disposition": "attachment; filename=\"A_Glorious_Chance_Solo_v0.2.18.html\""
+    },
+    {
+      "path": "/downloads/all-bridges-burning",
+      "status": 200,
+      "disposition": "attachment; filename=\"All_Bridges_Burning_Solo_v0.10.8.html\""
+    },
+    {
+      "path": "/downloads/cuba-libre",
+      "status": 200,
+      "disposition": "attachment; filename=\"Cuba_Libre_Calixto_Solo.html\""
+    },
+    {
+      "path": "/downloads/dominant-species",
+      "status": 200,
+      "disposition": "attachment; filename=\"Dominant_Species_Solo.html\""
+    },
+    {
+      "path": "/downloads/fire-in-the-lake",
+      "status": 200,
+      "disposition": "attachment; filename=\"Fire_in_the_Lake_Trung_Solo.html\""
+    },
+    {
+      "path": "/downloads/labyrinth",
+      "status": 200,
+      "disposition": "attachment; filename=\"Labyrinth_Solo_Companion_v1_1.html\""
+    },
+    {
+      "path": "/downloads/liberty-or-death",
+      "status": 200,
+      "disposition": "attachment; filename=\"Liberty_or_Death_Solo.html\""
+    },
+    {
+      "path": "/downloads/pendragon",
+      "status": 200,
+      "disposition": "attachment; filename=\"Pendragon_Solo_v1.0.0.html\""
+    },
+    {
+      "path": "/games/a-glorious-chance/index.html",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/all-bridges-burning/index.html",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/colonial-twilight/Colonial_Twilight_FLN.zip",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/colonial-twilight/index.html",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/cuba-libre/index.html",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/dominant-species/The_Red_Queen_Cards.pdf",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/dominant-species/The_Red_Queen_Player_Aids.pdf",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/dominant-species/The_Red_Queen_Rulebook.pdf",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/dominant-species/index.html",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/fire-in-the-lake/index.html",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/kutna-hora/Kutna_Hora_Solo_v1.1.1.zip",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/kutna-hora/Mincmistr_Print_and_Play.pdf",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/kutna-hora/Mincmistr_Rules.md",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/kutna-hora/index.html",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/labyrinth/index.html",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/liberty-or-death/index.html",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/games/pendragon/index.html",
+      "status": 200,
+      "disposition": null
+    },
+    {
+      "path": "/index.html",
+      "status": 200,
+      "disposition": null
+    }
+  ],
+  "catalogCount": 11,
+  "newCard": true,
+  "newDownload": {
+    "status": 200,
+    "type": "text/html; charset=utf-8",
+    "disposition": "attachment; filename=\"Force_136_Digital_Deck.html\""
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "app_version": "1.0.0",
+  "rules_version": "1.1",
+  "date": "2026-11-21",
+  "source_commit": "201d3399453038c869a211b8b0c5f974c5fa85f5",
+  "production_deployment": "43b844c7-5902-46fe-be98-10dfebdad625",
+  "live_url": "https://solo-table.pages.dev/games/force136/",
+  "node_tests": 15,
+  "browser_checks": 50,
+  "preserved_static_assets": 31,
+  "html_build_byte_identical": true,
+  "runtime_dependencies": 0
+}
