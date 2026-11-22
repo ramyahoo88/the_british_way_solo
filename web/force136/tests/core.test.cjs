@@ -74,9 +74,11 @@ test('Final winner helper rejects counts beyond the physical supply',()=>{
  }
  assert.equal(C.winner(20,4,3),'Force 136');
 });
-test('v1.0.0 saves retain their deck and Undo in v1.0.1',()=>{
+test('v1.0.0 and v1.0.1 saves retain their deck and Undo in v1.0.2',()=>{
  const before=C.draw(C.newGame('legend',2200001));const game=C.draw(before);
- const save=C.envelope(game,[before]);save.appVersion='1.0.0';
- const loaded=C.parseSave(JSON.stringify(save));
- assert.deepEqual(loaded.game,game);assert.deepEqual(loaded.undo,[before]);assert.equal(loaded.appVersion,'1.0.1');
+ for(const version of ['1.0.0','1.0.1']){
+  const save=C.envelope(game,[before]);save.appVersion=version;
+  const loaded=C.parseSave(JSON.stringify(save));
+  assert.deepEqual(loaded.game,game);assert.deepEqual(loaded.undo,[before]);assert.equal(loaded.appVersion,'1.0.2');
+ }
 });

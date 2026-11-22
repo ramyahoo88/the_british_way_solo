@@ -5,7 +5,7 @@
   else root.Force136Deck = api;
 })(typeof globalThis === 'object' ? globalThis : this, function () {
   'use strict';
-  const APP_VERSION = '1.0.1', RULES_VERSION = '1.1', MAX_SAVE_BYTES = 4 * 1024 * 1024;
+  const APP_VERSION = '1.0.2', RULES_VERSION = '1.1', MAX_SAVE_BYTES = 4 * 1024 * 1024;
   const LEVELS = ['recruit', 'agent', 'veteran', 'legend', 'mastermind'];
   const KEY = 'force136.deck.v1', BACKUP = 'force136.deck.backup.v1';
   const clone = value => JSON.parse(JSON.stringify(value));

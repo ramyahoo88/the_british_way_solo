@@ -4,3 +4,5 @@
 @media(max-width:650px){.deck-column{display:flex;flex-direction:column}.deck-column>.deck-status{order:0}.deck-column>.draw-controls{order:1;margin:0 0 15px}.deck-column>.mode-choice{order:2}.deck-column>.directive{order:3}.deck-column>.under-controls{order:4}.deck-column>.draw-help{order:5}.has-game .intro{display:flex;align-items:center;gap:12px;margin-bottom:23px}.has-game .intro .eyebrow,.has-game .intro p:not(.eyebrow){display:none}.has-game .intro h1{font-size:35px;margin:0}.has-game .session-badge{margin-top:0;max-width:166px;line-height:1.5}.mode-choice>p{font-size:13px;line-height:1.5}}
 
 .detail-terms{margin:0 0 18px;border-block:1px solid var(--line);padding:9px 0}.detail-terms summary{cursor:pointer;color:var(--green);font-size:14px;font-weight:650}.detail-terms ul{margin:14px 0 0}#detail-content h2:focus{outline:none}
+
+.printable-links{display:flex;flex-wrap:wrap;gap:.6rem 1.25rem;margin:0 0 1.5rem;font-size:.9rem}.printable-links a{color:var(--green,#244f3d);text-underline-offset:3px}

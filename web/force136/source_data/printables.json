@@ -1,0 +1,34 @@
+[
+  {
+    "file": "Force_136_Rules.pdf",
+    "title": "Rules booklet",
+    "pages": 5,
+    "sha256": "de13a6ff38cbdea686d6fc0981d7b1906c500b272f67c7bae8567a6928a28e01",
+    "sourcePath": "force136_v1/print/Force_136_v1_Rules.pdf",
+    "gitBlob": "d5b6a5bf878f815d47c932c4f58ea2787e8a9abe"
+  },
+  {
+    "file": "Force_136_Cards.pdf",
+    "title": "Directive cards and Propaganda aid",
+    "pages": 2,
+    "sha256": "ab1a9ec557cb42147663577472dda8186f046a3fb6f434eea45eae09a19bf899",
+    "sourcePath": "force136_v1/print/Force_136_v1_Cards.pdf",
+    "gitBlob": "e445f8f40e049c52ff0e6fe6348daf43e7480f67"
+  },
+  {
+    "file": "Force_136_Player_Aids.pdf",
+    "title": "Player aids",
+    "pages": 2,
+    "sha256": "a40dd513fc00171733c4d939d1ed7d722ddf4983bbc52fc80f3b9a07d820a4a5",
+    "sourcePath": "force136_v1/print/Force_136_v1_Reference.pdf",
+    "gitBlob": "63c20022cd0675cbd24993b310a317a67a7dcfa6"
+  },
+  {
+    "file": "Force_136_Print_and_Play.pdf",
+    "title": "Complete print-and-play packet",
+    "pages": 9,
+    "sha256": "192ab3a457c86551d9faff6df1cefff01db21712fa3b7e95676f798e5886dd68",
+    "sourcePath": "force136_v1/print/Force_136_v1_Print_and_Play.pdf",
+    "gitBlob": "58e54a7cc220ba41951a9e256150a12df51359e9"
+  }
+]

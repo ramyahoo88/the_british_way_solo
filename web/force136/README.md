@@ -1,4 +1,4 @@
-# Force 136 digital deck v1.0.1
+# Force 136 digital deck v1.0.2
 
 [Open the companion](https://solo-table.pages.dev/games/force136/) · [Download the offline HTML](https://solo-table.pages.dev/downloads/force136)
 
@@ -20,7 +20,7 @@ The app tracks the deck and optional notes. Keep the board position, official Ev
 - Export/import moves a deck between browsers or devices. Imports are validated and reviewed before replacement; Undo can restore the game open before import. A fresh app also restores the imported Undo stack. Saves are limited to 4 MB, including the largest notes/history combination the app can export.
 - Another tab changing the same deck locks stale draw controls until reload, preventing accidental overwrites.
 - Searchable full rules, compact goal/procedure help with inline Terms, level reminders, and revealed-card history are available without printing. There are no win-rate or simulation claims in the playing interface.
-- The downloadable HTML contains the app, card data, rules and flowchart in one file. Open it directly in a modern browser. Hosted and file copies may have separate browser storage; use export/import to transfer a game. The linked rules PDF is optional and needs a connection.
+- The downloadable HTML contains the app, card data, rules and flowchart in one file. Open it directly in a modern browser. Hosted and file copies may have separate browser storage; use export/import to transfer a game. The linked printable PDFs are optional and need a connection. All four are available together at https://solo-table.pages.dev/games/force136/printables/ and from the Rules tab.
 
 ## Source and build
 

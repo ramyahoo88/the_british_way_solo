@@ -1,0 +1,52 @@
+{
+  "app_version": "1.0.2",
+  "rules_version": "1.1",
+  "date": "2026-11-21",
+  "node_tests_passed": 17,
+  "byte_identical_html_rebuild": true,
+  "compatible_save_versions": [
+    "1.0.0",
+    "1.0.1"
+  ],
+  "preview_deployment": "f597941d-64d7-4ed2-ad83-11082d535890",
+  "preview_url": "https://f597941d.solo-table.pages.dev/games/force136/printables/",
+  "preview_pdfs_byte_identical": true,
+  "pdfs": [
+    {
+      "file": "Force_136_Rules.pdf",
+      "title": "Rules booklet",
+      "pages": 5,
+      "sha256": "de13a6ff38cbdea686d6fc0981d7b1906c500b272f67c7bae8567a6928a28e01",
+      "sourcePath": "force136_v1/print/Force_136_v1_Rules.pdf",
+      "gitBlob": "d5b6a5bf878f815d47c932c4f58ea2787e8a9abe"
+    },
+    {
+      "file": "Force_136_Cards.pdf",
+      "title": "Directive cards and Propaganda aid",
+      "pages": 2,
+      "sha256": "ab1a9ec557cb42147663577472dda8186f046a3fb6f434eea45eae09a19bf899",
+      "sourcePath": "force136_v1/print/Force_136_v1_Cards.pdf",
+      "gitBlob": "e445f8f40e049c52ff0e6fe6348daf43e7480f67"
+    },
+    {
+      "file": "Force_136_Player_Aids.pdf",
+      "title": "Player aids",
+      "pages": 2,
+      "sha256": "a40dd513fc00171733c4d939d1ed7d722ddf4983bbc52fc80f3b9a07d820a4a5",
+      "sourcePath": "force136_v1/print/Force_136_v1_Reference.pdf",
+      "gitBlob": "63c20022cd0675cbd24993b310a317a67a7dcfa6"
+    },
+    {
+      "file": "Force_136_Print_and_Play.pdf",
+      "title": "Complete print-and-play packet",
+      "pages": 9,
+      "sha256": "192ab3a457c86551d9faff6df1cefff01db21712fa3b7e95676f798e5886dd68",
+      "sourcePath": "force136_v1/print/Force_136_v1_Print_and_Play.pdf",
+      "gitBlob": "58e54a7cc220ba41951a9e256150a12df51359e9"
+    }
+  ],
+  "html_sha256": "d76787529ad331fe12cb29cca62747f18c3df39916a0c161db79a2422977d1f1",
+  "printables_html_sha256": "ac82d616715fa92a47dbe64c419ce930a0dad7d000e816a6a5f8cdb14a2220ff",
+  "worker_sha256": "ed9dd2a1668f210f20b4a2a3ad20b1c0999c76b952451eed7bedc187b8e2e3ca",
+  "notes": "All four preview PDFs were downloaded through the browser and their SHA-256 hashes match the pinned originals. Public app and downloads page contain no GitHub links. Bot rules and Directive data are unchanged."
+}

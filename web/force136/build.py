@@ -17,13 +17,18 @@ procedures={p[i].lower():md(p[i+1]) for i in range(1,len(p),2)}
 orders=md('\n'.join(l for l in sections['3']['body'].splitlines() if l.startswith(('- **Map order:','- **Railway list**'))))
 term_lines=[l for l in sections['3']['body'].splitlines() if l.startswith(('- **Majority:**','- **Good shot:**','- **Exposed:**'))]
 assert len(term_lines)==3
-data={'appVersion':'1.0.1','rulesVersion':'1.1','sourceCommit':SOURCE,'cards':json.loads((ROOT/'source_data/cards.json').read_text()),'goals':goals,'procedures':procedures,'terms':md('\n'.join(term_lines))}
+data={'appVersion':'1.0.2','rulesVersion':'1.1','sourceCommit':SOURCE,'cards':json.loads((ROOT/'source_data/cards.json').read_text()),'goals':goals,'procedures':procedures,'terms':md('\n'.join(term_lines))}
 page=(ROOT/'src/template.html').read_text()
 replacements={'CSS':(ROOT/'src/styles.css').read_text(),'ORDERS':orders,'BETWEEN':md(sections['7']['body']),'RULES':rule_html,'DATA':json.dumps(data,ensure_ascii=False).replace('</',r'<\/'),'CORE':(ROOT/'src/core.js').read_text(),'UI':(ROOT/'src/ui.js').read_text()}
 for k,v in replacements.items():page=page.replace('/*__'+k+'__*/',v)
 assert not re.search(r'/\*__\w+__\*/',page)
 out=ROOT/'dist';out.mkdir(exist_ok=True)
 for name in ('index.html','Force_136_Digital_Deck.html'):(out/name).write_text(page)
-if (ROOT/'source_data/Force_136_Rules.pdf').exists():(out/'Force_136_Rules.pdf').write_bytes((ROOT/'source_data/Force_136_Rules.pdf').read_bytes())
-(ROOT/'source_data/provenance.json').write_text(json.dumps({'repository':'ramyahoo88/the_british_way_solo','sourceCommit':SOURCE,'rulesVersion':'1.1','inputs':{f:hashlib.sha256((ROOT/'source_data'/f).read_bytes()).hexdigest() for f in ('cards.json','rules.md','turn_flow.svg')}},indent=2)+'\n')
+printables=json.loads((ROOT/'source_data/printables.json').read_text())
+for item in printables:
+    content=(ROOT/'source_data'/item['file']).read_bytes()
+    assert hashlib.sha256(content).hexdigest()==item['sha256'],item['file']
+    (out/item['file']).write_bytes(content)
+(out/'printables.html').write_text((ROOT/'src/printables.html').read_text())
+(ROOT/'source_data/provenance.json').write_text(json.dumps({'repository':'ramyahoo88/the_british_way_solo','sourceCommit':SOURCE,'rulesVersion':'1.1','inputs':{f:hashlib.sha256((ROOT/'source_data'/f).read_bytes()).hexdigest() for f in ['cards.json','rules.md','turn_flow.svg','printables.json']+[p['file'] for p in printables]}},indent=2)+'\n')
 print('Built',len(page.encode()),'bytes; 9 Directives; 11 rule sections.')

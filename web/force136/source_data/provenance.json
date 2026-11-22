@@ -5,6 +5,11 @@
   "inputs": {
     "cards.json": "d1142551ab9e7c86f5e61c9f2765be314652f62cb61c0182447500eab4da3e1a",
     "rules.md": "87aee2713a113d79b035ffb1466d637837bfff1132fbec5fcbc44de48645323e",
-    "turn_flow.svg": "e3fbc66a39efb01c70ce8f25e052ac5ab0b51b0c9868a1d37a8c42d2b9394e4b"
+    "turn_flow.svg": "e3fbc66a39efb01c70ce8f25e052ac5ab0b51b0c9868a1d37a8c42d2b9394e4b",
+    "printables.json": "468edda024b281ee63db8afd4d655d65363f14b611e5989f68ba9489396cfbaf",
+    "Force_136_Rules.pdf": "de13a6ff38cbdea686d6fc0981d7b1906c500b272f67c7bae8567a6928a28e01",
+    "Force_136_Cards.pdf": "ab1a9ec557cb42147663577472dda8186f046a3fb6f434eea45eae09a19bf899",
+    "Force_136_Player_Aids.pdf": "a40dd513fc00171733c4d939d1ed7d722ddf4983bbc52fc80f3b9a07d820a4a5",
+    "Force_136_Print_and_Play.pdf": "192ab3a457c86551d9faff6df1cefff01db21712fa3b7e95676f798e5886dd68"
   }
 }
