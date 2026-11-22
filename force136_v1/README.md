@@ -10,7 +10,7 @@ A new solo opponent for *The British Way: Enemy of My Enemy*, Japanese Occupatio
 
 | File | Contents |
 |---|---|
-| [Print-and-play PDF](print/Force_136_v1_Print_and_Play.pdf) | Rules (6 numbered pages), two-sided reference sheet, nine Directive cards (1 sheet), optional card backs, record sheet |
+| [Print-and-play PDF](print/Force_136_v1_Print_and_Play.pdf) | Rules (5 numbered pages), two-sided reference sheet, nine Directive cards (1 sheet), optional card backs |
 | [Rules PDF](print/Force_136_v1_Rules.pdf) · [Markdown](print/Force_136_v1_Rules.md) | Full rules with a worked opening |
 | [Reference sheet](print/Force_136_v1_Reference.pdf) | Front: turn, goals, orders, levels, scoring. Back: procedures and between-turn choices |
 | [Directive cards](print/Force_136_v1_Cards.pdf) | Nine poker-size cards; print at 100% and cut on the dashed lines. Page 2 holds the backs; all nine are identical, so duplex alignment does not matter |

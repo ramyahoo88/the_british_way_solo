@@ -3,7 +3,7 @@
 Recomputes every cell from results/results_fresh_v110.csv.gz and compares it with:
 - the simulation report's summary table (win %, mean final Resistance, MPAJA %; one decimal),
 - the simulation report's per-policy table (whole percent; the search-player column is historical). Rounding is half up.,
-- the level table in the rules and the force136_v1 README (whole percent),
+- the level table in the force136_v1 README (whole percent),
 - the summary table's 95% intervals: whole-seed bootstrap, 10,000 resamples, random.Random(33745) per level,
   2.5th and 97.5th percentiles, one decimal,
 - the stress-policy table: wins / games per policy from results/results_exploits_v110.json,
@@ -64,8 +64,7 @@ for p in POLS:
     line=re.search(r'^\| '+p+r' \| (\d+)% \| (\d+)% \| (\d+)% \| (\d+)% \| (\d+)% \|',rep,re.M)
     if not line:bad.append(f'report per-policy: no row for {p}');continue
     for k,l in enumerate(LEVELS):check(f'report per-policy {p}/{l}',line.group(k+1),fmt(cell(l,p)[0],0))
-for name,path,labels in (('rules',os.path.join(PKG,'print','Force_136_v1_Rules.md'),{'recruit':'Recruit','agent':'Agent','veteran':'Veteran','legend':'Legend','mastermind':'Mastermind'}),
-                         ('README',os.path.join(PKG,'README.md'),None)):
+for name,path,labels in (('README',os.path.join(PKG,'README.md'),None),):   # the rules booklet prints no win rates (v1.1 cleanup)
     text=open(path).read()
     for l in LEVELS:
         line=re.search(r'^\| '+l.capitalize()+r' \|[^\n]*\| (\d+)% \|$',text,re.M)

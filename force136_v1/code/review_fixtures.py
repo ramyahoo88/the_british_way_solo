@@ -208,8 +208,10 @@ passed('A4 British J15: red on a tie and in an empty New Village; British J12: h
 # P1: the flowchart must not forbid an Event-box Pass; D1: the level footnote must not say "before every move".
 svg=(PR/'turn_flow.svg').read_text()
 assert 'Never the Event box' not in svg and 'Otherwise never execute the Event.' in svg
-assert 'before every move' not in rules and 'whenever it acts first on a card' in rules
-passed('P1/D1 print: flowchart says "Otherwise never execute the Event."; the lookahead footnote says when it previews')
+readme=' '.join((Path(HERE).parent/'README.md').read_text().split())
+assert 'before every move' not in rules and 'whenever Japan acts first on a card' in readme
+assert 'simulat' not in rules.lower() and 'computer' not in rules.lower()          # v1.1 cleanup: the booklet is rules only
+passed('P1/D1 print: flowchart says "Otherwise never execute the Event."; lookahead wording correct; rules booklet free of simulation text')
 # ---------------------------------------------------------------- v1.1: step 4.2, J4 and J25 as second to act
 def ev_setup(cls,seed,j,japan):
     g=cls(seed);g.board=new_board();b=g.board

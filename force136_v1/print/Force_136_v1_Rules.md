@@ -157,21 +157,19 @@ Victory follows the normal rules, checked only at the final Propaganda. Force 13
 
 ## 9. Levels
 
-| Level | Change | Force 136 win rate* |
-|---|---|---|
-| Recruit | Force 136 never Raids | 40% |
-| Agent | Standard rules | 63% |
-| Veteran | Resistance starts at 4 | 72% |
-| Legend | Resistance starts at 4, and +1 Resistance after each nonfinal Propaganda | 80% |
-| Mastermind | Resistance starts at 6, and +2 Resistance after each nonfinal Propaganda | 90% |
+| Level | Change |
+|---|---|
+| Recruit | Force 136 never Raids |
+| Agent | Standard rules |
+| Veteran | Resistance starts at 4 |
+| Legend | Resistance starts at 4, and +1 Resistance after each nonfinal Propaganda |
+| Mastermind | Resistance starts at 6, and +2 Resistance after each nonfinal Propaganda |
 
-\*Against six computer Japan policies in 6,000 simulated games per level on fresh seeds, never used for tuning. A strong human Japan player should do better than these policies. Start at Agent and move up after two wins in a row. Mastermind is for Japan players who have learned the bot: a computer Japan that previews the bot's reply whenever it acts first on a card beats Agent most of the time (section 11).
+Start at Agent and move up after two wins in a row. Mastermind is for Japan players who have learned the bot.
 
 At Recruit, skip Raid wherever it appears in a Special Activity list (section 5) and go on to the next choice. The Legend and Mastermind bonus comes after the Resistance phase and the Zipper placement; it does not move the Zipper and never applies at the final Propaganda.
 
 ## 10. Worked example: the opening
-
-*From a simulated game; the Japanese choices are one computer policy's.*
 
 **Card 1 (J22), first eligible.** The card's icon is Kill Traitors. Perak and Johore each have red and exactly 1 Police; Perak also has Force 136, so its Police goes. Force 136 draws Directive 8, *Radio from the ridge*. The Op & SA box is free, so it goes down PLACE → INTEL → AMBUSH → TRAIN → CONTACT. PLACE qualifies: one Force 136 marker is Available.
 
@@ -190,32 +188,8 @@ Japan then takes the Event and plays its Japanese side, so every Force 136 marke
 
 Gather still could not reveal 2 chits, so the Special Activity is Raid. Perak's last Underground red goes to Pahang and sabotages Perak–Pahang–Selangor, the first clear railway on the list. No Underground guerrilla is left at the Perak Cache, so the second Raid can only make a majority: one Active red moves into empty Selangor.
 
-## 11. Design notes
-
-- **Why only J4 and J25?** For v1.1 every Event was retested against the corrected Japan, in paired games (the same seed with and without the Event): 1,536 games per Event and choice, then 6,000 fresh games for each promising one, and 6,000 more for those still ahead.
-
-    - Taken by the first player to act, every Event lowered the win rate, by 1.5 to 26 points in the games where the choice arose, because Japan then takes the Op & SA box. Taking an Event only to keep it from Japan was no better.
-    - Taken by the second player, in place of a Limited Operation, only J4 and J25 gained in both fresh runs (J4: +4.3 and +4.1 points where the choice arose; J25: +3.0 and +2.1). J10 and J23 did not repeat their first gains. J26 gained in both runs but not clearly, comes up in about 6% of games, and would need its own targeting rule.
-    - The two together add 0.8 to 1.7 points at every level on 6,000 further games per level, and do not hurt against the lookahead Japan.
-
-    Both are cheap to check: J4 counts the spaces with both Force 136 and a Jungle Camp, and J25 is a CONTACT turn.
-
-- **Why PLACE first?** Getting the Available Force 136 marker onto the map is worth more than anything else the bot can do. In early tests, putting it first on Limited turns raised wins from 8% to 34%.
-- **Why AMBUSH and INTEL early?** A revealed chit scores at the next Propaganda. A successful Ambush roll sends a unit to Kuala Lumpur for +1 Resistance; rolling at a good shot before removing Police was worth about 5 points. Decks led by AMBUSH, or by INTEL then AMBUSH, won 54–56%. Decks led by INTEL without AMBUSH next won 30–39%, and decks led by SUPPLY or TRAIN won 8–28%.
-- **How exploitable is it?** Like any priority bot, Force 136 is predictable. The strongest computer Japan tested, whenever it acts first on a card, previews the bot's reply to each of its 16 best candidate moves, using the bot's real procedures with randomly drawn Directive cards. It strips Cache guards with Reprisal and Assault right after the bot's Gathers and Ambushes have made them Active. Against it Agent wins about 16%, Legend 28% and Mastermind 60% (128 games each). The same opponent also holds a one-step search player, which has no fixed priorities, to 23%, so most of its edge appears to be strong Japanese play rather than knowledge of the bot. Rules meant to guard the Caches made the bot weaker against every opponent, so the levels carry the difference instead.
-- **Why re-place Active guerrillas in Train?** Late in a game every guerrilla can be on the map, mostly Active. Taking one from another space comes first because it also builds up the F136 spaces. When no space can give one, re-placing an Active guerrilla in the Train space turns it Underground again for the next Ambush or Gather. Added in v1.0.1, it was worth about 5 points in 6,000 paired games, against every Japan policy.
-- **Why does Raid matter?** Raid turns caches into attacks and majorities. Removing it (Recruit) drops the bot by about 22 points.
-- **What the cards change:**
-    - The Limited first choice: AMBUSH on Directives 1–3, 6 and 7; TRAIN on 4, 5, 8 and 9.
-    - Whether INTEL is tried before AMBUSH (6–8). This matters when an Ambush is useful but leaves Gather short and a Sabotage or Contact would not.
-    - On Directive 9 only, Train + Supply ahead of INTEL.
-
-    A SUPPLY goal placed next to TRAIN acts exactly like TRAIN, because Train's first Special Activity is Supply, so the other cards don't list it. The mix makes the bot less predictable at almost no cost: a mixed deck scored within one point of the best single order.
-
-## 12. Sources and status
+## 11. Sources
 
 Rules source: GMT Games, *The British Way: Enemy of My Enemy*, Japanese Occupation rulebook (2026) and player aid cards. Card texts were checked against the Event card faces in the Vassal module, version 3.1.1. The physical game and official corrections take precedence. This is an independent fan variant, not a GMT publication. No publisher text, maps or artwork are included.
 
-Railway adjacency follows the map (rule 1.3.6). At the northern corner the simulations counted only the Province on each Thailand border. Counting the Provinces at its ends too, the reading both reviews favour, cost Agent about 0.35 points. Either works; the printed rates assume the first.
-
-Status: simulation-tested and not yet tabletop-tested. The simulation report explains the model and its limits.
+Railway adjacency follows the map (rule 1.3.6). At the northern corner, a Thailand railway can also be read as adjacent to the Provinces that meet the end of its border (Perak for Thailand–Kedah★ and Thailand–Kelantan★; Kedah and Kelantan for Thailand–Perak). Either reading works with these rules.

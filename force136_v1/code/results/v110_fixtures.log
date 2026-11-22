@@ -13,7 +13,7 @@ PASS F5 Pass: Event-box Pass is legal and the rules, reference and cards no long
 PASS A1 Food Shortage: Japan removes the Underground guerrilla, not the Active one (both bots)
 PASS A2/A3 Reset: the Kempeitai stays with Force 136 in Perak; the J25 marker returns beside it (Japan's choice)
 PASS A4 British J15: red on a tie and in an empty New Village; British J12: highest Population, then no Terror
-PASS P1/D1 print: flowchart says "Otherwise never execute the Event."; the lookahead footnote says when it previews
+PASS P1/D1 print: flowchart says "Otherwise never execute the Event."; lookahead wording correct; rules booklet free of simulation text
 PASS 4.2 J4: taken only as second to act and only if it scores (+1 per F136 Camp space); never as first player or on other cards
 PASS 4.2 J25: Contact places the Available marker, then the CONTACT Special Activity; both bots end on the same board
 PASS 4.2 print: rules, flowchart and reference/cards name J4 and J25

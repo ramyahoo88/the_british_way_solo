@@ -229,7 +229,7 @@ def main():
     cards=chrome_pdf(build_cards(),OUT/'Force_136_v1_Cards.pdf')
     sheet=chrome_pdf(build_sheet(),OUT/'Force_136_v1_Record_Sheet.pdf')
     w=PdfWriter()
-    for p in (rules,ref,cards,sheet):
+    for p in (rules,ref,cards):                 # the record sheet stays a separate file
         for pg in PdfReader(str(p)).pages:w.add_page(pg)
     with open(OUT/'Force_136_v1_Print_and_Play.pdf','wb') as f:w.write(f)
     chrome_pdf(build_doc('Force_136_v1_Sim_Report.md','Force 136 v1.1 simulation report'),OUT/'Force_136_v1_Sim_Report.pdf')
