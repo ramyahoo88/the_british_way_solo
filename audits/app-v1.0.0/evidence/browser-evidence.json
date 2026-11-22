@@ -1,0 +1,400 @@
+{
+  "date": "2026-11-21 America/Chicago",
+  "production": "https://solo-table.pages.dev/games/force136/",
+  "appVersion": "1.0.0",
+  "rulesVersion": "1.1",
+  "checks": [
+    {
+      "name": "nine unique cards in a cycle",
+      "pass": true
+    },
+    {
+      "name": "Undo shuffle restores ninth card",
+      "pass": true
+    },
+    {
+      "name": "redraw restores identical tenth card",
+      "pass": true
+    },
+    {
+      "name": "Stockpile Limited uses Train then Ambush without SA",
+      "pass": true
+    },
+    {
+      "name": "reload restores card, Limited preference, notes and Undo",
+      "pass": true
+    },
+    {
+      "name": "Undo note edit after reload",
+      "pass": true
+    },
+    {
+      "name": "Finish disables repeated discard",
+      "pass": true
+    },
+    {
+      "name": "import applies reviewed current card and notes",
+      "pass": true
+    },
+    {
+      "name": "Undo import restores finished card state",
+      "pass": true
+    },
+    {
+      "name": "Recruit card reminder excludes Raid",
+      "pass": true
+    },
+    {
+      "name": "Mastermind starts at six with nonfinal bonus timing",
+      "pass": true
+    },
+    {
+      "name": "injected damaged primary restores twelve-draw backup",
+      "pass": true
+    },
+    {
+      "name": "recovered backup can advance and persist",
+      "pass": true
+    },
+    {
+      "name": "390px layout fits, Draw and selector visible",
+      "pass": true
+    },
+    {
+      "name": "Directive 5 full priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 5 Limited priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 7 full priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 7 Limited priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 2 full priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 2 Limited priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 3 full priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 3 Limited priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 9 full priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 9 Limited priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 1 full priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 1 Limited priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 4 full priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 4 Limited priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 8 full priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 8 Limited priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 6 full priorities match print",
+      "pass": true
+    },
+    {
+      "name": "Directive 6 Limited priorities match print",
+      "pass": true
+    },
+    {
+      "name": "browser winner 18/0/0",
+      "pass": true
+    },
+    {
+      "name": "browser winner 18/1/2",
+      "pass": true
+    },
+    {
+      "name": "browser winner 19/2/2",
+      "pass": true
+    },
+    {
+      "name": "browser winner 19/1/2",
+      "pass": true
+    },
+    {
+      "name": "browser winner 20/4/0",
+      "pass": true
+    },
+    {
+      "name": "browser winner 17/0/3",
+      "pass": true
+    },
+    {
+      "name": "browser winner 0/4/3",
+      "pass": true
+    },
+    {
+      "name": "rules search exposes J27 procedures",
+      "pass": true
+    },
+    {
+      "name": "empty search explains how to recover",
+      "pass": true
+    },
+    {
+      "name": "all five levels and both printed table columns retained",
+      "pass": true
+    },
+    {
+      "name": "32-draw table session reaches fourth cycle",
+      "pass": true
+    },
+    {
+      "name": "history contains 32 revealed cards only",
+      "pass": true
+    },
+    {
+      "name": "damaged import rejected with deck intact",
+      "pass": true
+    },
+    {
+      "name": "other tab write locks stale drawing controls",
+      "pass": true
+    },
+    {
+      "name": "reload after conflict restores shared latest draw",
+      "pass": true
+    },
+    {
+      "name": "downloaded offline HTML matches reviewed build",
+      "pass": true
+    },
+    {
+      "name": "served rules PDF matches pinned five-page booklet",
+      "pass": true
+    },
+    {
+      "name": "live catalog retains eleven companions including Force 136",
+      "pass": true
+    }
+  ],
+  "passed": 50,
+  "failures": [],
+  "cards": [
+    {
+      "id": 5,
+      "full": [
+        "PLACE",
+        "AMBUSH",
+        "INTEL",
+        "TRAIN",
+        "CONTACT"
+      ],
+      "limited": [
+        "PLACE",
+        "TRAIN",
+        "AMBUSH",
+        "CONTACT"
+      ]
+    },
+    {
+      "id": 7,
+      "full": [
+        "PLACE",
+        "INTEL",
+        "AMBUSH",
+        "TRAIN",
+        "CONTACT"
+      ],
+      "limited": [
+        "PLACE",
+        "AMBUSH",
+        "TRAIN",
+        "CONTACT"
+      ]
+    },
+    {
+      "id": 2,
+      "full": [
+        "PLACE",
+        "AMBUSH",
+        "INTEL",
+        "TRAIN",
+        "CONTACT"
+      ],
+      "limited": [
+        "PLACE",
+        "AMBUSH",
+        "TRAIN",
+        "CONTACT"
+      ]
+    },
+    {
+      "id": 3,
+      "full": [
+        "PLACE",
+        "AMBUSH",
+        "INTEL",
+        "TRAIN",
+        "CONTACT"
+      ],
+      "limited": [
+        "PLACE",
+        "AMBUSH",
+        "TRAIN",
+        "CONTACT"
+      ]
+    },
+    {
+      "id": 9,
+      "full": [
+        "PLACE",
+        "AMBUSH",
+        "SUPPLY",
+        "INTEL",
+        "TRAIN",
+        "CONTACT"
+      ],
+      "limited": [
+        "PLACE",
+        "TRAIN",
+        "AMBUSH",
+        "CONTACT"
+      ]
+    },
+    {
+      "id": 1,
+      "full": [
+        "PLACE",
+        "AMBUSH",
+        "INTEL",
+        "TRAIN",
+        "CONTACT"
+      ],
+      "limited": [
+        "PLACE",
+        "AMBUSH",
+        "TRAIN",
+        "CONTACT"
+      ]
+    },
+    {
+      "id": 4,
+      "full": [
+        "PLACE",
+        "AMBUSH",
+        "INTEL",
+        "TRAIN",
+        "CONTACT"
+      ],
+      "limited": [
+        "PLACE",
+        "TRAIN",
+        "AMBUSH",
+        "CONTACT"
+      ]
+    },
+    {
+      "id": 8,
+      "full": [
+        "PLACE",
+        "INTEL",
+        "AMBUSH",
+        "TRAIN",
+        "CONTACT"
+      ],
+      "limited": [
+        "PLACE",
+        "TRAIN",
+        "AMBUSH",
+        "CONTACT"
+      ]
+    },
+    {
+      "id": 6,
+      "full": [
+        "PLACE",
+        "INTEL",
+        "AMBUSH",
+        "TRAIN",
+        "CONTACT"
+      ],
+      "limited": [
+        "PLACE",
+        "AMBUSH",
+        "TRAIN",
+        "CONTACT"
+      ]
+    }
+  ],
+  "phoneGeometry": {
+    "drawBottom": 364,
+    "scrollWidth": 375,
+    "selectorBottom": 429,
+    "width": 375
+  },
+  "findings": {
+    "F1": {
+      "resistance": 0,
+      "final": false,
+      "result": "Force 136 wins. Japan loses."
+    },
+    "F2": {
+      "damagedAfter": {
+        "notice": "The saved deck could not be opened. Import a backup or start a new game. The damaged save has been left in place.",
+        "status": "Saved on this device.",
+        "stored": "{\"primaryIsValidJSON\":true,\"draws\":0,\"level\":\"agent\"}"
+      },
+      "quotaBefore": "Autosave is unavailable. Your deck still works here; export a save before closing.",
+      "quotaAfter": {
+        "notice": "Autosave is unavailable. Your deck still works here; export a save before closing.",
+        "status": "Saved on this device.",
+        "stored": "{\"primaryIsValidJSON\":true,\"draws\":14,\"level\":\"legend\"}"
+      }
+    },
+    "F3": {
+      "clientHeight": 810,
+      "dialogTop": 16,
+      "scrollHeight": 1125,
+      "scrollTop": 145,
+      "title": "Raid",
+      "titleTop": -67.8125
+    }
+  },
+  "offline": {
+    "downloadBytes": 82347,
+    "sha256": "53918fa5acd805b971bdcdab64ed749f1536c26b76e3eb9ef9fe557ebda21fc3",
+    "fileLaunch": "Not tested: browser URL policy allows only HTTP/HTTPS; no workaround attempted"
+  },
+  "rulesPdf": {
+    "bytes": 300670,
+    "sha256": "de13a6ff38cbdea686d6fc0981d7b1906c500b272f67c7bae8567a6928a28e01"
+  }
+}

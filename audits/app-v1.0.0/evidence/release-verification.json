@@ -1,0 +1,245 @@
+{
+  "files": [
+    {
+      "path": "web/force136/README.md",
+      "match": true,
+      "sha": "4d2177f56dc9b651c55e48a3456e8d50713ca2bb",
+      "sha256": "bf09d68e916d1a93b89206f7f6ca4c297317d507540b4fba372ba15e2c38ca0d"
+    },
+    {
+      "path": "web/force136/build.py",
+      "match": true,
+      "sha": "503ef39c7d36f9e444cd0aa11e8f11beaf043c48",
+      "sha256": "18a4828805141b00bdd27e86e19bd13fe4b3f74a47881da6e5ad5b3e9a6db5b2"
+    },
+    {
+      "path": "web/force136/deployment/build_worker.py",
+      "match": true,
+      "sha": "16f11b0670f6519512f772ea1cf8f56af80cafae",
+      "sha256": "81b440832797af61c95a3d7a5b41890d648e9d0538d0c873faf628b779cf86bb"
+    },
+    {
+      "path": "web/force136/deployment/headers.txt",
+      "match": true,
+      "sha": "a3ec8269a8fa5c24601c19b010b986fc7b4c777b",
+      "sha256": "00197d2e4bd021b8391278f97f630cf9dc51718496c0f06b77465be56851c063"
+    },
+    {
+      "path": "web/force136/deployment/home_after.html",
+      "match": true,
+      "sha": "9da9f0e5525fb1e978685f75e7dc94324bf0105a",
+      "sha256": "3cafdf1b0def60de93575d0de9fcea03f92558da2f07ee085938570d1932b3a9"
+    },
+    {
+      "path": "web/force136/deployment/home_before.html",
+      "match": true,
+      "sha": "ab5c8e8697bf00c104daeb9534fda92b894f6fb8",
+      "sha256": "b2485b2e59fd0e623dc6bf1f1b3d04270a2a0103d461264820734300d9fb0f6f"
+    },
+    {
+      "path": "web/force136/deployment/pages-worker.mjs",
+      "match": true,
+      "sha": "ef1ec13b6df9b5c7f51f4abd63a094312a123595",
+      "sha256": "c7e7b8c82c9ee37a5e2ac3779e42829b1306efc27c599c40a64be4ed3ea944fe"
+    },
+    {
+      "path": "web/force136/deployment/previous_manifest.json",
+      "match": true,
+      "sha": "8346c30b18daee206154b1456820ffea5d548564",
+      "sha256": "1401b4db559afa2cdd33207ca37b64245ab56cb85609911697470af95fc00ba7"
+    },
+    {
+      "path": "web/force136/deployment/routes.json",
+      "match": true,
+      "sha": "e12038829398a7e258b97e4b6cf3ea69a8b02360",
+      "sha256": "997247ea521b929d634b78ac7e201e61b0cc414a848e6c0c07e4d9253243b014"
+    },
+    {
+      "path": "web/force136/deployment/worker-template.mjs",
+      "match": true,
+      "sha": "8fd299cbd48a63d39dad6e7002cf551eb422f866",
+      "sha256": "dcc23e60212131dc6bc13a377b42e48469148941aefcba8c6582c9cb30fbd4de"
+    },
+    {
+      "path": "web/force136/dist/Force_136_Digital_Deck.html",
+      "match": true,
+      "sha": "fd48aa239fcac975306948a66d19a09481118700",
+      "sha256": "53918fa5acd805b971bdcdab64ed749f1536c26b76e3eb9ef9fe557ebda21fc3"
+    },
+    {
+      "path": "web/force136/dist/Force_136_Rules.pdf",
+      "match": true,
+      "sha": "d5b6a5bf878f815d47c932c4f58ea2787e8a9abe",
+      "sha256": "de13a6ff38cbdea686d6fc0981d7b1906c500b272f67c7bae8567a6928a28e01"
+    },
+    {
+      "path": "web/force136/dist/index.html",
+      "match": true,
+      "sha": "fd48aa239fcac975306948a66d19a09481118700",
+      "sha256": "53918fa5acd805b971bdcdab64ed749f1536c26b76e3eb9ef9fe557ebda21fc3"
+    },
+    {
+      "path": "web/force136/release/catalog-checks.json",
+      "match": true,
+      "sha": "67a687bb34a5b160fbb9db04d4b48668e9f0b768",
+      "sha256": "0ae9dc2fc2b068d88fab708ed7bf27dc2f6c4da40820d47b0b40f100320cc72b"
+    },
+    {
+      "path": "web/force136/release/live-verification.json",
+      "match": true,
+      "sha": "801463aac0110385fdae6dda7ad4aaec1be13804",
+      "sha256": "e93832e0d206a4c4d289633451961925f755a50c7fec100fdc1cc95133bc495c"
+    },
+    {
+      "path": "web/force136/release/verification.json",
+      "match": true,
+      "sha": "c941a9d96974c2c328fc3fc6be005ae49d7d9e8f",
+      "sha256": "d4b6bf612f5fe1eebf28a1fc29bd9b4515c086d42709016a00de2491a31a8168"
+    },
+    {
+      "path": "web/force136/requirements.txt",
+      "match": true,
+      "sha": "ee9e4575aaa90676e6b0be676b18f4f768ba7827",
+      "sha256": "8edae1af85508a7148954004426c5679379d806fdb3597475a07706360936766"
+    },
+    {
+      "path": "web/force136/source_data/Force_136_Rules.pdf",
+      "match": true,
+      "sha": "d5b6a5bf878f815d47c932c4f58ea2787e8a9abe",
+      "sha256": "de13a6ff38cbdea686d6fc0981d7b1906c500b272f67c7bae8567a6928a28e01"
+    },
+    {
+      "path": "web/force136/source_data/cards.json",
+      "match": true,
+      "sha": "7676314fba6cd02e784de606632a12e534b39e87",
+      "sha256": "d1142551ab9e7c86f5e61c9f2765be314652f62cb61c0182447500eab4da3e1a"
+    },
+    {
+      "path": "web/force136/source_data/provenance.json",
+      "match": true,
+      "sha": "6bb679eb489d2498903c3dae28ca9d2aa9c38454",
+      "sha256": "9977179480a7415df7194b3d5853effbf6c5dab65b46c9f47eede74f73de9ddf"
+    },
+    {
+      "path": "web/force136/source_data/rules.md",
+      "match": true,
+      "sha": "bd3d2a6a6079c95474fa5caf439f03ad4c2a4480",
+      "sha256": "87aee2713a113d79b035ffb1466d637837bfff1132fbec5fcbc44de48645323e"
+    },
+    {
+      "path": "web/force136/source_data/turn_flow.svg",
+      "match": true,
+      "sha": "a0e2cc75a0b15e6eb4ecdb207e493d2a611aa9a5",
+      "sha256": "e3fbc66a39efb01c70ce8f25e052ac5ab0b51b0c9868a1d37a8c42d2b9394e4b"
+    },
+    {
+      "path": "web/force136/src/core.js",
+      "match": true,
+      "sha": "989232b546f11178635049b146cc8a1f1948c961",
+      "sha256": "a8c80c0230f7705daa526903053fc02a332641cb641ec86b6c548ccf41539e88"
+    },
+    {
+      "path": "web/force136/src/styles.css",
+      "match": true,
+      "sha": "1a95217542d36195f0e88179c48ba09886583d0f",
+      "sha256": "99925db05e93f6003b1f2545fbf6c4e0fae03bc0042b77a53c3db43aa3774f2c"
+    },
+    {
+      "path": "web/force136/src/template.html",
+      "match": true,
+      "sha": "32ebfa73b8ddc30d2e08aeccb84920672366e27f",
+      "sha256": "652e9b3bf1cf061d306b868478f3cb9bf53253a02ca766e3e3695ef2cdf26a87"
+    },
+    {
+      "path": "web/force136/src/ui.js",
+      "match": true,
+      "sha": "4660779a3108a0e0e8d6a4cb9131c106e5a9690d",
+      "sha256": "8f20155d2b58faaf7ddf77c85a5f3191646c7eb381a3208349164bfcb67b3bc2"
+    },
+    {
+      "path": "web/force136/tests/browser-qa.js",
+      "match": true,
+      "sha": "1727dc1a0b1b8062e7ab4b41be35691ca839ea94",
+      "sha256": "0f8fc702eee3515c1919e1b93fad2637c7c231a68f182c9ecaa3122553fccaf4"
+    },
+    {
+      "path": "web/force136/tests/browser-results.json",
+      "match": true,
+      "sha": "61b51329234fd9968d893243912604fe1f804c54",
+      "sha256": "f12dc970251f64c67cd7c9163e05bb2d80e3832e1d0826c313237e40203c5c61"
+    },
+    {
+      "path": "web/force136/tests/build-results.json",
+      "match": true,
+      "sha": "b52aa41a8067bb52aac8823d453b6efad8d04821",
+      "sha256": "69551e976113bf8a33796f317a3dbca14d33c5e64a45586ef7875bd9440fbefc"
+    },
+    {
+      "path": "web/force136/tests/check_build.py",
+      "match": true,
+      "sha": "460dfe9e3229b0b25f4bc8c41f85daf972c987d9",
+      "sha256": "aa7085ea5a247e28f447c27aa9b2d2256def5b19611cbd201c437dd56fc40de5"
+    },
+    {
+      "path": "web/force136/tests/core.test.cjs",
+      "match": true,
+      "sha": "f18177ef38a5a81c148f66738be9dc80f168ba91",
+      "sha256": "a68c09714ee0c6a713932e6bbce6acf5df794a8faff143875bc8ac42e0261e68"
+    },
+    {
+      "path": "web/force136/tests/results.txt",
+      "match": true,
+      "sha": "35b73e31ddd3a36ee592bbb56f0f235155d8b67f",
+      "sha256": "3aea025ebd739c066b6e6790a9bbec9e7bf8316541cb553109bdbacdd242a554"
+    },
+    {
+      "path": "web/force136/tests/worker.test.mjs",
+      "match": true,
+      "sha": "c94ab61fe954efd0301538351cc8b799d7e1d1d5",
+      "sha256": "8501407852454c79e7dbd31d6ab05309eb01c94a401bc1632cd5394d0dd9c08f"
+    }
+  ],
+  "remote_all_match": true,
+  "before": {
+    "force136_app/dist/index.html": "53918fa5acd805b971bdcdab64ed749f1536c26b76e3eb9ef9fe557ebda21fc3",
+    "force136_app/dist/Force_136_Digital_Deck.html": "53918fa5acd805b971bdcdab64ed749f1536c26b76e3eb9ef9fe557ebda21fc3",
+    "force136_app/dist/Force_136_Rules.pdf": "de13a6ff38cbdea686d6fc0981d7b1906c500b272f67c7bae8567a6928a28e01",
+    "force136_app/deployment/pages-worker.mjs": "c7e7b8c82c9ee37a5e2ac3779e42829b1306efc27c599c40a64be4ed3ea944fe"
+  },
+  "after": {
+    "force136_app/dist/index.html": "53918fa5acd805b971bdcdab64ed749f1536c26b76e3eb9ef9fe557ebda21fc3",
+    "force136_app/dist/Force_136_Digital_Deck.html": "53918fa5acd805b971bdcdab64ed749f1536c26b76e3eb9ef9fe557ebda21fc3",
+    "force136_app/dist/Force_136_Rules.pdf": "de13a6ff38cbdea686d6fc0981d7b1906c500b272f67c7bae8567a6928a28e01",
+    "force136_app/deployment/pages-worker.mjs": "c7e7b8c82c9ee37a5e2ac3779e42829b1306efc27c599c40a64be4ed3ea944fe"
+  },
+  "byte_identical_rebuild": true,
+  "commands": [
+    {
+      "args": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "build.py"
+      ],
+      "exit": 0,
+      "stdout": "Built 82347 bytes; 9 Directives; 11 rule sections.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "deployment/build_worker.py"
+      ],
+      "exit": 0,
+      "stdout": "Built Pages function bundle: 499879 bytes.\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/check_build.py"
+      ],
+      "exit": 0,
+      "stdout": "{\n  \"source_inputs_verified\": 3,\n  \"cards_verified\": 9,\n  \"full_rule_sections\": 11,\n  \"html_ids_unique\": 66,\n  \"remote_runtime_dependencies\": 0,\n  \"byte_identical_html_rebuild\": true\n}\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "cardIds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "fullGoals": {
+    "1": [
+      "PLACE",
+      "AMBUSH",
+      "INTEL",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "2": [
+      "PLACE",
+      "AMBUSH",
+      "INTEL",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "3": [
+      "PLACE",
+      "AMBUSH",
+      "INTEL",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "4": [
+      "PLACE",
+      "AMBUSH",
+      "INTEL",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "5": [
+      "PLACE",
+      "AMBUSH",
+      "INTEL",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "6": [
+      "PLACE",
+      "INTEL",
+      "AMBUSH",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "7": [
+      "PLACE",
+      "INTEL",
+      "AMBUSH",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "8": [
+      "PLACE",
+      "INTEL",
+      "AMBUSH",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "9": [
+      "PLACE",
+      "AMBUSH",
+      "SUPPLY",
+      "INTEL",
+      "TRAIN",
+      "CONTACT"
+    ]
+  },
+  "Limited": {
+    "1": [
+      "PLACE",
+      "AMBUSH",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "2": [
+      "PLACE",
+      "AMBUSH",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "3": [
+      "PLACE",
+      "AMBUSH",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "4": [
+      "PLACE",
+      "TRAIN",
+      "AMBUSH",
+      "CONTACT"
+    ],
+    "5": [
+      "PLACE",
+      "TRAIN",
+      "AMBUSH",
+      "CONTACT"
+    ],
+    "6": [
+      "PLACE",
+      "AMBUSH",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "7": [
+      "PLACE",
+      "AMBUSH",
+      "TRAIN",
+      "CONTACT"
+    ],
+    "8": [
+      "PLACE",
+      "TRAIN",
+      "AMBUSH",
+      "CONTACT"
+    ],
+    "9": [
+      "PLACE",
+      "TRAIN",
+      "AMBUSH",
+      "CONTACT"
+    ]
+  },
+  "sections": [
+    "1. Overview",
+    "2. Setup",
+    "3. Terms",
+    "4. Force 136's turn",
+    "5. Goals",
+    "6. Procedures",
+    "7. Between turns",
+    "8. Winning",
+    "9. Levels",
+    "10. Worked example: the opening",
+    "11. Sources"
+  ],
+  "levelTable": [
+    [
+      "Level",
+      "Change"
+    ],
+    [
+      "Recruit",
+      "Force 136 never Raids"
+    ],
+    [
+      "Agent",
+      "Standard rules"
+    ],
+    [
+      "Veteran",
+      "Resistance starts at 4"
+    ],
+    [
+      "Legend",
+      "Resistance starts at 4, and +1 Resistance after each nonfinal Propaganda"
+    ],
+    [
+      "Mastermind",
+      "Resistance starts at 6, and +2 Resistance after each nonfinal Propaganda"
+    ]
+  ],
+  "goals": [
+    "PLACE",
+    "AMBUSH",
+    "INTEL",
+    "SUPPLY",
+    "TRAIN",
+    "CONTACT"
+  ],
+  "procedures": [
+    "contact",
+    "train",
+    "ambush",
+    "sabotage",
+    "gather",
+    "supply",
+    "raid"
+  ],
+  "runtimeScriptUrls": [],
+  "externalStyles": [],
+  "rulesPDFPages": 5,
+  "pinnedPaperBlobs": [
+    {
+      "path": "force136_v1/print/Force_136_v1_Rules.md",
+      "sha": "bd3d2a6a6079c95474fa5caf439f03ad4c2a4480",
+      "match": true
+    },
+    {
+      "path": "force136_v1/print/Force_136_v1_Rules.pdf",
+      "sha": "d5b6a5bf878f815d47c932c4f58ea2787e8a9abe",
+      "match": true
+    },
+    {
+      "path": "force136_v1/print/cards.json",
+      "sha": "7676314fba6cd02e784de606632a12e534b39e87",
+      "match": true
+    },
+    {
+      "path": "force136_v1/print/turn_flow.svg",
+      "sha": "a0e2cc75a0b15e6eb4ecdb207e493d2a611aa9a5",
+      "match": true
+    }
+  ]
+}
