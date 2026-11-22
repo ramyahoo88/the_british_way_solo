@@ -1,0 +1,24 @@
+--- a/force136_v1/code/engine.py
++++ b/force136_v1/code/engine.py
+@@ -464,6 +464,21 @@
+         elif j==10:
+             if S:self.resources=clamp(self.resources+2*self.count('new_village'))
+             else:self.resources-=self.resources//2
++        elif j==13 and not S:
++            # J13 changes eligibility to any MPAJA Guerrillas, not the British
++            # multi-space scope of a Limited Operation (rule 2.4.4). Each of its
++            # two Operations chooses one type, then resolves eligible spaces.
++            for _ in range(2):
++                sites=[s for s in ORDER if b[s]['red_u']]
++                rails=[s for s in sites if self.rail_choice(s,r)]
++                strikes=[s for s in sites if self.strike_option(s,'red')]
++                if rails:
++                    places=sorted(rails,key=lambda s:(DATA['rail_orders'][r].index(self.rail_choice(s,r)),ix(s)))
++                    self.rail(r,places,'red',False)
++                elif strikes:
++                    places=sorted(strikes,key=lambda s:self.strike_rank(s,'red'))
++                    self.strike(places,'red',extra=False)
++                else:break
+         elif j in [11,13]:
+             if S and j==11:
+                 for s in ORDER:
