@@ -8,6 +8,17 @@ remains the published independent actor.
 The physical base game, expansion, Event cards and player aids are required.
 The bot runs at the table without an application.
 
+
+## Digital Directive deck
+
+[Open Force 136 on Solo Table](https://solo-table.pages.dev/games/force136/) or
+[download the offline app](https://solo-table.pages.dev/downloads/force136).
+The optional companion draws the nine Directives, provides the v1.1 rules and
+reference, and keeps deck saves, Undo and notes. Play Japan on your physical
+board using your official Event cards, pieces and player aids.
+
+[App source, build instructions and validation](web/force136/README.md)
+
 ## Reviews of Claude's redesign
 
 These reviews examine the versions on the

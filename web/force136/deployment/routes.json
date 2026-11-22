@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "include": [
+    "/",
+    "/index.html",
+    "/games/force136",
+    "/games/force136/*",
+    "/downloads/force136"
+  ],
+  "exclude": []
+}

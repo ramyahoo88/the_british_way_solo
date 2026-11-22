@@ -1,0 +1,10 @@
+{
+  "repository": "ramyahoo88/the_british_way_solo",
+  "sourceCommit": "370ae906270464be64a304d95e6ee7a509c9fc1c",
+  "rulesVersion": "1.1",
+  "inputs": {
+    "cards.json": "d1142551ab9e7c86f5e61c9f2765be314652f62cb61c0182447500eab4da3e1a",
+    "rules.md": "87aee2713a113d79b035ffb1466d637837bfff1132fbec5fcbc44de48645323e",
+    "turn_flow.svg": "e3fbc66a39efb01c70ce8f25e052ac5ab0b51b0c9868a1d37a8c42d2b9394e4b"
+  }
+}
