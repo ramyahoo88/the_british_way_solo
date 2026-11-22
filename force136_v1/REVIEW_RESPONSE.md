@@ -145,3 +145,16 @@ The user asked whether players would look poorly on a bot that never executes an
 | Package | J4 and J25 together on the 6,000 level games per level | +0.8 / +1.7 / +1.6 / +1.4 / +0.8 points (Recruit to Mastermind); against the lookahead Japan not worse |
 
 v1.1 adds rules section 4, step 2: if Japan has already acted on the card and the Event box is free, Force 136 plays the British side of J4 or J25 when it would do something. J4 adds 1 Resistance per space with Force 136 and a Jungle Camp; J25 is a Contact plus the CONTACT goal's Special Activity. Every other Event, and every Event as first player, is still left to Japan. The reference sheet, Directive cards and flowchart carry the step. Both bots, the tuning lab, the checker (coverage and two new mutants), the random-position test (J4 and J25 with Japan already acted), the legality check (J4's exact gain; Events only in the Event box; a new planted error) and three new fixtures cover it. All result tables were rerun.
+
+## GPT's audit of v1.1 (commit 127e34c) and its rulebook follow-up
+
+GPT's re-audit (`audits/v1.1/` on `main`) passed v1.1 with no required fix. On 6,000 fresh paired Agent games it measured +2.2 points for the Event step (95% +1.4 to +3.0), with J4 and J25 each positive where taken. Its follow-up checked the open readings against the rulebook. The resolutions below are documentation only; the bot, the engine and every result are unchanged, and no further simulations were run.
+
+| # | Finding | Resolution |
+|---|---|---|
+| U1 (cards) | The Directive-card reminder did not repeat that the Event box must be free. | The footer now reads "Japan acted first on J4 or J25 and the Event box is free". |
+| U2 (tests, optional) | A short mutation run can miss the 18–19 equal-Camp victory error; suggested a fixed fixture. | Not added: the full 16-seed run catches it, and the user closed testing for this release. |
+| F1 (model) | The engine runs J13's British side as two single-space Operations; rule 2.4.4 lets British Limited Operations use every eligible space. GPT's corrected 6,000-game trial keeps J13 negative. | Documented in the simulation report as a known narrow engine reading, with GPT's corrected figures. J13 stays out. |
+| F2 (model) | The correction moves the one-step search player's holdout result from 434 to 438 of 768. | Stated beside the J13 reading; the printed 56.5% is the uncorrected engine's. |
+| D1 (docs) | The card tips settle J2/J23 Sabotage stacking and J19's Japanese-side Gather. | Moved to "settled by the rulebook" with their sources; the rules' Gather procedure and reference now say the card allows one space and the bot uses the first. Train refresh, Gather and Special Activity timing are also listed as settled. |
+| R1 (model) | Both reviews favour the wider northern railway-corner reading; −0.35 points at Agent on 6,000 games. | The rules (section 12) and report state that the printed rates assume the narrower reading and give the measured effect; players may use either. |

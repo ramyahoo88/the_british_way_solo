@@ -134,7 +134,7 @@ def build_reference():
 </div><div>
 <p><span class='k'>Good shot:</span> cubes − Caches in and adjacent ≤ 3. <span class='k'>Exposed:</span> F136 with Kempeitai and no Camp (any F136 with Kempeitai under Japanese J22). <span class='k'>Majority:</span> more guerrillas than cubes.</p>
 <p><span class='k'>Sabotage:</span> F136 spaces in map order; at each, if it still has an Underground guerrilla next to a clear railway, activate one (red first) and sabotage the first such railway on the Railway list.</p>
-<p><span class='k'>Gather:</span> the F136 space revealing most chits (each needs an Underground guerrilla in its own space) › map order; reveal all, red first; then the next space (2; 3 with British J19; Japanese J19: later spaces reveal only their own chit). British J22: Gather does not activate.</p>
+<p><span class='k'>Gather:</span> the F136 space revealing most chits (each needs an Underground guerrilla in its own space) › map order; reveal all, red first; then the next space (2; 3 with British J19; Japanese J19: only the first space uses adjacent ones, later spaces reveal only their own chit). British J22: Gather does not activate.</p>
 <p><span class='k'>Supply:</span> choose Provinces with F136 + Camp, no Cache (2; 3 at Zipper 12+; no more than Caches Available): no Kempeitai › most guerrillas › highest Population › map order; then convert. British J8: after the F136 Provinces, one Province without F136 may fill an open slot (no extra slot). Japanese J8: roll each, 1–2 not converted. Japanese J27: remove Opposition from the chosen Province <em>with Opposition</em> that has the lowest Population › map order.</p>
 <p><span class='k'>Raid</span> (2 different destinations; 3 at Zipper 20; never at Recruit): next to a Cache source; source keeps 1 guerrilla and its majority; one colour, never into the other colour. ① Sabotage with 1 Underground ② Ambush with 1 Underground ③ Majority with the fewest (1–2, one source, Underground first). Ties: destination map order › source most guerrillas › source map order › red.</p>
 </div></div></div>"""
@@ -171,7 +171,7 @@ def card_html(c):
             f"<div class='name'>{html.escape(c['name'])}</div>"
             f"<div class='lbl'>Op &amp; Special Activity</div><ol class='goals'>{lis}</ol>"
             f"<div class='lbl'>Limited Operation</div><div class='lim'>{lim}</div>"
-            f"<div class='foot'>Japan acted first on J4 or J25: take the Event if it would do something (rules 4, step 2). Otherwise never execute the Event. Nothing qualifies: Pass in the leftmost free box. Discard after the turn.</div></div></div>")
+            f"<div class='foot'>Japan acted first on J4 or J25 and the Event box is free: take the Event if it would do something (rules 4, step 2). Otherwise never execute the Event. Nothing qualifies: Pass in the leftmost free box. Discard after the turn.</div></div></div>")
 
 BACK_CSS="""
 .back .inner{background:#2f3a22;align-items:center;justify-content:center;border-color:#1f2716}

@@ -97,7 +97,7 @@ The search player loses almost as badly, so most of the wide search's edge looks
 
 Committing to one kind of move is a poor way to beat the bot.
 
-**Map reading.** With GPT's alternative northern railway-corner adjacency, Agent wins 61.2% instead of 62.8% (holdout 1).
+**Map reading.** With the wider northern railway-corner adjacency, Agent wins 61.2% instead of 62.8% (holdout 1). On 6,000 fresh paired games GPT measured a smaller change, −0.35 points; see *Interpretations and limits*.
 
 **One more rule tested on the corrected Japan** (on v1.0.3). Because Kempeitai now stay with Force 136 markers after Redeploy, a variant moved every marker that shares a space with Kempeitai at Redeploy, not only exposed ones. It scored 60.5% against 60.0% on 768 development games: no gain, so the printed Redeploy rule stands.
 
@@ -225,26 +225,25 @@ A game gives Force 136 about 16 turns. A turn needs 2.2 goal checks on average, 
 
 ## Interpretations and limits
 
-- **Rules readings used by the bot:**
+- **Readings settled by the rulebook:**
 
-    - When none of the colour is Available, Train takes a guerrilla from another space, and as a last resort re-places an Active one in the Train space itself (1.4.1; its example names both).
-    - Gather reveals the chit in the activated guerrilla's own space.
-    - A Contact must place or move a marker.
-    - Ambush in Kuala Lumpur can only remove Police.
-    - Under the Japanese side of J19, only the first Gather space may use adjacent spaces.
-    - The Special Activity is chosen after the Operation, and its rolls, are resolved.
+    - When none of the colour is Available, Train takes a guerrilla from another space, or re-places one from the Train space itself back Underground (1.4.1; the example of play does both). Force 136 uses the second only as a last resort.
+    - Gather reveals the chit in each activated guerrilla's own space (4.2.2 and its example).
+    - A Special Activity may come before, during or after its Operation (4.1); Force 136 always chooses it after the Operation and its rolls.
     - Japan makes the choices in the Events it executes (5.1), including where the J25 marker returns.
-    - J4's British side adds 1 Resistance per space with a Force 136 marker and a Jungle Camp. J25's British side is a Contact plus one Special Activity; the bot chooses it as for the CONTACT goal.
+    - J4's British side adds 1 Resistance per space with a Force 136 marker and a Jungle Camp; J25's is a Contact, then any Special Activity (card texts). The bot chooses J25's Special Activity as for the CONTACT goal.
+    - Card tips: J2 and J23 may place Sabotage on a railway that already has it (the engine allows this), and J19's Japanese side lets Gather use adjacent guerrillas for only one selected space (Force 136 uses the first).
 
-- **Engine readings that remain uncertain:**
+- **Bot choices within the rules:** a Contact must place or move a marker, and Ambush in Kuala Lumpur only removes Police.
 
-    - J10's rounding: half the Resources lost, rounded down (7 becomes 4).
-    - J13's British side: the engine runs two single-space Limited Operations; the card might allow two multi-space ones. It affects only the Event study's J13 result; J13 is not one of the bot's Events.
-    - The northern railway corner: which spaces touch the Thailand railways (above: 1.6 points on 768 games).
-    - Sabotage placed on an already sabotaged railway by J2 or J23.
+- **Engine readings that remain open or known to be narrow:**
+
+    - J10's rounding: the card says to reduce Japan's Resources by half, rounding down. The engine rounds the amount removed (7 becomes 4), not what is left (which would give 3).
+    - J13's British side: the engine runs each of its two Limited Operations in one space, but rule 2.4.4 lets British Limited Operations use every eligible space. GPT's follow-up review (`audits/v1.1/`) corrected it and reran J13 on 6,000 games: still negative as first player (−11.3 points where taken) and as second (−3.0, interval −6.7 to +0.4), so it stays out. Force 136 never plays J13; the one-step search player can, and with the correction it wins 438 of the 768 holdout games (57.0%) instead of 434 (56.5%). The results here use the uncorrected engine.
+    - The northern railway corner: the model counts only the Province on each Thailand border. Both reviews favour the wider reading of rule 1.3.6, which also counts the Provinces meeting the end of that border. On 6,000 fresh paired Agent games it changed the win rate by −0.35 points (95% interval −0.75 to +0.05; GPT's follow-up). All published rates assume the narrower reading.
     - Japan never Passes.
 
-    No official clarification for these was found.
+    No official ruling was found for J10's rounding or the railway corner.
 
 - **Untested:** no physical playtest has been run, and turn time has not been measured. The win rates are conditional on this executor and these opponents.
 

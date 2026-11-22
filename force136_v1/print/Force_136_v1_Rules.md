@@ -108,7 +108,7 @@ Work through the F136 spaces in map order. At each, if it still has an Undergrou
 
 ### 6.5 Gather
 
-Choose the F136 space whose Gather would reveal the most chits; break ties by map order. A chit counts if it is concealed and an Underground guerrilla is in its own space, which must be the chosen space or adjacent to it. Reveal all of them, activating red before blue. Then choose the next F136 space the same way, up to the printed limit: 2 spaces, or 3 with the British side of J19. With the Japanese side of J19, only the first chosen space may use adjacent spaces; later spaces reveal only their own chit. With the British side of J22, Gather does not activate.
+Choose the F136 space whose Gather would reveal the most chits; break ties by map order. A chit counts if it is concealed and an Underground guerrilla is in its own space, which must be the chosen space or adjacent to it. Reveal all of them, activating red before blue. Then choose the next F136 space the same way, up to the printed limit: 2 spaces, or 3 with the British side of J19. With the Japanese side of J19, only one selected space may use adjacent spaces (the card's tip); Force 136 uses the first, and later spaces reveal only their own chit. With the British side of J22, Gather does not activate.
 
 ### 6.6 Supply
 
@@ -215,5 +215,7 @@ Gather still could not reveal 2 chits, so the Special Activity is Raid. Perak's 
 ## 12. Sources and status
 
 Rules source: GMT Games, *The British Way: Enemy of My Enemy*, Japanese Occupation rulebook (2026) and player aid cards. Card texts were checked against the Event card faces in the Vassal module, version 3.1.1. The physical game and official corrections take precedence. This is an independent fan variant, not a GMT publication. No publisher text, maps or artwork are included.
+
+Railway adjacency follows the map (rule 1.3.6). At the northern corner the simulations counted only the Province on each Thailand border. Counting the Provinces at its ends too, the reading both reviews favour, cost Agent about 0.35 points. Either works; the printed rates assume the first.
 
 Status: simulation-tested and not yet tabletop-tested. The simulation report explains the model and its limits.
